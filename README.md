@@ -11,4 +11,4 @@ move to the directory of django_app, then write the following command `pipenv sh
 ### Install the packages
 use the following command `pipenv install`
 
-####The previous steps will install the packages of the project including django==4.1
+###The previous steps will install the packages of the project including django==4.1
