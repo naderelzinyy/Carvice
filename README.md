@@ -4,11 +4,11 @@ A car service mobile application that provides an easy connection between the Me
 
 # Developer installation guide
 
-### Create a virtual environment (pipenv)
+### 1- Create a virtual environment (pipenv)
 move to the directory of django_app, then write the following command `pipenv shell`
 
 
-### Install the packages
+### 2- Install the packages
 use the following command `pipenv install`
 
-#### The previous steps will install the packages of the project including django==4.1
+#### * The previous steps will install the packages of the project including django==4.1
