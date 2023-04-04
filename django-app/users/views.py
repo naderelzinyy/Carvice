@@ -11,7 +11,7 @@ class SignupView(APIView):
 
     @staticmethod
     def post(request) -> Response:
-        """Handles sending POST requests."""
+        """Handles the registration POST requests."""
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
