@@ -32,6 +32,33 @@ class SigninView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed("Password isn't correct.")
 
-        return Response({
-            "message": "success"
-        })
+        payload = {
+            "id": user.id,
+            "exp": datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(minutes=60),
+            "iat": datetime.datetime.now(datetime.timezone.utc),
+        }
+
+        token = jwt.encode(payload=payload, key="secret", algorithm="HS256")
+        response = Response()
+        response.set_cookie(key="jwt", value=token, httponly=True)
+        response.data = {
+            "jwt": token,
+        }
+        return response
+
+
+class UserView(APIView):
+
+    @staticmethod
+    def post(request) -> Response:
+        """Handles the UserView POST requests."""
+        token = request.COOKIES.get("jwt")
+        if not token:
+            raise AuthenticationFailed("Unauthorized access.")
+        try:
+            payload = jwt.decode(jwt=token, key="secret", algorithms=["HS256"])
+        except jwt.ExpiredSignatureError as e:
+            raise AuthenticationFailed("Unauthorized access.") from e
+        user = User.objects.filter(id=payload.get("id")).first()
+        return Response(UserSerializer(user).data)
