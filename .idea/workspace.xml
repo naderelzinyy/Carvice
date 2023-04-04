@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d328649-4b3a-4829-b480-a213f1ad342e" name="Changes" comment="" />
+    <list default="true" id="4d328649-4b3a-4829-b480-a213f1ad342e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/flutter-app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +46,21 @@
               </option>
               <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/Carvice" />
             </RecentBranchesForRepo>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature_add_registration_frontend" />
+                    <option name="lastUsedInstant" value="1680448671" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="development" />
+                    <option name="lastUsedInstant" value="1680448378" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
           </list>
         </option>
       </RecentBranches>
@@ -55,21 +74,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/maryamalrubaye/Desktop/Projects/Carvice",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/maryamalrubaye/Desktop/Projects/Carvice&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -80,6 +99,7 @@
       <updated>1679716332400</updated>
       <workItem from="1679716333626" duration="220000" />
       <workItem from="1680445326834" duration="319000" />
+      <workItem from="1680445669631" duration="2104000" />
     </task>
     <servers />
   </component>
