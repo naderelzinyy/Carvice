@@ -40,7 +40,7 @@ class SigninView(APIView):
         payload = {
             "id": user.id,
             "exp": datetime.datetime.now(datetime.timezone.utc)
-            + datetime.timedelta(minutes=60),
+                   + datetime.timedelta(minutes=60),
             "iat": datetime.datetime.now(datetime.timezone.utc),
         }
 
@@ -67,3 +67,16 @@ class UserView(APIView):
             raise AuthenticationFailed("Unauthorized access.") from e
         user = User.objects.filter(id=payload.get("id")).first()
         return Response(UserSerializer(user).data)
+
+
+class SignOutView(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        """Handles the Logout POST request."""
+        response = Response()
+        response.delete_cookie("jwt")
+        response.data = {
+            "message": "success"
+        }
+
+        return response
