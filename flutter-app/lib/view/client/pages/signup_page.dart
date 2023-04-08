@@ -1,9 +1,9 @@
+import 'package:carvice_frontend/services/authentication.dart';
+import 'package:carvice_frontend/view/client/pages/login_page.dart';
+import 'package:carvice_frontend/widgets/button.dart';
+import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:carvice_frontend/widgets/text_field.dart';
-import 'package:carvice_frontend/widgets/button.dart';
-import 'package:carvice_frontend/view/client/pages/login_page.dart';
-
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class SignUp extends StatelessWidget {
   final TextEditingController confPasswordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,31 +102,27 @@ class SignUp extends StatelessWidget {
                   // Add your custom logic here
                 },
               ),
-            )
-        ),
+            ],
+          ),
+        )),
       ),
       bottomNavigationBar: Container(
           height: 100,
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-
             children: [
-              const Text(
-                  "Already have an account?"
-              ),
-              InkWell( onTap: (){
-                Get.to(() => LoginPage(), transition: Transition.fade,
-                    duration: const Duration(seconds: 1));
-              },
-
-                child: const Text(
-                    " Sign In"
-                ),
+              const Text("Already have an account?"),
+              InkWell(
+                onTap: () {
+                  Get.to(() => LoginPage(),
+                      transition: Transition.fade,
+                      duration: const Duration(seconds: 1));
+                },
+                child: const Text(" Sign In"),
               )
             ],
-          )
-      ),
+          )),
     );
   }
 }
