@@ -8,7 +8,8 @@ import 'package:carvice_frontend/view/client/pages/login_page.dart';
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
   final TextEditingController usernameController = TextEditingController();
-  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confPasswordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
