@@ -84,6 +84,8 @@ class _LoginPageState extends State<LoginPage> {
                   } else {
                     setState(() {
                       text = "Username or password is not correct";
+                      usernameController.clear(); // Clear the username field
+                      passwordController.clear(); // Clear the password field
                     });
                   }
                   print(response);
