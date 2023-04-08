@@ -18,6 +18,21 @@ class _LoginPageState extends State<LoginPage> {
   String text = "";
 
   @override
+  void initState() {
+    super.initState();
+    // Add listener to update button state whenever text changes
+    usernameController.addListener(updateButtonState);
+    passwordController.addListener(updateButtonState);
+  }
+
+  void updateButtonState() {
+    // Enable button if both text fields are not empty, disable otherwise
+    setState(() {
+      response = usernameController.text.isNotEmpty && passwordController.text.isNotEmpty;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -90,7 +105,9 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   print(response);
                   print(text);
-                },),
+                },
+                isDisabled:  !response,
+              ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
