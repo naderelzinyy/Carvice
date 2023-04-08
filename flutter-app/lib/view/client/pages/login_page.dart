@@ -14,8 +14,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  var response = false;
+  bool response = false;
   String text = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +38,16 @@ class _LoginPageState extends State<LoginPage> {
                   fit: BoxFit.contain,
                 ),
               ),
+              const SizedBox(height: 20),
+              Text(
+                text,
+                style: TextStyle(
+                  color: response ? Colors.green : Colors.red,
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+
               const SizedBox(height: 20),
               const Text(
                 'Please Login To Your Account',
@@ -60,16 +71,24 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true),
               const SizedBox(height: 20),
               CustomButton(
-                  btnText: "Sign In",
-                  onTap: () async {
-                    Future<bool> response = Authenticator().authenticate({
-                      "username": usernameController.text,
-                      "password": passwordController.text
+                btnText: "Sign In",
+                onTap: () async {
+                  response = await Authenticator().authenticate({
+                    "username": usernameController.text,
+                    "password": passwordController.text
+                  });
+                  if (response) {
+                    setState(() {
+                      text = "Logged in";
                     });
-                    text = await response ? "Logged in" : "";
-                    print(text);
-                    // Add your custom logic here
-                  }),
+                  } else {
+                    setState(() {
+                      text = "Username or password is not correct";
+                    });
+                  }
+                  print(response);
+                  print(text);
+                },),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
