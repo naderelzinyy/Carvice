@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:carvice_frontend/view/client/pages/chatlist_page.dart';
-import 'package:carvice_frontend/view/client/pages/userprofile_page.dart';
-import 'package:carvice_frontend/view/client/pages/home_page.dart';
+import 'package:carvice_frontend/routes/routes.dart';
+import 'package:get/get.dart';
+
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key});
+  final int selectedIndex;
+
+  const BottomNavigation({Key? key, required this.selectedIndex}) : super(key: key);
 
   @override
   BottomNavigationState createState() => BottomNavigationState();
 }
 
 class BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 1;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
 
   void _onItemTapped(int index) {
     if (_selectedIndex == index) return; // Check if it's already selected
@@ -21,27 +29,19 @@ class BottomNavigationState extends State<BottomNavigation> {
     switch (index) {
       case 0:
       // Navigate to chat screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ChatListPage()),
-        );
+        Get.offAllNamed(Routers.getChatListRoute());
         break;
       case 1:
       // Navigate to home screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
+        Get.offAllNamed(Routers.getHomePageRoute());
         break;
       case 2:
       // Navigate to user profile screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => UserProfilePage()),
-        );
+        Get.offAllNamed(Routers.getUserProfileRoute());
         break;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -61,7 +61,7 @@ class BottomNavigationState extends State<BottomNavigation> {
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: Colors.black,
-      onTap: _onItemTapped,
+      onTap: _onItemTapped, // Pass _onItemTapped function as parameter
     );
   }
 }

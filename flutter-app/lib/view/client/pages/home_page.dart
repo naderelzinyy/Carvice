@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Text('My App'),
       ),
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 1,),
     );
   }
 }

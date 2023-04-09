@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/app_navigation.dart';
+import '../../../widgets/bottom_navigation.dart';
 
 
 
 class UserProfilePage extends StatelessWidget {
-  UserProfilePage({Key? key}) : super(key: key);
+  const UserProfilePage({Key? key}) : super(key: key);
 
 
   @override
@@ -15,6 +16,7 @@ class UserProfilePage extends StatelessWidget {
       body: Center(
         child: Text('User profile screen'),
       ),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 2,),
     );
   }
 }

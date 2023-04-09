@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/app_navigation.dart';
+import '../../../widgets/bottom_navigation.dart';
 
 
 
 class ChatListPage extends StatelessWidget {
-  ChatListPage({Key? key}) : super(key: key);
+  const ChatListPage({Key? key}) : super(key: key);
 
 
   @override
@@ -15,6 +16,7 @@ class ChatListPage extends StatelessWidget {
       body: Center(
         child: Text('Chat screen'),
       ),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 0),
     );
   }
 }
