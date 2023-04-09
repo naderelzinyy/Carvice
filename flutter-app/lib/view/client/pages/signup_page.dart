@@ -1,12 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:carvice_frontend/widgets/button.dart';
-import 'package:carvice_frontend/view/client/pages/login_page.dart';
+
+import '../../../routes/routes.dart';
 
 
 class SignUp extends StatelessWidget {
+
   SignUp({Key? key}) : super(key: key);
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -90,8 +93,7 @@ class SignUp extends StatelessWidget {
                   "Already have an account?"
               ),
               InkWell( onTap: (){
-                Get.to(() => LoginPage(), transition: Transition.fade,
-                    duration: const Duration(seconds: 1));
+                Get.offAllNamed(Routers.getLoginPageRoute());
               },
 
                 child: const Text(
