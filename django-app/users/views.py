@@ -23,20 +23,31 @@ class SignupView(APIView):
         return Response(serializer.data)
 
 
-class SigninView(APIView):
+class RoleFactory:
+    def __init__(self):
+        self.role_queries = {
+            "client": self.get_client,
+            "mechanic": self.get_mechanic,
+        }
 
     @staticmethod
-    def post(request) -> Response:
-        """Handles the login POST requests."""
-        username = request.data.get("username")
-        password = request.data.get("password")
-        user = User.objects.filter(username=username).first()
-        if not user:
-            raise AuthenticationFailed("Username doesn't exist.")
+    def get_mechanic(username) -> User:
+        return User.objects.filter(username=username, is_mechanic=True).first()
 
-        if not user.check_password(password):
-            raise AuthenticationFailed("Password isn't correct.")
+    @staticmethod
+    def get_client(username) -> User:
+        return User.objects.filter(username=username, is_client=True).first()
 
+    def get_user_instance(self, username, role) -> User:
+        """Returns user instance from database given username and role."""
+        return self.role_queries.get(role)(username)
+
+
+class SignInHandler:
+
+    @staticmethod
+    def get_token(user: User) -> str:
+        """Sets the token's necessary properties."""
         payload = {
             "id": user.id,
             "exp": datetime.datetime.now(datetime.timezone.utc)
@@ -44,13 +55,50 @@ class SigninView(APIView):
             "iat": datetime.datetime.now(datetime.timezone.utc),
         }
 
-        token = jwt.encode(payload=payload, key="secret", algorithm="HS256")
+        return jwt.encode(payload=payload, key="secret", algorithm="HS256")
+
+    @staticmethod
+    def check_user_authenticity(user, password) -> None:
+        """Checks if the user authenticated or not"""
+        if not user:
+            raise AuthenticationFailed("Username doesn't exist.")
+
+        if not user.check_password(password):
+            raise AuthenticationFailed("Password isn't correct.")
+
+    def get_response_structure(self, user: User, cookie_key: str = "") -> Response:
+        """Returns all response properties combined."""
+        token = self.get_token(user)
         response = Response()
-        response.set_cookie(key="jwt", value=token, httponly=True)
+        response.set_cookie(key=cookie_key, value=token, httponly=True)
         response.data = {
             "jwt": token,
         }
         return response
+
+    def sign_in(self, request, role) -> Response:
+        """Handles the sign-in process of all roles."""
+        username = request.data.get("username")
+        password = request.data.get("password")
+        user = RoleFactory().get_user_instance(username=username, role=role)
+        self.check_user_authenticity(user=user, password=password)
+        return self.get_response_structure(user=user, cookie_key="jwt")
+
+
+class MechanicSignInView(APIView):
+
+    @staticmethod
+    def post(request) -> Response:
+        """Handles the mechanics login POST requests."""
+        return SignInHandler().sign_in(request=request, role="mechanic")
+
+
+class ClientSignInView(APIView):
+
+    @staticmethod
+    def post(request) -> Response:
+        """Handles the clients login POST requests."""
+        return SignInHandler().sign_in(request=request, role="client")
 
 
 class UserView(APIView):
