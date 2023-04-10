@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:carvice_frontend/utils/main.colors.dart';
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
+  static const route = "home_page";
 
   @override
   _SplashPageState createState() => _SplashPageState();
