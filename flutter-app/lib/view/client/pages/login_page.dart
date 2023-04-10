@@ -93,9 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     "password": passwordController.text
                   });
                   if (response) {
-                    setState(() {
-                      text = "Logged in";
-                    });
+                    Get.offAllNamed(Routers.getHomePageRoute());
                   } else {
                     setState(() {
                       text = "Username or password is not correct";
