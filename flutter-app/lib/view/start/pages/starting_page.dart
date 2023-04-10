@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/view/client/pages/login_page.dart';
 
+import '../../chat/chat_list_page.dart';
+
 
 class StartingPage extends StatelessWidget {
   const StartingPage({Key? key}) : super(key: key);
@@ -35,6 +37,8 @@ class StartingPage extends StatelessWidget {
                     onTap: () {
                       print('mechanic button tapped');
                       // Add your custom logic here
+                      Get.to(() => const ChatHomePage(), transition: Transition.fade,
+                          duration: const Duration(seconds: 1));
                     },),
                   const SizedBox(height: 10),
                   CustomButton(btnText: "Costumer",
