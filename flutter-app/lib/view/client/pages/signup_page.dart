@@ -1,9 +1,9 @@
 import 'package:carvice_frontend/services/authentication.dart';
-import 'package:carvice_frontend/view/client/pages/login_page.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../routes/routes.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -184,9 +184,7 @@ class _SignUpState extends State<SignUp> {
                   errorMessage = '';
                   setState(() {});
                   if (is_signed_up) {
-                    Get.to(() => const LoginPage(),
-                        transition: Transition.fade,
-                        duration: const Duration(seconds: 1));
+                    Get.offAllNamed(Routers.getLoginPageRoute());
                     // Add your logic for showing a success message here
                   }
                   else{
@@ -234,9 +232,7 @@ class _SignUpState extends State<SignUp> {
               const Text("Already have an account?"),
               InkWell(
                 onTap: () {
-                  Get.to(() => const LoginPage(),
-                      transition: Transition.fade,
-                      duration: const Duration(seconds: 1));
+                  Get.offAllNamed(Routers.getLoginPageRoute());
                 },
                 child: const Text(" Sign In"),
               )

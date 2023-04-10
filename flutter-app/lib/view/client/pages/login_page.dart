@@ -1,9 +1,9 @@
 import 'package:carvice_frontend/services/authentication.dart';
-import 'package:carvice_frontend/view/client/pages/signup_page.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../routes/routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -134,9 +134,7 @@ class _LoginPageState extends State<LoginPage> {
               const Text("Don't have an account?"),
               InkWell(
                 onTap: () {
-                  Get.to(() => SignUp(),
-                      transition: Transition.fade,
-                      duration: const Duration(seconds: 1));
+                  Get.offAllNamed(Routers.getSignupPageRoute());
                 },
                 child: const Text(" Sign Up"),
               ),

@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:carvice_frontend/widgets/button.dart';
-import 'package:carvice_frontend/view/client/pages/login_page.dart';
+
+import '../../../routes/routes.dart';
 
 
 class StartingPage extends StatelessWidget {
@@ -39,8 +40,7 @@ class StartingPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   CustomButton(btnText: "Costumer",
                     onTap: () {
-                      Get.to(() => LoginPage(), transition: Transition.fade,
-                          duration: const Duration(seconds: 1));
+                      Get.offAllNamed(Routers.getLoginPageRoute());
                       // Add your custom logic here
                     },),
                 ],
