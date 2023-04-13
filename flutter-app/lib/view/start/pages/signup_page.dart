@@ -180,6 +180,9 @@ class _SignUpState extends State<SignUp> {
                     "username": usernameController.text,
                     "email": emailController.text,
                     "password": passwordController.text,
+                    "phone_number": "+90${phoneController.text}",
+                    "is_client": roleEndpoint == "client" ? "1" : "0",
+                    "is_mechanic": roleEndpoint == "mechanic" ? "1" : "0",
                   }, roleEndpoint);
 
                   // If there are no errors, clear the error message and show a success message
