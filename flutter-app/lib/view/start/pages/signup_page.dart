@@ -3,6 +3,7 @@ import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../routes/routes.dart';
 
 class SignUp extends StatefulWidget {
@@ -135,7 +136,6 @@ class _SignUpState extends State<SignUp> {
               CustomButton(
                 btnText: "Sign Up",
                 onTap: () async {
-
                   // Check for first and last name validity
                   if (firstNameController.text.length < 3 ||
                       lastNameController.text.length < 3 ||
@@ -191,8 +191,7 @@ class _SignUpState extends State<SignUp> {
                   if (is_signed_up) {
                     Get.offAllNamed(Routers.getLoginPageRoute(roleEndpoint));
                     // Add your logic for showing a success message here
-                  }
-                  else{
+                  } else {
                     // clear fields
                     firstNameController.clear();
                     lastNameController.clear();
@@ -219,11 +218,9 @@ class _SignUpState extends State<SignUp> {
                       },
                     );
                   }
-
                 },
                 isDisabled: isDisabled,
-              )
-              ,
+              ),
             ],
           ),
         )),
