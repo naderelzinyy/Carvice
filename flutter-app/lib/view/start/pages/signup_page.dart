@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUp> {
   bool is_signed_up = false;
   String errorMessage = '';
   bool isDisabled = true;
-  late String roleEndpoint;
+  late String roleEndpoint = widget.roleEndpoint;
 
   @override
   void initState() {
