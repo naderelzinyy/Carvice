@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 
 class BottomNavigation extends StatefulWidget {
   final int selectedIndex;
+  final String roleEndpoint;
 
-  const BottomNavigation({Key? key, required this.selectedIndex}) : super(key: key);
+  const BottomNavigation({Key? key, required this.selectedIndex, required this.roleEndpoint}) : super(key: key);
 
   @override
   BottomNavigationState createState() => BottomNavigationState();
@@ -13,11 +14,13 @@ class BottomNavigation extends StatefulWidget {
 
 class BottomNavigationState extends State<BottomNavigation> {
   late int _selectedIndex;
+  late String _roleEndpoint;
 
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.selectedIndex;
+    _roleEndpoint = widget.roleEndpoint;
   }
 
   void _onItemTapped(int index) {
@@ -33,7 +36,12 @@ class BottomNavigationState extends State<BottomNavigation> {
         break;
       case 1:
       // Navigate to home screen
-        Get.offAllNamed(Routers.getHomePageRoute());
+      if (_roleEndpoint == "client"){
+        Get.offAllNamed(Routers.getClientHomePageRoute());
+      }
+      else if  (_roleEndpoint == "mechanic"){
+        Get.offAllNamed(Routers.getMechanicHomePageRoute());
+      }
         break;
       case 2:
       // Navigate to user profile screen

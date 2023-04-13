@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import '../../../routes/routes.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key, required this.roleEndpoint}) : super(key: key);
+  final String roleEndpoint;
+
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -16,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   bool response = false;
   String text = "";
+  late String roleEndpoint = widget.roleEndpoint;
 
   @override
   void initState() {
@@ -91,9 +94,15 @@ class _LoginPageState extends State<LoginPage> {
                   response = await Authenticator().authenticate({
                     "username": usernameController.text,
                     "password": passwordController.text
-                  });
+                  }, roleEndpoint);
                   if (response) {
-                    Get.offAllNamed(Routers.getHomePageRoute());
+                    if (roleEndpoint == "client"){
+                      Get.offAllNamed(Routers.getClientHomePageRoute());
+                    }
+                    // make this more flexible to add new roles.
+                    else if (roleEndpoint == "mechanic"){
+                      Get.offAllNamed(Routers.getMechanicHomePageRoute());
+                    }
                   } else {
                     setState(() {
                       text = "Username or password is not correct";
@@ -132,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
               const Text("Don't have an account?"),
               InkWell(
                 onTap: () {
-                  Get.offAllNamed(Routers.getSignupPageRoute());
+                  Get.offAllNamed(Routers.getSignupPageRoute(roleEndpoint));
                 },
                 child: const Text(" Sign Up"),
               ),

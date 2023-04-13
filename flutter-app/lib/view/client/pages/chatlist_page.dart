@@ -14,9 +14,9 @@ class ChatListPage extends StatelessWidget {
     return const Scaffold(
       appBar: AppNavigation(),
       body: Center(
-        child: Text('Chat screen'),
+        child: Text('Chat screen client'),
       ),
-      bottomNavigationBar: BottomNavigation(selectedIndex: 0),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 0, roleEndpoint: "client"),
     );
   }
 }

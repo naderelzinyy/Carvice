@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 import '../../../routes/routes.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+  const SignUp({Key? key, required this.roleEndpoint}) : super(key: key);
+  final String roleEndpoint;
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -23,6 +24,7 @@ class _SignUpState extends State<SignUp> {
   bool is_signed_up = false;
   String errorMessage = '';
   bool isDisabled = true;
+  late String roleEndpoint;
 
   @override
   void initState() {
@@ -178,13 +180,13 @@ class _SignUpState extends State<SignUp> {
                     "username": usernameController.text,
                     "email": emailController.text,
                     "password": passwordController.text,
-                  });
+                  }, roleEndpoint);
 
                   // If there are no errors, clear the error message and show a success message
                   errorMessage = '';
                   setState(() {});
                   if (is_signed_up) {
-                    Get.offAllNamed(Routers.getLoginPageRoute());
+                    Get.offAllNamed(Routers.getLoginPageRoute(roleEndpoint));
                     // Add your logic for showing a success message here
                   }
                   else{
@@ -232,7 +234,7 @@ class _SignUpState extends State<SignUp> {
               const Text("Already have an account?"),
               InkWell(
                 onTap: () {
-                  Get.offAllNamed(Routers.getLoginPageRoute());
+                  Get.offAllNamed(Routers.getLoginPageRoute(roleEndpoint));
                 },
                 child: const Text(" Sign In"),
               )

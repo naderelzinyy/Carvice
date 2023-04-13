@@ -14,9 +14,9 @@ class UserProfilePage extends StatelessWidget {
     return const Scaffold(
       appBar: AppNavigation(),
       body: Center(
-        child: Text('User profile screen client'),
+        child: Text('User profile screen'),
       ),
-      bottomNavigationBar: BottomNavigation(selectedIndex: 2, roleEndpoint: "client"),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 2, roleEndpoint: "mechanic"),
     );
   }
 }
