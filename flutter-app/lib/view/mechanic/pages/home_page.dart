@@ -5,8 +5,8 @@ import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MechanicHomePage extends StatelessWidget {
+  const MechanicHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class HomePage extends StatelessWidget {
       endDrawer: SideBarGlobal(),
 
       body: Center(
-        child: Text('My App client'),
+        child: Text('My App mechanic'),
       ),
-      bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "client",),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "mechanic",),
     );
   }
 }

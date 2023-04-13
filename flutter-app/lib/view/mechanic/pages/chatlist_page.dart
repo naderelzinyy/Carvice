@@ -5,8 +5,8 @@ import '../../../widgets/bottom_navigation.dart';
 
 
 
-class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+class ChatListPage extends StatelessWidget {
+  const ChatListPage({Key? key}) : super(key: key);
 
 
   @override
@@ -14,9 +14,9 @@ class UserProfilePage extends StatelessWidget {
     return const Scaffold(
       appBar: AppNavigation(),
       body: Center(
-        child: Text('User profile screen client'),
+        child: Text('Chat screen'),
       ),
-      bottomNavigationBar: BottomNavigation(selectedIndex: 2, roleEndpoint: "client"),
+      bottomNavigationBar: BottomNavigation(selectedIndex: 0, roleEndpoint: "mechanic"),
     );
   }
 }

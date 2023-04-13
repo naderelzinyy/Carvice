@@ -34,13 +34,13 @@ class StartingPage extends StatelessWidget {
 
                    CustomButton(btnText: "Mechanic",
                     onTap: () {
-                      print('mechanic button tapped');
+                      Get.offAllNamed(Routers.getLoginPageRoute("mechanic"));
                       // Add your custom logic here
                     },),
                   const SizedBox(height: 10),
                   CustomButton(btnText: "Costumer",
                     onTap: () {
-                      Get.offAllNamed(Routers.getLoginPageRoute());
+                      Get.offAllNamed(Routers.getLoginPageRoute("client"));
                       // Add your custom logic here
                     },),
                 ],
