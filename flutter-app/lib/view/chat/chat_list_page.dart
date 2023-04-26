@@ -57,7 +57,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                             width: 10,
                           ),
                           Image.asset(
-                            "assets/images/person.png",
+                            "assets/images/person.jpeg",
                             width: 56,
                             height: 56,
                           ),
