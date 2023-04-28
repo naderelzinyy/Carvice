@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: AppNavigation(),
+      appBar: AppNavigation(title: "Carvice",),
       endDrawer: SideBarGlobal(),
 
       body: Center(

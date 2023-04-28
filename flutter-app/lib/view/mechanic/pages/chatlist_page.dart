@@ -11,8 +11,8 @@ class ChatListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: AppNavigation(),
+    return  Scaffold(
+      appBar: AppNavigation(title: "Chat List",),
       body: Center(
         child: Text('Chat screen'),
       ),
