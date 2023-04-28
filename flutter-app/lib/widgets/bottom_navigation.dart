@@ -45,7 +45,12 @@ class BottomNavigationState extends State<BottomNavigation> {
         break;
       case 2:
       // Navigate to user profile screen
-        Get.offAllNamed(Routers.getUserProfileRoute());
+        if (_roleEndpoint == "client"){
+          Get.offAllNamed(Routers.getUserProfileRoute());
+        }
+        else if  (_roleEndpoint == "mechanic"){
+          Get.offAllNamed(Routers.getMechanicUserProfileRoute());
+        }
         break;
     }
   }
