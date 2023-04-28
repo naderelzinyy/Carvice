@@ -1,14 +1,17 @@
+import 'package:carvice_frontend/view/general/pages/update_userprofile_page.dart';
+import 'package:carvice_frontend/view/mechanic/pages/userprofile_page.dart';
 import 'package:get/get.dart';
 
-import 'package:carvice_frontend/view/start/pages/signup_page.dart';
-import 'package:carvice_frontend/view/start/pages/starting_page.dart';
-import 'package:carvice_frontend/view/start/pages/login_page.dart';
-import 'package:carvice_frontend/view/start/pages/splash_page.dart';
+import 'package:carvice_frontend/view/general/pages/signup_page.dart';
+import 'package:carvice_frontend/view/general/pages/starting_page.dart';
+import 'package:carvice_frontend/view/general/pages/login_page.dart';
+import 'package:carvice_frontend/view/general/pages/splash_page.dart';
 
 import '../view/client/pages/chatlist_page.dart';
 import '../view/client/pages/home_page.dart';
 import '../view/client/pages/userprofile_page.dart';
 import '../view/mechanic/pages/home_page.dart';
+
 
 
 class Routers {
@@ -20,6 +23,9 @@ class Routers {
   static String mechanicHomePage = "/mechanic_home";
   static String userProfilePage = "/user_profile";
   static String chatListPage = "/chat_list";
+  static String updateUserProfilePage = "/update_profile";
+  static String mechanicUserProfilePage = "/mechanic_user_profile";
+
 
 
   static String getMainRoute() => splashPage;
@@ -29,7 +35,9 @@ class Routers {
   static String getClientHomePageRoute() => homePage;
   static String getMechanicHomePageRoute() => mechanicHomePage;
   static String getUserProfileRoute() => userProfilePage;
+  static String getMechanicUserProfileRoute() => mechanicUserProfilePage;
   static String getChatListRoute() => chatListPage;
+  static String getUpdateProfilePageRoute() => updateUserProfilePage;
 
 
   static List<GetPage> routes = [
@@ -65,18 +73,38 @@ class Routers {
     GetPage(
       name: homePage,
       page: () => const HomePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: mechanicHomePage,
       page: () => const MechanicHomePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: chatListPage,
       page: () => const ChatListPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: userProfilePage,
       page: () => const UserProfilePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: updateUserProfilePage,
+      page: () => const   UpdateProfilePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: mechanicUserProfilePage,
+      page: () => const   MechanicUserProfilePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
     ),
   ];
 }
