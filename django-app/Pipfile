@@ -10,6 +10,8 @@ markdown = "*"
 django-filter = "*"
 pyjwt = "*"
 django-cors-headers = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
 
 [dev-packages]
 
