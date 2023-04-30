@@ -11,8 +11,7 @@ class Authenticator {
     RequestHandler requestHandler = RequestHandler(
         'http://localhost:8000/api/${roleEndpoint}/signin', body);
     var data = await requestHandler.getData();
-    print("data = ");
-    print(data);
+    print("data = $data");
     if (data.containsKey("jwt")) {
       token = JwtDecoder.decode(data['jwt']);
       print("jwt = $token");
