@@ -5,13 +5,13 @@ import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ClientHomePage extends StatelessWidget {
+  const ClientHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: AppNavigation(),
+      appBar: AppNavigation(title: "Carvice",),
       endDrawer: SideBarGlobal(),
 
       body: Center(
