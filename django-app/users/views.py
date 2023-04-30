@@ -53,7 +53,7 @@ class SignInHandler:
             "first_name": user.first_name,
             "last_name": user.last_name,
             "username": user.username,
-            "phone_number": user.phone_number,
+            "phone_number": str(user.phone_number),
             "email": user.email,
             "exp": datetime.datetime.now(datetime.timezone.utc)
                    + datetime.timedelta(minutes=60),
