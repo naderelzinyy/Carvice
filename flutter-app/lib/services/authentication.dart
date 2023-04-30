@@ -6,12 +6,11 @@ late final Map<Object, dynamic> token;
 class Authenticator {
   Future<bool> authenticate(
       Map<String, String> body, String roleEndpoint) async {
-    print(body);
-    print(roleEndpoint);
+    print("Request body: $body");
+    print("role : $roleEndpoint");
     RequestHandler requestHandler = RequestHandler(
         'http://localhost:8000/api/${roleEndpoint}/signin', body);
     var data = await requestHandler.getData();
-    print("data = $data");
     if (data.containsKey("jwt")) {
       token = JwtDecoder.decode(data['jwt']);
       print("jwt = $token");
