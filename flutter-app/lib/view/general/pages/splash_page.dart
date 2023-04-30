@@ -1,17 +1,19 @@
 import 'dart:async';
-import 'package:carvice_frontend/view/start/pages/starting_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:carvice_frontend/utils/main.colors.dart';
+
+import '../../../routes/routes.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
   static const route = "home_page";
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  SplashPageState createState() => SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class SplashPageState extends State<SplashPage> {
   double opacityLevel = 0.0;
 
   @override
@@ -22,10 +24,7 @@ class _SplashPageState extends State<SplashPage> {
         opacityLevel = 1.0;
       });
       Timer(const Duration(seconds: 1), () {
-        Get.to(() => const StartingPage(), transition: Transition.fade,
-            duration: const Duration(seconds: 1));
-
-
+        Get.offAllNamed(Routers.getStartingPageRoute());
       });
     });
   }

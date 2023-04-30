@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:carvice_frontend/widgets/button.dart';
-import 'package:carvice_frontend/view/client/pages/login_page.dart';
+
+import '../../../routes/routes.dart';
 
 import '../../chat/chat_list_page.dart';
 
@@ -35,7 +36,7 @@ class StartingPage extends StatelessWidget {
 
                    CustomButton(btnText: "Mechanic",
                     onTap: () {
-                      print('mechanic button tapped');
+                      Get.offAllNamed(Routers.getLoginPageRoute("mechanic"));
                       // Add your custom logic here
                       Get.to(() => const ChatHomePage(), transition: Transition.fade,
                           duration: const Duration(seconds: 1));
@@ -43,8 +44,7 @@ class StartingPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   CustomButton(btnText: "Costumer",
                     onTap: () {
-                      Get.to(() => LoginPage(), transition: Transition.fade,
-                          duration: const Duration(seconds: 1));
+                      Get.offAllNamed(Routers.getLoginPageRoute("client"));
                       // Add your custom logic here
                     },),
                 ],
