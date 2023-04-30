@@ -1,5 +1,8 @@
 import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../routes/routes.dart';
 
 class SideBarGlobal extends StatelessWidget {
   const SideBarGlobal({super.key});
@@ -11,10 +14,10 @@ class SideBarGlobal extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(token['first_name'],
+            accountName: Text(token!['first_name'],
                 style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
-            accountEmail: Text(token['email'],
+            accountEmail: Text(token!['email'],
                 style: const TextStyle(color: Colors.black)),
             currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
@@ -81,8 +84,11 @@ class SideBarGlobal extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
-            onTap: () {
-              // Handle log out tap
+            onTap: () async {
+              if (await Authenticator().logout({})) {
+                token = {};
+                Get.offAllNamed(Routers.getStartingPageRoute());
+              }
             },
           ),
         ],
