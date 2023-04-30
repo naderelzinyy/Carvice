@@ -38,8 +38,6 @@ class StartingPage extends StatelessWidget {
                     onTap: () {
                       Get.offAllNamed(Routers.getLoginPageRoute("mechanic"));
                       // Add your custom logic here
-                      Get.to(() => const ChatHomePage(), transition: Transition.fade,
-                          duration: const Duration(seconds: 1));
                     },),
                   const SizedBox(height: 10),
                   CustomButton(btnText: "Costumer",
