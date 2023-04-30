@@ -1,4 +1,7 @@
 import 'package:carvice_frontend/services/api_requests.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+
+late final Map<Object, dynamic> token;
 
 class Authenticator {
   Future<bool> authenticate(
@@ -11,6 +14,8 @@ class Authenticator {
     print("data = ");
     print(data);
     if (data.containsKey("jwt")) {
+      token = JwtDecoder.decode(data['jwt']);
+      print("jwt = $token");
       return true;
     }
     return false;
