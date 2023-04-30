@@ -1,8 +1,12 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../routes/routes.dart';
+import '../../services/authentication.dart';
 import '../../utils/chat_style_utils.dart';
-import '../start/pages/splash_page.dart';
 
 late User userLogIn;
 
@@ -74,6 +78,7 @@ class ChattingScreenState extends State<ChattingScreen> {
   void getUser() async {
     try {
       // TODO : CURR USER TO BE LINKED WITH sql database
+      token;
       final currUser = _fireBaseAuth.currentUser;
       if (currUser != null) {
         userLogIn = currUser;
@@ -92,9 +97,10 @@ class ChattingScreenState extends State<ChattingScreen> {
           IconButton(
               icon: const Icon(Icons.logout),
               onPressed: () {
+/*
                 _fireBaseAuth.signOut();
-                Navigator.pushNamedAndRemoveUntil(context, SplashPage.route,
-                    (Route<dynamic> route) => false);
+*/
+                Get.offAllNamed(Routers.getStartingPageRoute());
               }),
         ],
         title: Text(widget.selectedFriendEmail,style: const TextStyle(fontSize: 24),),
