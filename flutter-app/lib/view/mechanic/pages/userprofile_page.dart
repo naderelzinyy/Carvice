@@ -26,7 +26,7 @@ class MechanicUserProfilePage extends StatelessWidget {
                   title: "Shafiq",
                   email: "Shafiq@carvice.com",
                   onTap: (){
-                    Get.toNamed(Routers.getUpdateProfilePageRoute());
+                    Get.toNamed(Routers.getMechanicUpdateProfilePageRoute());
                   },
                 ),
                 const SizedBox(height: 30,),

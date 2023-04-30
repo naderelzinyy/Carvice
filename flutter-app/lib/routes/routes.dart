@@ -1,4 +1,4 @@
-import 'package:carvice_frontend/view/general/pages/update_userprofile_page.dart';
+import 'package:carvice_frontend/view/client/pages/update_profile_page.dart';
 import 'package:carvice_frontend/view/mechanic/pages/userprofile_page.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +12,7 @@ import '../view/client/pages/home_page.dart';
 import '../view/client/pages/userprofile_page.dart';
 import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
+import '../view/mechanic/pages/update_profile_page.dart';
 
 
 
@@ -25,8 +26,9 @@ class Routers {
   static String clientUserProfilePage = "/client_user_profile";
   static String clientChatListPage = "/client_chat_list";
   static String mechanicChatListPage = "/mechanic_chat_list";
-  static String updateUserProfilePage = "/update_profile";
   static String mechanicUserProfilePage = "/mechanic_user_profile";
+  static String clientUpdateUserProfilePage = "/client_update_profile";
+  static String mechanicUpdateUserProfilePage = "/mechanic_update_profile";
 
 
 
@@ -40,7 +42,8 @@ class Routers {
   static String getMechanicUserProfileRoute() => mechanicUserProfilePage;
   static String getClientChatListRoute() => clientChatListPage;
   static String getMechanicChatListRoute() => mechanicChatListPage;
-  static String getUpdateProfilePageRoute() => updateUserProfilePage;
+  static String getClientUpdateProfilePageRoute() => clientUpdateUserProfilePage;
+  static String getMechanicUpdateProfilePageRoute() => mechanicUpdateUserProfilePage;
 
 
   static List<GetPage> routes = [
@@ -104,14 +107,20 @@ class Routers {
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
-      name: updateUserProfilePage,
-      page: () => const   UpdateProfilePage(),
+      name: mechanicUserProfilePage,
+      page: () => const   MechanicUserProfilePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
-      name: mechanicUserProfilePage,
-      page: () => const   MechanicUserProfilePage(),
+      name: clientUpdateUserProfilePage,
+      page: () => const   ClientUpdateProfilePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: mechanicUpdateUserProfilePage,
+      page: () => const   MechanicUpdateProfilePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),

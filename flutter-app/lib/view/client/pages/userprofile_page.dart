@@ -26,7 +26,7 @@ class ClientUserProfilePage extends StatelessWidget {
                   title: "SpongBob",
                   email: "SpongBob@carvice.com",
                   onTap: (){
-                      Get.toNamed(Routers.getUpdateProfilePageRoute());
+                      Get.toNamed(Routers.getClientUpdateProfilePageRoute());
                     },
                   ),
                 const SizedBox(height: 30,),
