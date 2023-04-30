@@ -73,6 +73,7 @@ class ChattingScreenState extends State<ChattingScreen> {
 
   void getUser() async {
     try {
+      // TODO : CURR USER TO BE LINKED WITH sql database
       final currUser = _fireBaseAuth.currentUser;
       if (currUser != null) {
         userLogIn = currUser;
