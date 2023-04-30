@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../utils/main.colors.dart';
+import '../../widgets/bottom_navigation.dart';
 import 'chatting_page.dart';
 
 class ChatHomePage extends StatefulWidget {
-  static const route = "chat_list_page";
+  static const route = "/chat_list_page";
   const ChatHomePage({super.key});
 
   @override
@@ -17,7 +19,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white54,
+        backgroundColor: MainColors.mainColor,
         flexibleSpace: const FlexibleSpaceBar(
           title: Text(
             'Chats',
@@ -77,6 +79,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
               },
             );
           }),
+      bottomNavigationBar: const BottomNavigation(selectedIndex: 0, roleEndpoint: "client"),
     );
   }
 }
