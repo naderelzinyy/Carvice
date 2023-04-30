@@ -1,3 +1,4 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class SideBarGlobal extends StatelessWidget {
@@ -9,27 +10,21 @@ class SideBarGlobal extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const UserAccountsDrawerHeader(
-            accountName: Text(
-                'John Doe' ,
-                style: TextStyle(
-                    color: Colors.black ,
-                    fontWeight: FontWeight.bold)
-            ),
-            accountEmail: Text(
-                'johndoe@example.com',
-                style: TextStyle(
-                    color: Colors.black
-                )
-            ),
-            currentAccountPicture: CircleAvatar(
+          UserAccountsDrawerHeader(
+            accountName: Text(token['first_name'],
+                style: const TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold)),
+            accountEmail: Text(token['email'],
+                style: const TextStyle(color: Colors.black)),
+            currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
                 Icons.person,
                 size: 30.0,
-                color: Colors.black,),
+                color: Colors.black,
+              ),
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFFF2B133),
             ),
           ),
