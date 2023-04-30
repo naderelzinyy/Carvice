@@ -7,7 +7,7 @@ import 'package:carvice_frontend/view/general/pages/starting_page.dart';
 import 'package:carvice_frontend/view/general/pages/login_page.dart';
 import 'package:carvice_frontend/view/general/pages/splash_page.dart';
 
-import '../view/client/pages/chatlist_page.dart';
+import '../view/chat/chat_list_page.dart';
 import '../view/client/pages/home_page.dart';
 import '../view/client/pages/userprofile_page.dart';
 import '../view/mechanic/pages/home_page.dart';
@@ -24,7 +24,7 @@ class Routers {
   static String clientHomePage = "/home";
   static String mechanicHomePage = "/mechanic_home";
   static String clientUserProfilePage = "/client_user_profile";
-  static String clientChatListPage = "/client_chat_list";
+  static String clientChatListPage = ChatHomePage.route;
   static String mechanicChatListPage = "/mechanic_chat_list";
   static String mechanicUserProfilePage = "/mechanic_user_profile";
   static String clientUpdateUserProfilePage = "/client_update_profile";
@@ -90,7 +90,7 @@ class Routers {
     ),
     GetPage(
       name: clientChatListPage,
-      page: () => const ClientChatListPage(),
+      page: () => const ChatHomePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
