@@ -50,6 +50,11 @@ class SignInHandler:
         """Sets the token's necessary properties."""
         payload = {
             "id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "username": user.username,
+            "phone_number": user.phone_number,
+            "email": user.email,
             "exp": datetime.datetime.now(datetime.timezone.utc)
                    + datetime.timedelta(minutes=60),
             "iat": datetime.datetime.now(datetime.timezone.utc),
