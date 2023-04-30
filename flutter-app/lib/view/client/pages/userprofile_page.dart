@@ -8,8 +8,8 @@ import '../../../widgets/profile_menu.dart';
 import '../../../widgets/user_information_part.dart';
 
 
-class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+class ClientUserProfilePage extends StatelessWidget {
+  const ClientUserProfilePage({Key? key}) : super(key: key);
 
 
   @override

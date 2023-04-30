@@ -5,8 +5,8 @@ import '../../../widgets/bottom_navigation.dart';
 
 
 
-class ChatListPage extends StatelessWidget {
-  const ChatListPage({Key? key}) : super(key: key);
+class ClientChatListPage extends StatelessWidget {
+  const ClientChatListPage({Key? key}) : super(key: key);
 
 
   @override

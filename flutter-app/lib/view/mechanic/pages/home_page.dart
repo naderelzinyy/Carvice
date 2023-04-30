@@ -10,7 +10,7 @@ class MechanicHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return  const Scaffold(
       appBar: AppNavigation(title: "Carvice",),
       endDrawer: SideBarGlobal(),
 

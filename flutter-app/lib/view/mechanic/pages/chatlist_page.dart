@@ -5,13 +5,13 @@ import '../../../widgets/bottom_navigation.dart';
 
 
 
-class ChatListPage extends StatelessWidget {
-  const ChatListPage({Key? key}) : super(key: key);
+class MechanicChatListPage extends StatelessWidget {
+  const MechanicChatListPage({Key? key}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return  const Scaffold(
       appBar: AppNavigation(title: "Chat List",),
       body: Center(
         child: Text('Chat screen'),

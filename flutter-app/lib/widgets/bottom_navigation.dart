@@ -32,7 +32,13 @@ class BottomNavigationState extends State<BottomNavigation> {
     switch (index) {
       case 0:
       // Navigate to chat screen
-        Get.offAllNamed(Routers.getChatListRoute());
+        if (_roleEndpoint == "client"){
+          Get.offAllNamed(Routers.getClientChatListRoute());
+        }
+        else if  (_roleEndpoint == "mechanic"){
+          Get.offAllNamed(Routers.getMechanicChatListRoute());
+        }
+
         break;
       case 1:
       // Navigate to home screen

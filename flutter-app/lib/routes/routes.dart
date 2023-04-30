@@ -11,6 +11,7 @@ import '../view/client/pages/chatlist_page.dart';
 import '../view/client/pages/home_page.dart';
 import '../view/client/pages/userprofile_page.dart';
 import '../view/mechanic/pages/home_page.dart';
+import '../view/mechanic/pages/chatlist_page.dart';
 
 
 
@@ -19,10 +20,11 @@ class Routers {
   static String startingPage = "/starting_page";
   static String loginPage = "/login";
   static String signupPage = "/signup";
-  static String homePage = "/home";
+  static String clientHomePage = "/home";
   static String mechanicHomePage = "/mechanic_home";
-  static String userProfilePage = "/user_profile";
-  static String chatListPage = "/chat_list";
+  static String clientUserProfilePage = "/client_user_profile";
+  static String clientChatListPage = "/client_chat_list";
+  static String mechanicChatListPage = "/mechanic_chat_list";
   static String updateUserProfilePage = "/update_profile";
   static String mechanicUserProfilePage = "/mechanic_user_profile";
 
@@ -32,11 +34,12 @@ class Routers {
   static String getStartingPageRoute() => startingPage;
   static String getLoginPageRoute(String roleEndpoint) => '$loginPage?roleEndpoint=$roleEndpoint';
   static String getSignupPageRoute(String roleEndpoint) => '$signupPage?roleEndpoint=$roleEndpoint';
-  static String getClientHomePageRoute() => homePage;
+  static String getClientHomePageRoute() => clientHomePage;
   static String getMechanicHomePageRoute() => mechanicHomePage;
-  static String getUserProfileRoute() => userProfilePage;
+  static String getUserProfileRoute() => clientUserProfilePage;
   static String getMechanicUserProfileRoute() => mechanicUserProfilePage;
-  static String getChatListRoute() => chatListPage;
+  static String getClientChatListRoute() => clientChatListPage;
+  static String getMechanicChatListRoute() => mechanicChatListPage;
   static String getUpdateProfilePageRoute() => updateUserProfilePage;
 
 
@@ -71,8 +74,8 @@ class Routers {
       transitionDuration: const Duration(seconds: 1),
     ),
     GetPage(
-      name: homePage,
-      page: () => const HomePage(),
+      name: clientHomePage,
+      page: () => const ClientHomePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
@@ -83,14 +86,20 @@ class Routers {
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
-      name: chatListPage,
-      page: () => const ChatListPage(),
+      name: clientChatListPage,
+      page: () => const ClientChatListPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
-      name: userProfilePage,
-      page: () => const UserProfilePage(),
+      name: mechanicChatListPage,
+      page: () => const MechanicChatListPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: clientUserProfilePage,
+      page: () => const ClientUserProfilePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
