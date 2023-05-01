@@ -3,7 +3,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
 
-class Authenticator {
+class AccountManager {
   Future<bool> authenticate(
       Map<String, String> body, String roleEndpoint) async {
     print("Request body: $body");
