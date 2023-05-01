@@ -25,7 +25,7 @@ class Routers {
   static String mechanicHomePage = "/mechanic_home";
   static String clientUserProfilePage = "/client_user_profile";
   static String clientChatListPage = ChatHomePage.route;
-  static String mechanicChatListPage = "/mechanic_chat_list";
+  static String mechanicChatListPage = ChatHomePage.route;
   static String mechanicUserProfilePage = "/mechanic_user_profile";
   static String clientUpdateUserProfilePage = "/client_update_profile";
   static String mechanicUpdateUserProfilePage = "/mechanic_update_profile";
@@ -96,7 +96,7 @@ class Routers {
     ),
     GetPage(
       name: mechanicChatListPage,
-      page: () => const MechanicChatListPage(),
+      page: () => const ChatHomePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
