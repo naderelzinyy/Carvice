@@ -133,3 +133,21 @@ class SignOutView(APIView):
         }
 
         return response
+
+
+class UpdateUserInfo(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"update post :: {request.data = }")
+        try:
+            user = User.objects.get(id=request.data.get("id"))
+            user.first_name = request.data.get("first_name")
+            user.last_name = request.data.get("last_name")
+            user.username = request.data.get("username")
+            user.email = request.data.get("email")
+            user.phone_number = request.data.get("phone_number")
+            user.save()
+            return Response({"message": "success"})
+        except Exception as e:
+            print(f"Failure due to the following exception :: {e}")
+            return Response({"message": "failure"})
