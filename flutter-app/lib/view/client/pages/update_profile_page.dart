@@ -23,9 +23,6 @@ class ClientUpdateProfilePage extends StatelessWidget {
         userName: 'Spongbob',
         email: 'Spongbob@carvice.com',
         phoneNumber: '1234567890',
-        onPressed: () {
-          print("edit picture icon pressed in client");
-        },
         onTap: () {
           // TODO: Add save functionality here
           print("save updates btn pressed in client");

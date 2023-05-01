@@ -23,9 +23,6 @@ class MechanicUpdateProfilePage extends StatelessWidget {
         userName: 'shaficmechanic',
         email: 'mechanic@carvice.com',
         phoneNumber: '1234567890',
-        onPressed: () {
-          print("edit picture icon pressed in mechanic");
-        },
         onTap: () {
           // TODO: Add save functionality here
           print("save updates btn pressed in mechanic");
