@@ -8,7 +8,6 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../routes/routes.dart';
 import '../../utils/chat_style_utils.dart';
 
-
 class ChattingScreen extends StatefulWidget {
   final String selectedFriendUserName;
   const ChattingScreen({super.key, required this.selectedFriendUserName});
@@ -32,8 +31,10 @@ class ChattingScreenState extends State<ChattingScreen> {
   void createConversation(String friendUserName) async {
     if (token != null) {
       // create conversation for current user
-      final userDoc =
-          await _fireStoreAuth.collection('users').doc(token!['id'].toString()).get();
+      final userDoc = await _fireStoreAuth
+          .collection('users')
+          .doc(token!['id'].toString())
+          .get();
       if (userDoc.exists) {
         final conversation =
             userDoc.reference.collection('conversations').doc(friendUserName);
@@ -95,13 +96,13 @@ class ChattingScreenState extends State<ChattingScreen> {
           IconButton(
               icon: const Icon(Icons.logout),
               onPressed: () {
-/*
-                _fireBaseAuth.signOut();
-*/
-                Get.offAllNamed(Routers.getStartingPageRoute());
+                Get.offAllNamed(Routers.getClientChatListRoute());
               }),
         ],
-        title: Text(widget.selectedFriendUserName,style: const TextStyle(fontSize: 24),),
+        title: Text(
+          widget.selectedFriendUserName,
+          style: const TextStyle(fontSize: 24),
+        ),
         backgroundColor: MainColors.mainColor,
       ),
       body: SafeArea(
@@ -174,7 +175,7 @@ class StreamMessagesBuilder extends StatelessWidget {
           if (conversations.isEmpty) {
             return const Text(
               "Sey hello ♡",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w100),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w100),
               textAlign: TextAlign.center,
             );
           }
@@ -219,36 +220,38 @@ class BubbleTextBuilder extends StatelessWidget {
   final bool isSelfSender;
   final String message;
   const BubbleTextBuilder(
-      {required this.message, required this.username, required this.isSelfSender});
+      {required this.message,
+      required this.username,
+      required this.isSelfSender});
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment:
               isSelfSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text(
               username,
-              style: const TextStyle(fontSize: 13, color: Colors.black45),
+              style: const TextStyle(fontSize: 16, color: Colors.black45),
             ),
             Material(
               elevation: 6.0,
               borderRadius: isSelfSender
                   ? myBubbleMessageRadiusDecoration.copyWith(
-                      topLeft: const Radius.circular(28))
+                      topLeft: const Radius.circular(30))
                   : myBubbleMessageRadiusDecoration.copyWith(
-                      topRight: const Radius.circular(28)),
+                      topRight: const Radius.circular(30)),
               color: isSelfSender ? MainColors.mainColor : Colors.white,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 20.0),
                 child: Text(
                   message,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 15.0,
+                    fontSize: 18.0,
                   ),
                 ),
               ),

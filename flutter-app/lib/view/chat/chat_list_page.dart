@@ -31,6 +31,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
               .collection('users')
               .doc(token!['id'].toString())
               .collection('conversations')
+              .where('friend_username', isNotEqualTo: token!['username'])
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
