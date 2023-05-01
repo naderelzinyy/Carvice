@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/django-app/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/django-app/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter-app/lib/view/chat/chat_list_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/view/chat/chat_list_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/lib/view/chat/chatting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/view/chat/chatting_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +102,7 @@
       <workItem from="1679716333626" duration="220000" />
       <workItem from="1680445326834" duration="319000" />
       <workItem from="1680445669631" duration="2104000" />
+      <workItem from="1682969535699" duration="625000" />
     </task>
     <servers />
   </component>

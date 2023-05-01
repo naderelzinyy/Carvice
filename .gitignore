@@ -130,3 +130,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+django-app/users/migrations/0004_user_is_client_alter_user_is_mechanic.py
+.idea/workspace.xml
+django-app/db.sqlite3
