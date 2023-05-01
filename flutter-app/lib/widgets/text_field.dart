@@ -5,14 +5,22 @@ class CustomTextFiled extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final bool obscureText;
-  const CustomTextFiled({Key? key, required this.controller, required this.hintText, required this.textInputType, required this.obscureText}) : super(key: key);
+  final Function(String)? onChanged;
 
+  const CustomTextFiled({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+    required this.textInputType,
+    required this.obscureText,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 55,
-      padding: const EdgeInsets.only(top: 3,left: 15),
+      padding: const EdgeInsets.only(top: 3, left: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(6),
@@ -23,21 +31,20 @@ class CustomTextFiled extends StatelessWidget {
           )
         ],
       ),
-      child:  TextFormField(
+      child: TextFormField(
         controller: controller,
         keyboardType: textInputType,
         obscureText: obscureText,
         decoration: InputDecoration(
-            hintText: hintText,
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.all(0),
+          hintText: hintText,
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(0),
           hintStyle: const TextStyle(
             height: 1,
           ),
-
         ),
+        onChanged: onChanged,
       ),
     );
-
   }
 }
