@@ -14,7 +14,6 @@ class ChatHomePage extends StatefulWidget {
 }
 
 class _ChatHomePageState extends State<ChatHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +27,11 @@ class _ChatHomePageState extends State<ChatHomePage> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('users').doc(token!['id'].toString()).collection('conversations').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('users')
+              .doc(token!['id'].toString())
+              .collection('conversations')
+              .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(
@@ -45,31 +48,37 @@ class _ChatHomePageState extends State<ChatHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ChattingScreen(selectedFriendEmail: user['friend_email']),
+                        builder: (context) => ChattingScreen(
+                            selectedFriendUserName: user['friend_username']),
                       ),
                     );
                   },
                   child: Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(6.0),
                       child: Wrap(
                         children: <Widget>[
                           const SizedBox(
-                            width: 10,
+                            width: 8,
                           ),
-                          Image.asset(
-                            "assets/images/person.jpeg",
-                            width: 56,
-                            height: 56,
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundColor: MainColors.mainColor,
+                            child: ClipOval(
+                              child: Image.asset(
+                                "assets/images/person.jpeg",
+                                width: 74,
+                                height: 74,
+                              ),
+                            ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 8,
                           ),
                           Text(
-                            user!["friend_email"],
+                            user!["friend_username"],
                             textDirection: TextDirection.rtl,
-                            style: const TextStyle(fontSize: 22),
+                            style: const TextStyle(fontSize: 26),
                           ),
                         ],
                       ),
@@ -79,7 +88,8 @@ class _ChatHomePageState extends State<ChatHomePage> {
               },
             );
           }),
-      bottomNavigationBar: const BottomNavigation(selectedIndex: 0, roleEndpoint: "client"),
+      bottomNavigationBar:
+          const BottomNavigation(selectedIndex: 0, roleEndpoint: "client"),
     );
   }
 }

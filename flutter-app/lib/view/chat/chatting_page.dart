@@ -10,8 +10,8 @@ import '../../utils/chat_style_utils.dart';
 
 
 class ChattingScreen extends StatefulWidget {
-  final String selectedFriendEmail;
-  const ChattingScreen({super.key, required this.selectedFriendEmail});
+  final String selectedFriendUserName;
+  const ChattingScreen({super.key, required this.selectedFriendUserName});
   static const route = "chatting_page";
 
   @override
@@ -29,23 +29,22 @@ class ChattingScreenState extends State<ChattingScreen> {
     super.initState();
   }
 
-  void createConversation(String friendEmail) async {
-    print("im working man");
+  void createConversation(String friendUserName) async {
     if (token != null) {
       // create conversation for current user
       final userDoc =
           await _fireStoreAuth.collection('users').doc(token!['id'].toString()).get();
       if (userDoc.exists) {
         final conversation =
-            userDoc.reference.collection('conversations').doc(friendEmail);
+            userDoc.reference.collection('conversations').doc(friendUserName);
         conversation.set({
-          "friend_email": friendEmail,
+          "friend_username": friendUserName,
           "timestamp": Timestamp.now(),
         });
         conversation.collection('messages').add({
           "message": textMessage,
           "msg_date": Timestamp.now(),
-          "sender": token!['email'],
+          "sender": token!['username'],
         });
       } else {
         print('User document does not exist');
@@ -53,20 +52,20 @@ class ChattingScreenState extends State<ChattingScreen> {
       // create conversation for friend user
       final friendDoc = await _fireStoreAuth
           .collection('users')
-          .where('email', isEqualTo: friendEmail)
+          .where('username', isEqualTo: friendUserName)
           .get();
       if (friendDoc.docs.isNotEmpty) {
         final friendConversation = friendDoc.docs.first.reference
             .collection('conversations')
-            .doc(token!['email']);
+            .doc(token!['username']);
         friendConversation.set({
-          "friend_email": token!['email'],
+          "friend_username": token!['username'],
           "timestamp": Timestamp.now(),
         });
         friendConversation.collection('messages').add({
           "message": textMessage,
           "msg_date": Timestamp.now(),
-          "sender": token!['email'],
+          "sender": token!['username'],
         });
       } else {
         print('Friend document does not exist');
@@ -80,7 +79,7 @@ class ChattingScreenState extends State<ChattingScreen> {
       token;
       final currUser = _fireBaseAuth.currentUser;
       if (currUser != null) {
-        token!['email'] = currUser;
+        token!['username'] = currUser;
         print(currUser);
       }
     } on Exception catch (e) {
@@ -102,7 +101,7 @@ class ChattingScreenState extends State<ChattingScreen> {
                 Get.offAllNamed(Routers.getStartingPageRoute());
               }),
         ],
-        title: Text(widget.selectedFriendEmail,style: const TextStyle(fontSize: 24),),
+        title: Text(widget.selectedFriendUserName,style: const TextStyle(fontSize: 24),),
         backgroundColor: MainColors.mainColor,
       ),
       body: SafeArea(
@@ -112,7 +111,7 @@ class ChattingScreenState extends State<ChattingScreen> {
           children: <Widget>[
             StreamMessagesBuilder(
                 fireStoreAuth: _fireStoreAuth,
-                friendEmail: widget.selectedFriendEmail),
+                friendUserName: widget.selectedFriendUserName),
             Container(
               decoration: myMessageContainerDecoration,
               child: Row(
@@ -130,7 +129,7 @@ class ChattingScreenState extends State<ChattingScreen> {
                   TextButton(
                     onPressed: () {
                       textFieldController.clear();
-                      createConversation(widget.selectedFriendEmail);
+                      createConversation(widget.selectedFriendUserName);
                     },
                     child: const Text(
                       'Send',
@@ -149,11 +148,11 @@ class ChattingScreenState extends State<ChattingScreen> {
 
 class StreamMessagesBuilder extends StatelessWidget {
   final FirebaseFirestore fireStoreAuth;
-  final String friendEmail;
+  final String friendUserName;
 
   const StreamMessagesBuilder({
     required this.fireStoreAuth,
-    required this.friendEmail,
+    required this.friendUserName,
   });
 
   @override
@@ -163,7 +162,7 @@ class StreamMessagesBuilder extends StatelessWidget {
             .collection('users')
             .doc(token!['id'].toString())
             .collection('conversations')
-            .where("friend_email", isEqualTo: friendEmail)
+            .where("friend_username", isEqualTo: friendUserName)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -197,8 +196,8 @@ class StreamMessagesBuilder extends StatelessWidget {
                   final messageData = message;
                   final messageBubble = BubbleTextBuilder(
                     message: messageData['message'],
-                    email: messageData['sender'],
-                    isSelfSender: token!["email"] == messageData['sender'],
+                    username: messageData['sender'],
+                    isSelfSender: token!["username"] == messageData['sender'],
                   );
                   bubblesChatList.add(messageBubble);
                 }
@@ -216,11 +215,11 @@ class StreamMessagesBuilder extends StatelessWidget {
 }
 
 class BubbleTextBuilder extends StatelessWidget {
-  final String email;
+  final String username;
   final bool isSelfSender;
   final String message;
   const BubbleTextBuilder(
-      {required this.message, required this.email, required this.isSelfSender});
+      {required this.message, required this.username, required this.isSelfSender});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -231,7 +230,7 @@ class BubbleTextBuilder extends StatelessWidget {
               isSelfSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text(
-              email,
+              username,
               style: const TextStyle(fontSize: 13, color: Colors.black45),
             ),
             Material(

@@ -32,7 +32,7 @@ class Authenticator {
           FirebaseFirestore.instance
               .collection('users')
               .doc(data["id"].toString())
-              .set({'email': data["email"]});
+              .set({'username': data["username"]});
               return true;
         }
       } on Exception catch (e) {
