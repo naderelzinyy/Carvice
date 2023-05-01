@@ -1,14 +1,13 @@
 import 'package:carvice_frontend/services/authentication.dart';
+import 'package:carvice_frontend/utils/main.colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../routes/routes.dart';
-import '../../services/authentication.dart';
 import '../../utils/chat_style_utils.dart';
 
-late User userLogIn;
 
 class ChattingScreen extends StatefulWidget {
   final String selectedFriendEmail;
@@ -31,11 +30,11 @@ class ChattingScreenState extends State<ChattingScreen> {
   }
 
   void createConversation(String friendEmail) async {
-    final currUser = _fireBaseAuth.currentUser;
-    if (currUser != null) {
+    print("im working man");
+    if (token != null) {
       // create conversation for current user
       final userDoc =
-          await _fireStoreAuth.collection('users').doc(currUser.uid).get();
+          await _fireStoreAuth.collection('users').doc(token!['id'].toString()).get();
       if (userDoc.exists) {
         final conversation =
             userDoc.reference.collection('conversations').doc(friendEmail);
@@ -46,7 +45,7 @@ class ChattingScreenState extends State<ChattingScreen> {
         conversation.collection('messages').add({
           "message": textMessage,
           "msg_date": Timestamp.now(),
-          "sender": currUser.email,
+          "sender": token!['email'],
         });
       } else {
         print('User document does not exist');
@@ -59,15 +58,15 @@ class ChattingScreenState extends State<ChattingScreen> {
       if (friendDoc.docs.isNotEmpty) {
         final friendConversation = friendDoc.docs.first.reference
             .collection('conversations')
-            .doc(currUser.email);
+            .doc(token!['email']);
         friendConversation.set({
-          "friend_email": currUser.email,
+          "friend_email": token!['email'],
           "timestamp": Timestamp.now(),
         });
         friendConversation.collection('messages').add({
           "message": textMessage,
           "msg_date": Timestamp.now(),
-          "sender": currUser.email,
+          "sender": token!['email'],
         });
       } else {
         print('Friend document does not exist');
@@ -81,8 +80,8 @@ class ChattingScreenState extends State<ChattingScreen> {
       token;
       final currUser = _fireBaseAuth.currentUser;
       if (currUser != null) {
-        userLogIn = currUser;
-        print(userLogIn.email);
+        token!['email'] = currUser;
+        print(currUser);
       }
     } on Exception catch (e) {
       print(e);
@@ -104,7 +103,7 @@ class ChattingScreenState extends State<ChattingScreen> {
               }),
         ],
         title: Text(widget.selectedFriendEmail,style: const TextStyle(fontSize: 24),),
-        backgroundColor: Colors.indigoAccent[400],
+        backgroundColor: MainColors.mainColor,
       ),
       body: SafeArea(
         child: Column(
@@ -162,7 +161,7 @@ class StreamMessagesBuilder extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: fireStoreAuth
             .collection('users')
-            .doc(userLogIn.uid)
+            .doc(token!['id'].toString())
             .collection('conversations')
             .where("friend_email", isEqualTo: friendEmail)
             .snapshots(),
@@ -199,7 +198,7 @@ class StreamMessagesBuilder extends StatelessWidget {
                   final messageBubble = BubbleTextBuilder(
                     message: messageData['message'],
                     email: messageData['sender'],
-                    isSelfSender: userLogIn.email == messageData['sender'],
+                    isSelfSender: token!["email"] == messageData['sender'],
                   );
                   bubblesChatList.add(messageBubble);
                 }
@@ -242,7 +241,7 @@ class BubbleTextBuilder extends StatelessWidget {
                       topLeft: const Radius.circular(28))
                   : myBubbleMessageRadiusDecoration.copyWith(
                       topRight: const Radius.circular(28)),
-              color: isSelfSender ? Colors.indigoAccent : Colors.white,
+              color: isSelfSender ? MainColors.mainColor : Colors.white,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
