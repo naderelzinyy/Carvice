@@ -62,6 +62,9 @@ class Tokenizer:
 
         return jwt.encode(payload=payload, key="secret", algorithm="HS256")
 
+
+class SignInHandler:
+
     @staticmethod
     def check_user_authenticity(user, password) -> None:
         """Checks if the user authenticated or not"""
