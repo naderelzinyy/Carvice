@@ -1,4 +1,5 @@
 import 'package:carvice_frontend/services/api_requests.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
@@ -26,7 +27,18 @@ class Authenticator {
     var data = await requestHandler.getData();
     print(data);
     if (data.containsKey("first_name")) {
-      return true;
+      try {
+        if (data != null) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(data["id"].toString())
+              .set({'email': data["email"]});
+              return true;
+        }
+      } on Exception catch (e) {
+        print(e);
+        return false;
+      }
     }
     return false;
   }
