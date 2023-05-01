@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../services/authentication.dart';
 import '../../utils/main.colors.dart';
 import '../../widgets/bottom_navigation.dart';
 import 'chatting_page.dart';
@@ -13,7 +14,6 @@ class ChatHomePage extends StatefulWidget {
 }
 
 class _ChatHomePageState extends State<ChatHomePage> {
-  final _fireStore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class _ChatHomePageState extends State<ChatHomePage> {
         backgroundColor: MainColors.mainColor,
         flexibleSpace: const FlexibleSpaceBar(
           title: Text(
-            'Chats',
+            'Chat History',
             style: TextStyle(fontSize: 24),
           ),
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: _fireStore.collection('users').snapshots(),
+          stream: FirebaseFirestore.instance.collection('users').doc(token!['id'].toString()).collection('conversations').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(
@@ -46,7 +46,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            ChattingScreen(selectedFriendEmail: user['email']),
+                            ChattingScreen(selectedFriendEmail: user['friend_email']),
                       ),
                     );
                   },
@@ -67,7 +67,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                             width: 10,
                           ),
                           Text(
-                            user['email'],
+                            user!["friend_email"],
                             textDirection: TextDirection.rtl,
                             style: const TextStyle(fontSize: 22),
                           ),
