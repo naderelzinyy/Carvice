@@ -15,7 +15,7 @@ class MechanicUpdateProfilePage extends StatelessWidget {
         automaticallyCallBack: true,
       ),
       body: ProfileForm(
-        image: 'assets/images/mechanic_profile.png',
+        image: 'assets/images/mechanic_profile.jpeg',
         firstName: token!["first_name"],
         lastName: token!["last_name"],
         userName: token!["username"],
