@@ -43,8 +43,7 @@ class RoleFactory:
         return self.role_queries.get(role)(username)
 
 
-class SignInHandler:
-
+class Tokenizer:
     @staticmethod
     def get_token(user: User) -> str:
         """Sets the token's necessary properties."""
@@ -73,7 +72,7 @@ class SignInHandler:
 
     def get_response_structure(self, user: User, cookie_key: str = "") -> Response:
         """Returns all response properties combined."""
-        token = self.get_token(user)
+        token = Tokenizer.get_token(user)
         response = Response()
         response.set_cookie(key=cookie_key, value=token, httponly=True)
         response.data = {
@@ -137,7 +136,7 @@ class SignOutView(APIView):
 
 class UpdateUserInfo(APIView):
     @staticmethod
-    def post(request) -> Response:
+    def post(request) -> Union[str, Response]:
         print(f"update post :: {request.data = }")
         try:
             user = User.objects.get(id=request.data.get("id"))
@@ -147,7 +146,11 @@ class UpdateUserInfo(APIView):
             user.email = request.data.get("email")
             user.phone_number = request.data.get("phone_number")
             user.save()
-            return Response({"message": "success"})
+            response = Response()
+            response.data = {
+                "jwt": Tokenizer.get_token(user),
+            }
+            return response
         except Exception as e:
             print(f"Failure due to the following exception :: {e}")
             return Response({"message": "failure"})
