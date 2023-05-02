@@ -1,3 +1,6 @@
+import 'package:carvice_frontend/view/client/pages/add_new_car_page.dart';
+import 'package:carvice_frontend/view/client/pages/carslist_page.dart';
+import 'package:carvice_frontend/view/client/pages/edit_car_info_page.dart';
 import 'package:carvice_frontend/view/client/pages/update_profile_page.dart';
 import 'package:carvice_frontend/view/mechanic/pages/userprofile_page.dart';
 import 'package:get/get.dart';
@@ -29,6 +32,9 @@ class Routers {
   static String mechanicUserProfilePage = "/mechanic_user_profile";
   static String clientUpdateUserProfilePage = "/client_update_profile";
   static String mechanicUpdateUserProfilePage = "/mechanic_update_profile";
+  static String carsListPage = "/cars_list";
+  static String editCarPage = "/edit_car";
+  static String addCarPage = "/add_car";
 
 
 
@@ -44,6 +50,9 @@ class Routers {
   static String getMechanicChatListRoute() => mechanicChatListPage;
   static String getClientUpdateProfilePageRoute() => clientUpdateUserProfilePage;
   static String getMechanicUpdateProfilePageRoute() => mechanicUpdateUserProfilePage;
+  static String getCarsListPageRoute() => carsListPage;
+  static String getEditCarPageRoute() => editCarPage;
+  static String getAddCarPageRoute() => addCarPage;
 
 
   static List<GetPage> routes = [
@@ -121,6 +130,24 @@ class Routers {
     GetPage(
       name: mechanicUpdateUserProfilePage,
       page: () => const   MechanicUpdateProfilePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: carsListPage,
+      page: () => const   CarsListPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: editCarPage,
+      page: () => const   EditCarPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: addCarPage,
+      page: () => const   AddCarPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
