@@ -39,12 +39,6 @@ class ClientUserProfilePage extends StatelessWidget {
                   print("Settings btn pressed");
                   },
                 ),
-                ProfileMenu(title: 'My Address',
-                  icon:  Icons.location_on,
-                  onPress: () {
-                    print("Addresses btn pressed");
-                  },
-                ),
                 ProfileMenu(title: 'My Cars',
                   icon:  Icons.directions_car,
                   onPress: () {
