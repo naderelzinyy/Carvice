@@ -12,9 +12,9 @@ class ClientHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: AppNavigation(title: "Carvice",),
-      endDrawer: SideBarGlobal(),
+      endDrawer: SideBarGlobal(showMyCars: true),
 
-      body: Center(
+        body: Center(
         child: Text('My App client'),
       ),
       bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "client",),

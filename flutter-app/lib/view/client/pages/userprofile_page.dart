@@ -55,7 +55,7 @@ class ClientUserProfilePage extends StatelessWidget {
               title: 'My Cars',
               icon: Icons.directions_car,
               onPress: () {
-                print("Cars btn pressed");
+                Get.toNamed(Routers.getCarsListPageRoute());
               },
             ),
             ProfileMenu(
