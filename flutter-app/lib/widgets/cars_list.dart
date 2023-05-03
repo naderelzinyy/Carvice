@@ -46,26 +46,38 @@ class CustomItemList extends StatelessWidget {
             },
 
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
               leading: SizedBox(
-                height: 80,
-                width: 80,
+                height: 90,
+                width: 60,
                 child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100.0),
-                child: list[index].picUrl != null && list[index].picUrl != ""
-                    ? Image.network(
-                  list[index].picUrl!,
-                  fit: BoxFit.cover,
-                )
-                    : Image.asset(
-                  'assets/images/car_avatar.jpeg',
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  padding: const EdgeInsets.all(1.0),
+                  child: SizedBox(
+                    child: Stack(
+                  children: [
+                  SizedBox(
+                  width: 120,
+                    height: 120,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: list[index].picUrl != null && list[index].picUrl != ""
+                          ? Image.network(
+                        list[index].picUrl!,
+                        fit: BoxFit.cover,
+                      )
+                          : Image.asset(
+                        'assets/images/car_avatar.jpeg',
+                        fit: BoxFit.cover,
 
-            ),
+                      ),
+                    ),
+                  ),
+                  ],
+                    ),
+                  ),
+
+
+                ),
               ),
               title: Text(
                 list[index].name,
