@@ -43,4 +43,17 @@ class AccountManager {
     }
     return false;
   }
+
+  Future<bool> updateInfo(Map<String, String> body) async {
+    print(body);
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/updateInfo', body);
+    var data = await requestHandler.getData();
+    print(data);
+    if (data.containsKey("first_name")) {
+      token = data;
+      return true;
+    }
+    return false;
+  }
 }
