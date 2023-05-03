@@ -80,7 +80,7 @@ class SideBarGlobal extends StatelessWidget {
             leading: const Icon(Icons.info),
             title: const Text('About Us'),
             onTap: () {
-              // Handle about us tap
+              Get.toNamed(Routers.getAboutUsPageRoute());
             },
           ),
           ListTile(
