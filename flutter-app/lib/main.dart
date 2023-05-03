@@ -1,8 +1,6 @@
-import 'package:carvice_frontend/view/chat/chat_list_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:carvice_frontend/routes/routes.dart';
 
 void main() async {
