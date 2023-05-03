@@ -1,11 +1,12 @@
-import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../routes/routes.dart';
+import '../services/authentication.dart';
 
 class SideBarGlobal extends StatelessWidget {
-  const SideBarGlobal({super.key});
+  final bool showMyCars;
+
+  const SideBarGlobal({Key? key, this.showMyCars = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +54,14 @@ class SideBarGlobal extends StatelessWidget {
               // Handle wallet tap
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.directions_car),
-            title: const Text('My Cars'),
-            onTap: () {
-              // Handle my car tap
-            },
-          ),
+          if (showMyCars)
+            ListTile(
+              leading: const Icon(Icons.directions_car),
+              title: const Text('My Cars'),
+              onTap: () {
+                Get.toNamed(Routers.getCarsListPageRoute());
+              },
+            ),
           ListTile(
             leading: const Icon(Icons.language),
             title: const Text('Language'),
@@ -78,7 +80,7 @@ class SideBarGlobal extends StatelessWidget {
             leading: const Icon(Icons.info),
             title: const Text('About Us'),
             onTap: () {
-              // Handle about us tap
+              Get.toNamed(Routers.getAboutUsPageRoute());
             },
           ),
           ListTile(

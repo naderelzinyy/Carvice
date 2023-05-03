@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carvice_frontend/routes/routes.dart';
 import 'package:get/get.dart';
 
+import '../../../services/authentication.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/bottom_navigation.dart';
 import '../../../widgets/profile_menu.dart';
@@ -38,16 +39,10 @@ class ClientUserProfilePage extends StatelessWidget {
                   print("Settings btn pressed");
                   },
                 ),
-                ProfileMenu(title: 'My Address',
-                  icon:  Icons.location_on,
-                  onPress: () {
-                    print("Addresses btn pressed");
-                  },
-                ),
                 ProfileMenu(title: 'My Cars',
                   icon:  Icons.directions_car,
                   onPress: () {
-                    print("Cars btn pressed");
+                    Get.toNamed(Routers.getCarsListPageRoute());
                   },
                 ),
                 ProfileMenu(title: 'My Wallet',
@@ -58,8 +53,11 @@ class ClientUserProfilePage extends StatelessWidget {
                 ),
                 ProfileMenu(title: 'Logout',
                   icon:  Icons.logout,
-                  onPress: () {
-                    print("logout btn pressed");
+                  onPress:  () async {
+                    if (await Authenticator().logout({})) {
+                      token = {};
+                      Get.offAllNamed(Routers.getStartingPageRoute());
+                    }
                   },
                 ),
               ],
