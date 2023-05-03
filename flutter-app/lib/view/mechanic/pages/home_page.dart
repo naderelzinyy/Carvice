@@ -4,6 +4,8 @@ import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 
+import '../../../widgets/map_widget/map_page.dart';
+
 
 class MechanicHomePage extends StatelessWidget {
   const MechanicHomePage({super.key});
@@ -15,7 +17,7 @@ class MechanicHomePage extends StatelessWidget {
       endDrawer: SideBarGlobal(),
 
       body: Center(
-        child: Text('My App mechanic'),
+        child: MapTrackingPage(),
       ),
       bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "mechanic",),
     );

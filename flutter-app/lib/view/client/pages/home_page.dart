@@ -4,7 +4,7 @@ import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 
-import '../../../widgets/map_widget/order_traking_page.dart';
+import '../../../widgets/map_widget/map_page.dart';
 
 
 class ClientHomePage extends StatelessWidget {
@@ -17,7 +17,7 @@ class ClientHomePage extends StatelessWidget {
       endDrawer: SideBarGlobal(),
 
       body: Center(
-        child: OrderTrackingPage(),
+        child: MapTrackingPage(),
       ),
       bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "client",),
     );
