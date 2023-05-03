@@ -39,6 +39,10 @@ dependencies:
   get: ^4.6.5
   http: ^0.13.5
   jwt_decoder: ^2.0.1
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.1.7
+  location: ^4.4.0
+  flutter_svg: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +67,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/map_assets/
+    - assets/images/map_assets/icons/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

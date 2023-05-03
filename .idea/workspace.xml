@@ -5,7 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d328649-4b3a-4829-b480-a213f1ad342e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/flutter-app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/main.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django-app/users/migrations/0004_user_is_client_alter_user_is_mechanic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/assets/images/map_assets/Avatar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/assets/images/map_assets/Badge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/assets/images/map_assets/Pin_current_location.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/assets/images/map_assets/Pin_destination.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/assets/images/map_assets/Pin_source.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/assets/images/map_assets/icons/chat.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/ios/Podfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/ios/Podfile.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter-app/macos/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django-app/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/django-app/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/ios/Flutter/Debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/ios/Flutter/Release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/ios/Runner/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/lib/view/client/pages/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/view/client/pages/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/macos/Flutter/Flutter-Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/macos/Flutter/Flutter-Debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/macos/Flutter/Flutter-Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/macos/Flutter/Flutter-Release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter-app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter-app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/pubspec.yaml" afterDir="false" />
     </list>
@@ -50,8 +71,8 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feature_add_registration_frontend" />
-                    <option name="lastUsedInstant" value="1680448671" />
+                    <option name="branchName" value="feature_maps_navigation_system" />
+                    <option name="lastUsedInstant" value="1683112384" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="development" />
@@ -116,5 +137,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Carvice$manage.coverage" NAME="manage Coverage Results" MODIFIED="1682871209534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/django-app" />
   </component>
 </project>
