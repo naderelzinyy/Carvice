@@ -49,9 +49,9 @@ class AccountManager {
     RequestHandler requestHandler =
         RequestHandler('http://localhost:8000/api/updateInfo', body);
     var data = await requestHandler.getData();
-    print(data);
-    if (data.containsKey("first_name")) {
-      token = data;
+    print("updated token :: ${data["jwt"]}");
+    if (data.containsKey("jwt")) {
+      token = JwtDecoder.decode(data['jwt']);
       return true;
     }
     return false;
