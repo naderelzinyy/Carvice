@@ -13,6 +13,7 @@ import 'package:carvice_frontend/view/general/pages/splash_page.dart';
 import '../view/client/pages/chatlist_page.dart';
 import '../view/client/pages/home_page.dart';
 import '../view/client/pages/userprofile_page.dart';
+import '../view/general/pages/aboutus_page.dart';
 import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
 import '../view/mechanic/pages/update_profile_page.dart';
@@ -35,6 +36,7 @@ class Routers {
   static String carsListPage = "/cars_list";
   static String editCarPage = "/edit_car";
   static String addCarPage = "/add_car";
+  static String aboutUsPage = "/about_us";
 
 
 
@@ -53,6 +55,7 @@ class Routers {
   static String getCarsListPageRoute() => carsListPage;
   static String getEditCarPageRoute() => editCarPage;
   static String getAddCarPageRoute() => addCarPage;
+  static String getAboutUsPageRoute() => aboutUsPage;
 
 
   static List<GetPage> routes = [
@@ -148,6 +151,12 @@ class Routers {
     GetPage(
       name: addCarPage,
       page: () => const   AddCarPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: aboutUsPage,
+      page: () => const   AboutUsPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
