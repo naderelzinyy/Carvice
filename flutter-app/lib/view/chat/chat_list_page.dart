@@ -17,15 +17,6 @@ class _ChatHomePageState extends State<ChatHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: MainColors.mainColor,
-        flexibleSpace: const FlexibleSpaceBar(
-          title: Text(
-            'Chat History',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('users')
@@ -89,8 +80,6 @@ class _ChatHomePageState extends State<ChatHomePage> {
               },
             );
           }),
-      bottomNavigationBar:
-          const BottomNavigation(selectedIndex: 0, roleEndpoint: "client"),
     );
   }
 }
