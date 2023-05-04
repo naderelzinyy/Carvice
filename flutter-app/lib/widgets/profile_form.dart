@@ -1,3 +1,4 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -54,102 +55,106 @@ class _ProfileFormState extends State<ProfileForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.only(
-                top: 80,
-                left: 35,
-                right: 35
-            ),
-            child: Column(
-                children: [
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.only(top: 80, left: 35, right: 35),
+          child: Column(
+            children: [
               SizedBox(
-              width: 120,
-              height: 120,
+                width: 120,
+                height: 120,
                 child: Stack(
-                    children: [
-                      SizedBox(
-                        width: 120,
-                        height: 120,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.asset(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.asset(
                           widget.image,
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: MediaQuery.of(context).size.width * 0.8,
                           fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: MainColors.mainColor,
+                          ),
+                          child: IconButton(
+                            onPressed: widget.onTap,
+                            icon: const Icon(Icons.edit),
+                            color: Colors.white,
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           ),
                         ),
                       ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: Container(
-                        decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: MainColors.mainColor,
-                        ),
-                        child: IconButton(
-                        onPressed: widget.onTap,
-                          icon: const Icon(Icons.edit),
-                          color: Colors.white,
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                        ),
-                        ),
-                        ),
-                        ),
-                        ],
-                        ),
-                        ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 50),
-                CustomTextFiled(
-              controller: _firstNameController,
-              hintText: 'First Name',
-              textInputType: TextInputType.text,
-              obscureText: false,
-              onChanged: (value) => _firstName = value,
+              CustomTextFiled(
+                controller: _firstNameController,
+                hintText: 'First Name',
+                textInputType: TextInputType.text,
+                obscureText: false,
+                onChanged: (value) => _firstName = value,
               ),
               const SizedBox(height: 10),
-                CustomTextFiled(
-              controller: _lastNameController,
-              hintText: 'Last Name',
-              textInputType: TextInputType.text,
-              obscureText: false,
-              onChanged: (value) => _lastName = value,
+              CustomTextFiled(
+                controller: _lastNameController,
+                hintText: 'Last Name',
+                textInputType: TextInputType.text,
+                obscureText: false,
+                onChanged: (value) => _lastName = value,
               ),
               const SizedBox(height: 10),
-                CustomTextFiled(
-              controller: _userNameController,
-              hintText: 'Username',
-              textInputType: TextInputType.text,
-              obscureText: false,
-              onChanged: (value) => _userName = value,
+              CustomTextFiled(
+                controller: _userNameController,
+                hintText: 'Username',
+                textInputType: TextInputType.text,
+                obscureText: false,
+                onChanged: (value) => _userName = value,
               ),
-                const SizedBox(height: 10),
-                CustomTextFiled(
-                  controller: _emailController,
-                  hintText: 'Email Address',
-                  textInputType: TextInputType.emailAddress,
-                  obscureText: false,
-                  onChanged: (value) => _email = value,
-                ),
-                const SizedBox(height: 10),
-                CustomTextFiled(
-                  controller: _phoneNumberController,
-                  hintText: 'Phone Number',
-                  textInputType: TextInputType.phone,
-                  obscureText: false,
-                  onChanged: (value) => _phoneNumber = value,
-                ),
-                const SizedBox(height: 50),
-                CustomButton(
-                  btnText: 'Update',
-                  onTap: () {
-                    // Save updated values and update the textfield hints
+              const SizedBox(height: 10),
+              CustomTextFiled(
+                controller: _emailController,
+                hintText: 'Email Address',
+                textInputType: TextInputType.emailAddress,
+                obscureText: false,
+                onChanged: (value) => _email = value,
+              ),
+              const SizedBox(height: 10),
+              CustomTextFiled(
+                controller: _phoneNumberController,
+                hintText: 'Phone Number',
+                textInputType: TextInputType.phone,
+                obscureText: false,
+                onChanged: (value) => _phoneNumber = value,
+              ),
+              const SizedBox(height: 50),
+              CustomButton(
+                btnText: 'Update',
+                onTap: () async {
+                  // Save updated values and update the text-field hints
+                  if (await AccountManager().updateInfo({
+                    "id": token!['id'].toString(),
+                    "first_name": _firstNameController.text,
+                    "last_name": _lastNameController.text,
+                    "username": _userNameController.text,
+                    "phone_number": _phoneNumberController.text,
+                    "email": _emailController.text
+                  })) {
                     setState(() {
                       _firstNameController.text = _firstName;
                       _lastNameController.text = _lastName;
@@ -157,12 +162,13 @@ class _ProfileFormState extends State<ProfileForm> {
                       _emailController.text = _email;
                       _phoneNumberController.text = _phoneNumber;
                     });
-        },
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
-    ],
-    ),
-        ),
-        ),
     );
   }
 }
