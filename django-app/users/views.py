@@ -1,4 +1,5 @@
 import datetime
+from typing import Union
 
 import jwt
 
@@ -43,8 +44,7 @@ class RoleFactory:
         return self.role_queries.get(role)(username)
 
 
-class SignInHandler:
-
+class Tokenizer:
     @staticmethod
     def get_token(user: User) -> str:
         """Sets the token's necessary properties."""
@@ -62,6 +62,9 @@ class SignInHandler:
 
         return jwt.encode(payload=payload, key="secret", algorithm="HS256")
 
+
+class SignInHandler:
+
     @staticmethod
     def check_user_authenticity(user, password) -> None:
         """Checks if the user authenticated or not"""
@@ -73,7 +76,7 @@ class SignInHandler:
 
     def get_response_structure(self, user: User, cookie_key: str = "") -> Response:
         """Returns all response properties combined."""
-        token = self.get_token(user)
+        token = Tokenizer.get_token(user)
         response = Response()
         response.set_cookie(key=cookie_key, value=token, httponly=True)
         response.data = {
@@ -133,3 +136,25 @@ class SignOutView(APIView):
         }
 
         return response
+
+
+class UpdateUserInfo(APIView):
+    @staticmethod
+    def post(request) -> Union[str, Response]:
+        print(f"update post :: {request.data = }")
+        try:
+            user = User.objects.get(id=request.data.get("id"))
+            user.first_name = request.data.get("first_name")
+            user.last_name = request.data.get("last_name")
+            user.username = request.data.get("username")
+            user.email = request.data.get("email")
+            user.phone_number = request.data.get("phone_number")
+            user.save()
+            response = Response()
+            response.data = {
+                "jwt": Tokenizer.get_token(user),
+            }
+            return response
+        except Exception as e:
+            print(f"Failure due to the following exception :: {e}")
+            return Response({"message": "failure"})

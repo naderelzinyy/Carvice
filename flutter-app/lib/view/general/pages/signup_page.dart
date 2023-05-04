@@ -174,7 +174,7 @@ class _SignUpState extends State<SignUp> {
                     return;
                   }
 
-                  is_signed_up = await Authenticator().register({
+                  is_signed_up = await AccountManager().register({
                     "first_name": firstNameController.text,
                     "last_name": lastNameController.text,
                     "username": usernameController.text,

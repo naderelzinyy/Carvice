@@ -3,16 +3,17 @@ import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../routes/routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.roleEndpoint}) : super(key: key);
   final String roleEndpoint;
 
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -31,7 +32,8 @@ class _LoginPageState extends State<LoginPage> {
   void updateButtonState() {
     // Enable button if both text fields are not empty, disable otherwise
     setState(() {
-      response = usernameController.text.isNotEmpty && passwordController.text.isNotEmpty;
+      response = usernameController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty;
     });
   }
 
@@ -65,7 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-
               const SizedBox(height: 20),
               const Text(
                 'Please Login To Your Account',
@@ -91,16 +92,16 @@ class _LoginPageState extends State<LoginPage> {
               CustomButton(
                 btnText: "Sign In",
                 onTap: () async {
-                  response = await Authenticator().authenticate({
+                  response = await AccountManager().authenticate({
                     "username": usernameController.text,
                     "password": passwordController.text
                   }, roleEndpoint);
                   if (response) {
-                    if (roleEndpoint == "client"){
+                    if (roleEndpoint == "client") {
                       Get.offAllNamed(Routers.getClientHomePageRoute());
                     }
                     // make this more flexible to add new roles.
-                    else if (roleEndpoint == "mechanic"){
+                    else if (roleEndpoint == "mechanic") {
                       Get.offAllNamed(Routers.getMechanicHomePageRoute());
                     }
                   } else {
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   print(response);
                   print(text);
                 },
-                isDisabled:  !response,
+                isDisabled: !response,
               ),
               const SizedBox(height: 10),
               Row(

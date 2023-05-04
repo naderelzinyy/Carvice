@@ -87,7 +87,7 @@ class SideBarGlobal extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
             onTap: () async {
-              if (await Authenticator().logout({})) {
+              if (await AccountManager().logout({})) {
                 token = {};
                 Get.offAllNamed(Routers.getStartingPageRoute());
               }
