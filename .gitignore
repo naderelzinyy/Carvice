@@ -126,3 +126,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+flutter-app/ios/Flutter/Debug.xcconfig
+flutter-app/ios/Flutter/Release.xcconfig
+flutter-app/macos/Podfile
+flutter-app/ios/Podfile.lock
