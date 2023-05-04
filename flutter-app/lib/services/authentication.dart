@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
-
+String ip = "localhost" ; // Enter your IP here to allow multiple emulators
 class AccountManager {
   Future<bool> authenticate(
       Map<String, String> body, String roleEndpoint) async {
     print("Request body: $body");
     print("role : $roleEndpoint");
     RequestHandler requestHandler = RequestHandler(
-        'http://localhost:8000/api/${roleEndpoint}/signin', body);
+        'http://$ip:8000/api/${roleEndpoint}/signin', body);
     var data = await requestHandler.getData();
     if (data.containsKey("jwt")) {
       token = JwtDecoder.decode(data['jwt']);
@@ -23,7 +23,7 @@ class AccountManager {
   Future<bool> register(Map<String, String> body, String roleEndpoint) async {
     print(body);
     RequestHandler requestHandler =
-        RequestHandler('http://localhost:8000/api/signup', body);
+        RequestHandler('http://$ip:8000/api/signup', body);
     var data = await requestHandler.getData();
     print(data);
     if (data.containsKey("first_name")) {
@@ -46,7 +46,7 @@ class AccountManager {
   Future<bool> logout(Map<String, String> body) async {
     print(body);
     RequestHandler requestHandler =
-        RequestHandler('http://localhost:8000/api/signout', body);
+        RequestHandler('http://$ip:8000/api/signout', body);
     var data = await requestHandler.getData();
     print(data);
     if (data!["message"] == "success") {
