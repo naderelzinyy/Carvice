@@ -134,3 +134,6 @@ flutter-app/ios/Flutter/Debug.xcconfig
 flutter-app/ios/Flutter/Release.xcconfig
 flutter-app/macos/Podfile
 flutter-app/ios/Podfile.lock
+.DS_Store
+.idea/workspace.xml
+.idea/workspace.xml
