@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../services/authentication.dart';
 import '../../../widgets/app_navigation.dart';
@@ -10,8 +11,8 @@ class MechanicUpdateProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppNavigation(
-        title: "Update Profile",
+      appBar: AppNavigation(
+        title: 'updateProfile'.tr,
         automaticallyCallBack: true,
       ),
       body: ProfileForm(

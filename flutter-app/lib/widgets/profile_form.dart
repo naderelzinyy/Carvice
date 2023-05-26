@@ -1,6 +1,7 @@
 import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/main.colors.dart';
 import 'button.dart';
@@ -105,7 +106,7 @@ class _ProfileFormState extends State<ProfileForm> {
               const SizedBox(height: 50),
               CustomTextFiled(
                 controller: _firstNameController,
-                hintText: 'First Name',
+                hintText: 'firstName'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
                 onChanged: (value) => _firstName = value,
@@ -113,7 +114,7 @@ class _ProfileFormState extends State<ProfileForm> {
               const SizedBox(height: 10),
               CustomTextFiled(
                 controller: _lastNameController,
-                hintText: 'Last Name',
+                hintText: 'lastName'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
                 onChanged: (value) => _lastName = value,
@@ -121,7 +122,7 @@ class _ProfileFormState extends State<ProfileForm> {
               const SizedBox(height: 10),
               CustomTextFiled(
                 controller: _userNameController,
-                hintText: 'Username',
+                hintText: 'username'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
                 onChanged: (value) => _userName = value,
@@ -129,7 +130,7 @@ class _ProfileFormState extends State<ProfileForm> {
               const SizedBox(height: 10),
               CustomTextFiled(
                 controller: _emailController,
-                hintText: 'Email Address',
+                hintText: 'email'.tr,
                 textInputType: TextInputType.emailAddress,
                 obscureText: false,
                 onChanged: (value) => _email = value,
@@ -137,14 +138,14 @@ class _ProfileFormState extends State<ProfileForm> {
               const SizedBox(height: 10),
               CustomTextFiled(
                 controller: _phoneNumberController,
-                hintText: 'Phone Number',
+                hintText: 'phoneNumber'.tr,
                 textInputType: TextInputType.phone,
                 obscureText: false,
                 onChanged: (value) => _phoneNumber = value,
               ),
               const SizedBox(height: 50),
               CustomButton(
-                btnText: 'Update',
+                btnText: 'update'.tr,
                 onTap: () async {
                   // Save updated values and update the text-field hints
                   if (await AccountManager().updateInfo({

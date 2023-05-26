@@ -30,7 +30,7 @@ class StartingPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomButton(
-                btnText: "Mechanic",
+                btnText: 'mechanic'.tr,
                 onTap: () {
                   Get.offAllNamed(Routers.getLoginPageRoute("mechanic"));
                   // Add your custom logic here
@@ -38,7 +38,7 @@ class StartingPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomButton(
-                btnText: "Costumer",
+                btnText:'client'.tr,
                 onTap: () {
                   Get.offAllNamed(Routers.getLoginPageRoute("client"));
                   // Add your custom logic here

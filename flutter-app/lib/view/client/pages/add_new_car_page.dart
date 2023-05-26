@@ -1,5 +1,6 @@
 import 'package:carvice_frontend/widgets/car_information_form.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../widgets/app_navigation.dart';
 
@@ -11,12 +12,12 @@ class AddCarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
+    return   Scaffold(
       appBar: AppNavigation(
-        title: "Add new Car",
+        title: 'addNewCar'.tr,
         automaticallyCallBack: true,
       ),
-      body: CarsForm(update: false,
+      body: const CarsForm(update: false,
       ),
     );
   }

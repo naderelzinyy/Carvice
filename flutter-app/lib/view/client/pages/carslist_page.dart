@@ -32,7 +32,7 @@ class CarsListPageState extends State<CarsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppNavigation(title: "My Cars", automaticallyCallBack: true,),
+      appBar:  AppNavigation(title: 'myCars'.tr, automaticallyCallBack: true,),
       body: Column(
         children: [
           const SizedBox(height: 20),
@@ -42,7 +42,7 @@ class CarsListPageState extends State<CarsListPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 80),
             child: CustomButton(
-              btnText: "Add New Car",
+              btnText:'addNewCar'.tr,
               onTap: () {
                 Get.toNamed(Routers.getAddCarPageRoute());
               },
@@ -53,10 +53,10 @@ class CarsListPageState extends State<CarsListPage> {
       bottomNavigationBar: Container(
           height: 100,
           alignment: Alignment.center,
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
 
-            children: const [
+            children: [
               Text(
                 "Made with ♥ by Carvice team",
               ),

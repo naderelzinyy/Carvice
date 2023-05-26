@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carvice_frontend/utils/main.colors.dart';
+import 'package:get/get.dart';
 
 import 'button.dart';
 
@@ -79,7 +80,7 @@ class CustomProfile extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           CustomButton(
-            btnText: "Edit Profile",
+            btnText: 'updateProfile'.tr,
             onTap: onTap,
           ),
         ],

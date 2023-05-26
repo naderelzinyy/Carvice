@@ -34,9 +34,9 @@ class CustomItemList extends StatelessWidget {
             list.removeAt(index);
             // Show a snackbar to notify the user that the item has been removed.
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Item deleted'),
-                duration: Duration(seconds: 2),
+               SnackBar(
+                content: Text('itemDeleted'.tr),
+                duration: const Duration(seconds: 2),
               ),
             );
           },
@@ -86,9 +86,9 @@ class CustomItemList extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              trailing: Row(
+              trailing: const Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(Icons.arrow_forward_ios, size: 20,),
                 ],
               ),
