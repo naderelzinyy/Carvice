@@ -82,9 +82,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               const SizedBox(height: 20),
-              const Text(
-                'Create New Account',
-                style: TextStyle(
+               Text(
+                'createNewAccount'.tr,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
@@ -93,83 +93,83 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(height: 15),
               CustomTextFiled(
                   controller: firstNameController,
-                  hintText: "first name",
+                  hintText: 'firstName'.tr,
                   textInputType: TextInputType.name,
                   obscureText: false),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: lastNameController,
-                  hintText: "last name",
+                  hintText:'lastName'.tr,
                   textInputType: TextInputType.name,
                   obscureText: false),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: usernameController,
-                  hintText: "username",
+                  hintText: 'username'.tr,
                   textInputType: TextInputType.name,
                   obscureText: false),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: emailController,
-                  hintText: "email",
+                  hintText: 'email'.tr,
                   textInputType: TextInputType.emailAddress,
                   obscureText: false),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: phoneController,
-                  hintText: "phone number",
+                  hintText: 'phoneNumber'.tr,
                   textInputType: TextInputType.phone,
                   obscureText: false),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: passwordController,
-                  hintText: "password",
+                  hintText: 'password'.tr,
                   textInputType: TextInputType.text,
                   obscureText: true),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: confPasswordController,
-                  hintText: "password conformation",
+                  hintText: 'passwordConfirmation'.tr,
                   textInputType: TextInputType.text,
                   obscureText: true),
               const SizedBox(height: 25),
               CustomButton(
-                btnText: "Sign Up",
+                btnText: 'signUp'.tr,
                 onTap: () async {
                   // Check for first and last name validity
                   if (firstNameController.text.length < 3 ||
                       lastNameController.text.length < 3 ||
                       firstNameController.text.contains(RegExp(r'[0-9]')) ||
                       lastNameController.text.contains(RegExp(r'[0-9]'))) {
-                    errorMessage = 'Invalid name';
+                    errorMessage = 'invalidName'.tr;
                     setState(() {});
                     return;
                   }
 
                   // Check for email validity
                   if (!emailController.text.contains('@')) {
-                    errorMessage = 'Invalid email';
+                    errorMessage = 'invalidEmail'.tr;
                     setState(() {});
                     return;
                   }
 
                   // Check for phone number validity
                   if (phoneController.text.contains(RegExp('[^0-9-]'))) {
-                    errorMessage = 'Invalid phone number';
+                    errorMessage = 'invalidPhoneNumber'.tr;
                     setState(() {});
                     return;
                   }
 
                   // Check for password and confirmation password match
                   if (passwordController.text != confPasswordController.text) {
-                    errorMessage = 'Passwords do not match';
+                    errorMessage = 'passwordsDoNotMatch'.tr;
                     setState(() {});
                     return;
                   }
 
                   // Check for password length
                   if (passwordController.text.length < 3) {
-                    errorMessage = 'Password is too short';
+                    errorMessage = 'passwordTooShort'.tr;
                     setState(() {});
                     return;
                   }
@@ -204,11 +204,11 @@ class _SignUpState extends State<SignUp> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Error"),
-                          content: const Text("This user already exists!"),
+                          title:  Text('dialogErrorTitle'.tr),
+                          content: Text('dialogErrorMessage'.tr),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text("Try again"),
+                              child: Text('dialogTryAgain'.tr),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -231,12 +231,12 @@ class _SignUpState extends State<SignUp> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Already have an account?"),
+               Text('alreadyHaveAccount'.tr),
               InkWell(
                 onTap: () {
                   Get.offAllNamed(Routers.getLoginPageRoute(roleEndpoint));
                 },
-                child: const Text(" Sign In"),
+                child: Text('signIn'.tr),
               )
             ],
           )),

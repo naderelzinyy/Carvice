@@ -64,18 +64,18 @@ class BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const [
+      items:  [
         BottomNavigationBarItem(
-          icon: Icon(Icons.chat, color: Colors.black),
-          label: 'Chat',
+          icon: const Icon(Icons.chat, color: Colors.black),
+          label: 'chat'.tr,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.home, color: Colors.black),
-          label: 'Home',
+          icon: const Icon(Icons.home, color: Colors.black),
+          label: 'home'.tr,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person, color: Colors.black),
-          label: 'User',
+          icon: const Icon(Icons.person, color: Colors.black),
+          label: 'user'.tr,
         ),
       ],
       currentIndex: _selectedIndex,

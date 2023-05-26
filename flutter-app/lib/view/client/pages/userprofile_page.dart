@@ -14,8 +14,8 @@ class ClientUserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppNavigation(
-        title: "Profile",
+      appBar:  AppNavigation(
+        title: 'profile'.tr,
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -38,28 +38,28 @@ class ClientUserProfilePage extends StatelessWidget {
               height: 10,
             ),
             ProfileMenu(
-              title: 'Settings',
+              title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
                 print("Settings btn pressed");
               },
             ),
             ProfileMenu(
-              title: 'My Cars',
+              title: 'myCars'.tr,
               icon: Icons.directions_car,
               onPress: () {
                 Get.toNamed(Routers.getCarsListPageRoute());
               },
             ),
             ProfileMenu(
-              title: 'My Wallet',
+              title: 'wallet'.tr,
               icon: Icons.account_balance_wallet,
               onPress: () {
                 print("wallet btn pressed");
               },
             ),
             ProfileMenu(
-              title: 'Logout',
+              title: 'logOut'.tr,
               icon: Icons.logout,
               onPress: () async {
                 if (await AccountManager().logout({})) {

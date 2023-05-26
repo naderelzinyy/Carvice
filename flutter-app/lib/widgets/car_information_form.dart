@@ -1,5 +1,6 @@
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/main.colors.dart';
 import 'button.dart';
@@ -51,7 +52,7 @@ class _CarsFormState extends State<CarsForm> {
 
   @override
   Widget build(BuildContext context) {
-    final btnText = widget.update ? 'Save Changes' : 'Save';
+    final btnText = widget.update ? 'saveChanges'.tr : 'save'.tr;
      return Scaffold(
         body: SingleChildScrollView(
           child: Container(
@@ -108,14 +109,14 @@ class _CarsFormState extends State<CarsForm> {
             const SizedBox(height: 30),
             CustomTextFiled(
               controller: _carBrandController,
-              hintText: 'Enter car brand',
+              hintText: 'enterCarBrand'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false
             ),
             const SizedBox(height: 16.0),
             CustomTextFiled(
               controller: _carSeriesController,
-              hintText: 'Enter car series',
+              hintText: 'enterCarSeries'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false
             ),
@@ -124,35 +125,35 @@ class _CarsFormState extends State<CarsForm> {
               controller: _carModelController,
               textInputType: TextInputType.text,
               obscureText: false,
-              hintText: 'Enter car model',
+              hintText: 'enterCarModel'.tr,
             ),
             const SizedBox(height: 16.0),
             CustomTextFiled(
               controller: _carYearController,
               textInputType: TextInputType.number,
               obscureText: false,
-              hintText: 'Enter car year',
+              hintText: 'enterCarYear'.tr,
             ),
             const SizedBox(height: 16.0),
             CustomTextFiled(
               controller: _carFuelController,
               textInputType: TextInputType.text,
               obscureText: false,
-              hintText: 'Enter car fuel type',
+              hintText: 'enterCarFuel'.tr,
             ),
             const SizedBox(height: 16.0),
             CustomTextFiled(
               controller: _carGearController,
               textInputType: TextInputType.text,
               obscureText: false,
-              hintText: 'Enter car gear type',
+              hintText: 'enterCarGear'.tr,
             ),
             const SizedBox(height: 16.0),
             CustomTextFiled(
               controller: _carEnginePowerController,
               textInputType: TextInputType.number,
               obscureText: false,
-              hintText: 'Enter car engine power',
+              hintText: 'enterCarEnginePower'.tr,
             ),
             const SizedBox(height: 25.0),
             CustomButton(
@@ -167,10 +168,10 @@ class _CarsFormState extends State<CarsForm> {
        bottomNavigationBar: Container(
            height: 50,
            alignment: Alignment.center,
-           child: Row(
+           child: const Row(
              mainAxisAlignment: MainAxisAlignment.center,
 
-             children: const [
+             children: [
                Text(
                  "Made with ♥ by Carvice team",
                ),

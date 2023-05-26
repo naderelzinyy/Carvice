@@ -1,5 +1,6 @@
 import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppNavigation(title: "About Us", automaticallyCallBack: true,),
+      appBar:  AppNavigation(title: 'aboutUs'.tr, automaticallyCallBack: true,),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -18,70 +19,70 @@ class AboutUsPage extends StatelessWidget {
                 height: 200,
               ),
             ),
-            Card(
+             Card(
               elevation: 4,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Our Story',
-                      style: TextStyle(
+                      'ourStory'.tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
-                      "Carvice is a mobile application that was developed in response to the growing demand for on-demand car repair services. We saw an opportunity to streamline the process of getting a car fixed by connecting clients with mechanics through a mobile app. We conducted extensive research and used cutting-edge technology to develop a platform that is easy to use, reliable, and efficient. Our goal is to make car repair services accessible to everyone and provide mechanics with an additional source of income.",
+                      'ourStoryContent'.tr
                     ),
                   ],
                 ),
               ),
             ),
-            Card(
+             Card(
               elevation: 4,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Our Mission',
-                      style: TextStyle(
+                      'ourMission'.tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
-                      "Our mission at Carvice is to provide a convenient and efficient platform for clients to connect with mechanics and get their cars fixed. We aim to simplify the process of getting a car repaired by providing a user-friendly mobile application that connects clients with reliable and experienced mechanics. We strive to improve the car repair industry and provide value to clients and mechanics alike."
+                     'ourMissionContent'.tr
                       ),
                   ],
                 ),
               ),
             ),
-            Card(
+              Card(
               elevation: 4,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Our Vision',
-                      style: TextStyle(
+                      'ourVision'.tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Our vision is to revolutionize the car repair industry by making it more accessible, efficient, and transparent. We aim to expand our services globally and become the go-to platform for on-demand car repair services. We envision a future where car owners can easily connect with mechanics through our mobile app and get their cars fixed quickly and conveniently. We also aim to provide mechanics with a steady stream of work and opportunities for growth and development."  ),
+                    const SizedBox(height: 20),
+                    Text( 'ourVisionContent'.tr
+                      ),
                   ],
                 ),
               ),
@@ -93,10 +94,10 @@ class AboutUsPage extends StatelessWidget {
       bottomNavigationBar: Container(
           height: 80,
           alignment: Alignment.center,
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
 
-            children: const [
+            children: [
               Text(
                 "Made with ♥ by Carvice team",
               ),

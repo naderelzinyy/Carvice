@@ -8,6 +8,36 @@ class SideBarGlobal extends StatelessWidget {
 
   const SideBarGlobal({Key? key, this.showMyCars = false}) : super(key: key);
 
+  void _showLanguageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('selectLanguage'.tr),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title:  Text('turkish'.tr),
+                onTap: () {
+                  Get.updateLocale(const Locale('tr', 'TR'));
+                  Get.back(); // Close the dialog
+                },
+              ),
+              ListTile(
+                title:  Text('english'.tr),
+                onTap: () {
+                  Get.updateLocale(const Locale('en', 'US'));
+                  Get.back(); // Close the dialog
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -35,21 +65,21 @@ class SideBarGlobal extends StatelessWidget {
           const SizedBox(height: 40),
           ListTile(
             leading: const Icon(Icons.notifications),
-            title: const Text('Notifications'),
+            title: Text('notifications'.tr),
             onTap: () {
               // Handle notification tap
             },
           ),
           ListTile(
             leading: const Icon(Icons.payment),
-            title: const Text('Payment Method'),
+            title:  Text('paymentMethod'.tr),
             onTap: () {
               // Handle payment method tap
             },
           ),
           ListTile(
             leading: const Icon(Icons.account_balance_wallet),
-            title: const Text('Wallet'),
+            title:  Text('wallet'.tr),
             onTap: () {
               // Handle wallet tap
             },
@@ -57,35 +87,35 @@ class SideBarGlobal extends StatelessWidget {
           if (showMyCars)
             ListTile(
               leading: const Icon(Icons.directions_car),
-              title: const Text('My Cars'),
+              title:  Text('myCars'.tr),
               onTap: () {
                 Get.toNamed(Routers.getCarsListPageRoute());
               },
             ),
           ListTile(
             leading: const Icon(Icons.language),
-            title: const Text('Language'),
+            title: Text('language'.tr),
             onTap: () {
-              // Handle language tap
+              _showLanguageDialog(context); // Show language selection dialog
             },
           ),
           ListTile(
             leading: const Icon(Icons.help),
-            title: const Text('Support and Help'),
+            title: Text('supportAndHelp'.tr),
             onTap: () {
               // Handle support and help tap
             },
           ),
           ListTile(
             leading: const Icon(Icons.info),
-            title: const Text('About Us'),
+            title: Text('aboutUs'.tr),
             onTap: () {
               Get.toNamed(Routers.getAboutUsPageRoute());
             },
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text('Log Out'),
+            title: Text('logOut'.tr),
             onTap: () async {
               if (await AccountManager().logout({})) {
                 token = {};
