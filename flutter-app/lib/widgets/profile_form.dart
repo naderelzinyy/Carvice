@@ -59,6 +59,50 @@ class _ProfileFormState extends State<ProfileForm> {
     return currentValue.isNotEmpty && currentValue != previousValue;
   }
 
+  Future<void> _showSuccessAlert() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success', style: TextStyle(
+              color: Colors.green
+          ),),
+          content: const Text('User information updated successfully.'),
+          actions: <Widget>[
+            CustomButton(
+              btnText:  'OK',
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showFailureAlert() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Failed to Update', style: TextStyle(
+            color: Colors.red
+          ),),
+          content: const Text('Sorry, an error occurred while updating user information.'),
+          actions: <Widget>[
+            CustomButton(
+              btnText:  'OK',
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,7 +233,7 @@ class _ProfileFormState extends State<ProfileForm> {
                       "email": _isFieldChanged(_email, widget.email) ? _email : widget.email,
                     };
 
-                    if (await AccountManager().updateInfo(updateData)&& _isFormChanged) {
+                    if (await AccountManager().updateInfo(updateData) && _isFormChanged) {
                       setState(() {
                         _firstNameController.text = _isFieldChanged(_firstName, widget.firstName) ? _firstName : widget.firstName;
                         _lastNameController.text = _isFieldChanged(_lastName, widget.lastName) ? _lastName : widget.lastName;
@@ -198,6 +242,12 @@ class _ProfileFormState extends State<ProfileForm> {
                         _phoneNumberController.text = _isFieldChanged(_phoneNumber, widget.phoneNumber) ? _phoneNumber : widget.phoneNumber;
                         _isFormChanged = false;
                       });
+
+                      // Show success alert
+                      await _showSuccessAlert();
+                    } else {
+                      // Show failure alert
+                      await _showFailureAlert();
                     }
                   }
                 },
