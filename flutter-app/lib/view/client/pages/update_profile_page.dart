@@ -23,8 +23,7 @@ class ClientUpdateProfilePage extends StatelessWidget {
         email: token!["email"],
         phoneNumber: token!["phone_number"],
         onTap: () {
-          // TODO: Add save functionality here
-          print("save updates btn pressed in client");
+          print("update picture btn pressed in client");
         },
       ),
     );

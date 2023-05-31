@@ -43,6 +43,8 @@ class _ProfileFormState extends State<ProfileForm> {
   String _email = "";
   String _phoneNumber = "";
 
+  bool _isFormChanged = false;
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +53,10 @@ class _ProfileFormState extends State<ProfileForm> {
     _userNameController = TextEditingController(text: widget.userName);
     _emailController = TextEditingController(text: widget.email);
     _phoneNumberController = TextEditingController(text: widget.phoneNumber);
+  }
+
+  bool _isFieldChanged(String currentValue, String previousValue) {
+    return currentValue.isNotEmpty && currentValue != previousValue;
   }
 
   @override
@@ -109,7 +115,12 @@ class _ProfileFormState extends State<ProfileForm> {
                 hintText: 'firstName'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
-                onChanged: (value) => _firstName = value,
+                onChanged: (value) {
+                  setState(() {
+                    _firstName = value;
+                    _isFormChanged = _isFieldChanged(value, widget.firstName);
+                  });
+                },
               ),
               const SizedBox(height: 10),
               CustomTextFiled(
@@ -117,7 +128,12 @@ class _ProfileFormState extends State<ProfileForm> {
                 hintText: 'lastName'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
-                onChanged: (value) => _lastName = value,
+                onChanged: (value) {
+                  setState(() {
+                    _lastName = value;
+                    _isFormChanged = _isFieldChanged(value, widget.lastName);
+                  });
+                },
               ),
               const SizedBox(height: 10),
               CustomTextFiled(
@@ -125,7 +141,12 @@ class _ProfileFormState extends State<ProfileForm> {
                 hintText: 'username'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
-                onChanged: (value) => _userName = value,
+                onChanged: (value) {
+                  setState(() {
+                    _userName = value;
+                    _isFormChanged = _isFieldChanged(value, widget.userName);
+                  });
+                },
               ),
               const SizedBox(height: 10),
               CustomTextFiled(
@@ -133,7 +154,12 @@ class _ProfileFormState extends State<ProfileForm> {
                 hintText: 'email'.tr,
                 textInputType: TextInputType.emailAddress,
                 obscureText: false,
-                onChanged: (value) => _email = value,
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                    _isFormChanged = _isFieldChanged(value, widget.email);
+                  });
+                },
               ),
               const SizedBox(height: 10),
               CustomTextFiled(
@@ -141,28 +167,38 @@ class _ProfileFormState extends State<ProfileForm> {
                 hintText: 'phoneNumber'.tr,
                 textInputType: TextInputType.phone,
                 obscureText: false,
-                onChanged: (value) => _phoneNumber = value,
+                onChanged: (value) {
+                  setState(() {
+                    _phoneNumber = value;
+                    _isFormChanged = _isFieldChanged(value, widget.phoneNumber);
+                  });
+                },
               ),
               const SizedBox(height: 50),
               CustomButton(
                 btnText: 'update'.tr,
+                isDisabled: !_isFormChanged, // disable the button if form is not changed
                 onTap: () async {
-                  // Save updated values and update the text-field hints
-                  if (await AccountManager().updateInfo({
-                    "id": token!['id'].toString(),
-                    "first_name": _firstNameController.text,
-                    "last_name": _lastNameController.text,
-                    "username": _userNameController.text,
-                    "phone_number": _phoneNumberController.text,
-                    "email": _emailController.text
-                  })) {
-                    setState(() {
-                      _firstNameController.text = _firstName;
-                      _lastNameController.text = _lastName;
-                      _userNameController.text = _userName;
-                      _emailController.text = _email;
-                      _phoneNumberController.text = _phoneNumber;
-                    });
+                  if (_isFormChanged) {
+                    final updateData = {
+                      "id": token!['id'].toString(),
+                      "first_name": _isFieldChanged(_firstName, widget.firstName) ? _firstName : widget.firstName,
+                      "last_name": _isFieldChanged(_lastName, widget.lastName) ? _lastName : widget.lastName,
+                      "username": _isFieldChanged(_userName, widget.userName) ? _userName : widget.userName,
+                      "phone_number": _isFieldChanged(_phoneNumber, widget.phoneNumber) ? _phoneNumber : widget.phoneNumber,
+                      "email": _isFieldChanged(_email, widget.email) ? _email : widget.email,
+                    };
+
+                    if (await AccountManager().updateInfo(updateData)&& _isFormChanged) {
+                      setState(() {
+                        _firstNameController.text = _isFieldChanged(_firstName, widget.firstName) ? _firstName : widget.firstName;
+                        _lastNameController.text = _isFieldChanged(_lastName, widget.lastName) ? _lastName : widget.lastName;
+                        _userNameController.text = _isFieldChanged(_userName, widget.userName) ? _userName : widget.userName;
+                        _emailController.text = _isFieldChanged(_email, widget.email) ? _email : widget.email;
+                        _phoneNumberController.text = _isFieldChanged(_phoneNumber, widget.phoneNumber) ? _phoneNumber : widget.phoneNumber;
+                        _isFormChanged = false;
+                      });
+                    }
                   }
                 },
               ),
