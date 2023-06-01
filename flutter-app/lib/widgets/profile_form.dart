@@ -45,7 +45,6 @@ class _ProfileFormState extends State<ProfileForm> {
   String _userName = "";
   String _email = "";
   String _phoneNumber = "";
-
   bool _isFormChanged = false;
   String _warningMessage = "";
 
@@ -61,6 +60,14 @@ class _ProfileFormState extends State<ProfileForm> {
 
   bool _isFieldChanged(String currentValue, String previousValue) {
     return currentValue.isNotEmpty && currentValue != previousValue;
+  }
+
+  bool _isAnyFiledChanged() {
+    return _isFieldChanged(_firstName, widget.firstName) ||
+        _isFieldChanged(_lastName, widget.lastName) ||
+        _isFieldChanged(_userName, widget.userName) ||
+        _isFieldChanged(_email, widget.email) ||
+        _isFieldChanged(_phoneNumber, widget.phoneNumber);
   }
 
   bool _isFirstNameValid(String firstName) {
@@ -206,7 +213,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 onChanged: (value) {
                   setState(() {
                     _firstName = value;
-                    _isFormChanged = _isFieldChanged(value, widget.firstName);
+                    _isFormChanged = _isAnyFiledChanged();
                     _warningMessage = "";
                   });
                 },
@@ -220,7 +227,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 onChanged: (value) {
                   setState(() {
                     _lastName = value;
-                    _isFormChanged = _isFieldChanged(value, widget.lastName);
+                    _isFormChanged = _isAnyFiledChanged();
                     _warningMessage = "";
                   });
                 },
@@ -234,7 +241,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 onChanged: (value) {
                   setState(() {
                     _userName = value;
-                    _isFormChanged = _isFieldChanged(value, widget.userName);
+                    _isFormChanged = _isAnyFiledChanged();
                     _warningMessage = "";
                   });
                 },
@@ -248,7 +255,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 onChanged: (value) {
                   setState(() {
                     _email = value;
-                    _isFormChanged = _isFieldChanged(value, widget.email);
+                    _isFormChanged = _isAnyFiledChanged();
                     _warningMessage = "";
                   });
                 },
@@ -262,7 +269,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 onChanged: (value) {
                   setState(() {
                     _phoneNumber = value;
-                    _isFormChanged = _isFieldChanged(value, widget.phoneNumber);
+                    _isFormChanged = _isAnyFiledChanged();
                     _warningMessage = "";
                   });
                 },
