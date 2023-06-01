@@ -25,6 +25,7 @@ class ClientUpdateProfilePage extends StatelessWidget {
         onTap: () {
           print("update picture btn pressed in client");
         },
+          roleEndpoint: "client"
       ),
     );
   }

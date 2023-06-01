@@ -2,6 +2,7 @@ import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:carvice_frontend/routes/routes.dart';
 
 import '../utils/main.colors.dart';
 import 'button.dart';
@@ -14,6 +15,7 @@ class ProfileForm extends StatefulWidget {
   final String email;
   final String phoneNumber;
   final VoidCallback onTap;
+  final String roleEndpoint;
 
   const ProfileForm({
     Key? key,
@@ -24,6 +26,7 @@ class ProfileForm extends StatefulWidget {
     required this.userName,
     required this.email,
     required this.phoneNumber,
+    required this.roleEndpoint,
   }) : super(key: key);
 
   @override
@@ -44,6 +47,7 @@ class _ProfileFormState extends State<ProfileForm> {
   String _phoneNumber = "";
 
   bool _isFormChanged = false;
+  String _warningMessage = "";
 
   @override
   void initState() {
@@ -59,20 +63,49 @@ class _ProfileFormState extends State<ProfileForm> {
     return currentValue.isNotEmpty && currentValue != previousValue;
   }
 
+  bool _isFirstNameValid(String firstName) {
+    return RegExp(r'^[a-zA-Z]+$').hasMatch(firstName);
+  }
+
+  bool _isLastNameValid(String lastName) {
+    return RegExp(r'^[a-zA-Z]+$').hasMatch(lastName);
+  }
+
+  bool _isPhoneNumberValid(String phoneNumber) {
+    // Check if the phone number matches the Turkish phone number format
+    // Example pattern: r'^\+?9[0-9]{10}$'
+    return RegExp(r'^\+?9[0-9]{10}$').hasMatch(phoneNumber);
+  }
+
+
+  bool _isEmailValid(String email) {
+    return RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$').hasMatch(email);
+  }
+
+
+  void _showWarningMessage(String message) {
+    setState(() {
+      _warningMessage = message;
+    });
+  }
+
   Future<void> _showSuccessAlert() async {
-    return showDialog<void>(
+    await showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Success', style: TextStyle(
-              color: Colors.green
-          ),),
+          title: const Text('Success', style: TextStyle(color: Colors.green)),
           content: const Text('User information updated successfully.'),
           actions: <Widget>[
             CustomButton(
-              btnText:  'OK',
+              btnText: 'OK',
               onTap: () {
-                Navigator.of(context).pop();
+                if (widget.roleEndpoint == "client"){
+                  Get.offAllNamed(Routers.getUserProfileRoute());
+                }
+                else if  (widget.roleEndpoint == "mechanic"){
+                  Get.offAllNamed(Routers.getMechanicUserProfileRoute());
+                }
               },
             ),
           ],
@@ -86,13 +119,14 @@ class _ProfileFormState extends State<ProfileForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Failed to Update', style: TextStyle(
-            color: Colors.red
-          ),),
+          title: const Text(
+            'Failed to Update',
+            style: TextStyle(color: Colors.red),
+          ),
           content: const Text('Sorry, an error occurred while updating user information.'),
           actions: <Widget>[
             CustomButton(
-              btnText:  'OK',
+              btnText: 'OK',
               onTap: () {
                 Navigator.of(context).pop();
               },
@@ -154,6 +188,16 @@ class _ProfileFormState extends State<ProfileForm> {
                 ),
               ),
               const SizedBox(height: 50),
+              if (_warningMessage.isNotEmpty)
+                Container(
+                  width: double.infinity,
+                  color: Colors.orangeAccent,
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    _warningMessage,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
               CustomTextFiled(
                 controller: _firstNameController,
                 hintText: 'firstName'.tr,
@@ -163,6 +207,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   setState(() {
                     _firstName = value;
                     _isFormChanged = _isFieldChanged(value, widget.firstName);
+                    _warningMessage = "";
                   });
                 },
               ),
@@ -176,6 +221,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   setState(() {
                     _lastName = value;
                     _isFormChanged = _isFieldChanged(value, widget.lastName);
+                    _warningMessage = "";
                   });
                 },
               ),
@@ -189,6 +235,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   setState(() {
                     _userName = value;
                     _isFormChanged = _isFieldChanged(value, widget.userName);
+                    _warningMessage = "";
                   });
                 },
               ),
@@ -202,6 +249,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   setState(() {
                     _email = value;
                     _isFormChanged = _isFieldChanged(value, widget.email);
+                    _warningMessage = "";
                   });
                 },
               ),
@@ -215,6 +263,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   setState(() {
                     _phoneNumber = value;
                     _isFormChanged = _isFieldChanged(value, widget.phoneNumber);
+                    _warningMessage = "";
                   });
                 },
               ),
@@ -224,22 +273,62 @@ class _ProfileFormState extends State<ProfileForm> {
                 isDisabled: !_isFormChanged, // disable the button if form is not changed
                 onTap: () async {
                   if (_isFormChanged) {
+                    if (!_isFirstNameValid(_firstName) && _isFieldChanged(_firstName, widget.firstName)) {
+                      _showWarningMessage('Please enter a valid first name');
+                      return;
+                    }
+
+                    if (!_isLastNameValid(_lastName) && _isFieldChanged(_lastName, widget.lastName)) {
+                      _showWarningMessage('Please enter a valid last name');
+                      return;
+                    }
+
+                    if (!_isPhoneNumberValid(_phoneNumber)&& _isFieldChanged(_phoneNumber, widget.phoneNumber)) {
+                      _showWarningMessage('Please enter a valid phone number');
+                      return;
+                    }
+
+                    if (!_isEmailValid(_email)&& _isFieldChanged(_email, widget.email)) {
+                      _showWarningMessage('Please enter a valid email address');
+                      return;
+                    }
+
                     final updateData = {
                       "id": token!['id'].toString(),
-                      "first_name": _isFieldChanged(_firstName, widget.firstName) ? _firstName : widget.firstName,
-                      "last_name": _isFieldChanged(_lastName, widget.lastName) ? _lastName : widget.lastName,
-                      "username": _isFieldChanged(_userName, widget.userName) ? _userName : widget.userName,
-                      "phone_number": _isFieldChanged(_phoneNumber, widget.phoneNumber) ? _phoneNumber : widget.phoneNumber,
-                      "email": _isFieldChanged(_email, widget.email) ? _email : widget.email,
+                      "first_name": _isFieldChanged(_firstName, widget.firstName)
+                          ? _firstName
+                          : widget.firstName,
+                      "last_name": _isFieldChanged(_lastName, widget.lastName)
+                          ? _lastName
+                          : widget.lastName,
+                      "username": _isFieldChanged(_userName, widget.userName)
+                          ? _userName
+                          : widget.userName,
+                      "phone_number": _isFieldChanged(_phoneNumber, widget.phoneNumber)
+                          ? _phoneNumber
+                          : widget.phoneNumber,
+                      "email": _isFieldChanged(_email, widget.email)
+                          ? _email
+                          : widget.email,
                     };
 
                     if (await AccountManager().updateInfo(updateData) && _isFormChanged) {
                       setState(() {
-                        _firstNameController.text = _isFieldChanged(_firstName, widget.firstName) ? _firstName : widget.firstName;
-                        _lastNameController.text = _isFieldChanged(_lastName, widget.lastName) ? _lastName : widget.lastName;
-                        _userNameController.text = _isFieldChanged(_userName, widget.userName) ? _userName : widget.userName;
-                        _emailController.text = _isFieldChanged(_email, widget.email) ? _email : widget.email;
-                        _phoneNumberController.text = _isFieldChanged(_phoneNumber, widget.phoneNumber) ? _phoneNumber : widget.phoneNumber;
+                        _firstNameController.text = _isFieldChanged(_firstName, widget.firstName)
+                            ? _firstName
+                            : widget.firstName;
+                        _lastNameController.text = _isFieldChanged(_lastName, widget.lastName)
+                            ? _lastName
+                            : widget.lastName;
+                        _userNameController.text = _isFieldChanged(_userName, widget.userName)
+                            ? _userName
+                            : widget.userName;
+                        _emailController.text = _isFieldChanged(_email, widget.email)
+                            ? _email
+                            : widget.email;
+                        _phoneNumberController.text = _isFieldChanged(_phoneNumber, widget.phoneNumber)
+                            ? _phoneNumber
+                            : widget.phoneNumber;
                         _isFormChanged = false;
                       });
 

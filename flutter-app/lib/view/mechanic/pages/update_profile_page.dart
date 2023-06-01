@@ -26,6 +26,7 @@ class MechanicUpdateProfilePage extends StatelessWidget {
           // TODO: Add save functionality here
           print("save updates btn pressed in mechanic");
         },
+          roleEndpoint: "mechanic"
       ),
     );
   }
