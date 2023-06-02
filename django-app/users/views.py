@@ -8,6 +8,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.views import APIView
 from .serializers import UserSerializer, CarSerializer
 from django.contrib.auth import get_user_model
+from .models import Car
 
 # Create your views here.
 User = get_user_model()
@@ -160,7 +161,7 @@ class UpdateUserInfo(APIView):
             return Response({"message": "failure"})
 
 
-class CarInfo(APIView):
+class AddCar(APIView):
     @staticmethod
     def post(request) -> Response:
         print(f"{request.data = }")
@@ -170,3 +171,13 @@ class CarInfo(APIView):
         # serializer.save()
         return Response(serializer.data)
 
+
+class GetCars(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"{request.data = }")
+        user_id = request.data.get("user_id")
+        user = User.objects.get(id=int(user_id))
+        car_list = Car.objects.filter(owner_id=user).values()
+        print(f"{car_list = }")
+        return Response({"cars": car_list})
