@@ -12,8 +12,8 @@ class AccountManager {
       Map<String, String> body, String roleEndpoint) async {
     print("Request body: $body");
     print("role : $roleEndpoint");
-    RequestHandler requestHandler = RequestHandler(
-        'http://$ip:8000/api/${roleEndpoint}/signin', body);
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/${roleEndpoint}/signin', body);
     var data = await requestHandler.getData();
     if (data.containsKey("jwt")) {
       token = JwtDecoder.decode(data['jwt']);
@@ -36,7 +36,7 @@ class AccountManager {
               .collection('users')
               .doc(data["id"].toString())
               .set({'username': data["username"]});
-              return true;
+          return true;
         }
       } on Exception catch (e) {
         print(e);
@@ -78,10 +78,6 @@ class AccountManager {
         RequestHandler('http://localhost:8000/api/carInfo', body);
     var data = await requestHandler.getData();
     print("car data :: $data");
-    // if (data.containsKey("jwt")) {
-    // token = JwtDecoder.decode(data['jwt']);
-    //   return true;
-    // }
     return true;
   }
 
