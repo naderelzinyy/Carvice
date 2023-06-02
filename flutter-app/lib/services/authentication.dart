@@ -68,4 +68,17 @@ class AccountManager {
     }
     return false;
   }
+
+  Future<bool> addCar(Map<String, String> body) async {
+    print(body);
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/carInfo', body);
+    var data = await requestHandler.getData();
+    print("car data :: $data");
+    // if (data.containsKey("jwt")) {
+    // token = JwtDecoder.decode(data['jwt']);
+    //   return true;
+    // }
+    return true;
+  }
 }
