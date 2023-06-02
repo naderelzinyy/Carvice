@@ -87,8 +87,8 @@ class AccountManager {
         {"user_id": token!["id"].toString()});
     var data = await requestHandler.getData();
     print("cars :: $data");
-    if (data.containsKey("message")) {
-      carsToken = data!["message"];
+    if (data.containsKey("cars")) {
+      carsToken = data!["cars"];
       return true;
     }
     return false;
