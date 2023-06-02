@@ -6,7 +6,7 @@ import jwt
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.views import APIView
-from .serializers import UserSerializer
+from .serializers import UserSerializer, CarSerializer
 from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -158,3 +158,15 @@ class UpdateUserInfo(APIView):
         except Exception as e:
             print(f"Failure due to the following exception :: {e}")
             return Response({"message": "failure"})
+
+
+class CarInfo(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"{request.data = }")
+        serializer = CarSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(validated_data=request.data)
+        # serializer.save()
+        return Response(serializer.data)
+

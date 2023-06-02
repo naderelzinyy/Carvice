@@ -11,5 +11,6 @@ urlpatterns = [
     path('signout', SignOutView.as_view()),
     path('user', UserView.as_view()),
     path('updateInfo', UpdateUserInfo.as_view()),
+    path('carInfo', CarInfo.as_view()),
 
 ]
