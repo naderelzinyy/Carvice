@@ -2,7 +2,14 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import SignupView, MechanicSignInView, ClientSignInView, UserView, SignOutView, UpdateUserInfo, CarInfo
+from .views import (SignupView,
+                    MechanicSignInView,
+                    ClientSignInView,
+                    UserView,
+                    SignOutView,
+                    UpdateUserInfo,
+                    AddCar,
+                    GetCars)
 
 urlpatterns = [
     path('signup', SignupView.as_view()),
