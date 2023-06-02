@@ -1,10 +1,9 @@
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+import '../services/authentication.dart';
 import '../utils/main.colors.dart';
 import 'button.dart';
-
 
 class CarsForm extends StatefulWidget {
   final bool update;
@@ -34,6 +33,16 @@ class _CarsFormState extends State<CarsForm> {
     final carEnginePower = _carEnginePowerController.text;
 
     // TODO: Save data to database
+    AccountManager().addCar({
+      "owner_id": token!['id'].toString(),
+      "brand": _carBrandController.text,
+      "series": _carSeriesController.text,
+      "model": _carModelController.text,
+      "year": _carYearController.text,
+      "gear": _carGearController.text,
+      "fuel": _carFuelController.text,
+      "engine_power": _carEnginePowerController.text,
+    });
   }
 
   @override
