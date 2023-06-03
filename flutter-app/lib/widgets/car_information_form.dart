@@ -34,7 +34,7 @@ class _CarsFormState extends State<CarsForm> {
 
     // TODO: Save data to database
     AccountManager().addCar({
-      "owner_id": token!['id'].toString(),
+      "owner": token!['id'].toString(),
       "brand": _carBrandController.text,
       "series": _carSeriesController.text,
       "model": _carModelController.text,
