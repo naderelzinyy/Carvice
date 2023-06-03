@@ -7,6 +7,7 @@ import '../../../routes/routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
+  static const route = "home_page";
 
   @override
   SplashPageState createState() => SplashPageState();

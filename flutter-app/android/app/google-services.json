@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1061336149300",
+    "project_id": "carvice-tr",
+    "storage_bucket": "carvice-tr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061336149300:android:efa9cf093bc329834bc961",
+        "android_client_info": {
+          "package_name": "com.example.carvice_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061336149300-p9m14dmf88g5fs0btq23m3jssel7p0da.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVpSSDNZ5gc0tL7CArP0CXas0vX-cqQXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061336149300-p9m14dmf88g5fs0btq23m3jssel7p0da.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

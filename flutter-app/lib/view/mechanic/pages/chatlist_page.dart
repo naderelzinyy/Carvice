@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/bottom_navigation.dart';
+import '../../general/pages/chat/chat_list_page.dart';
 
 
 
@@ -11,12 +13,12 @@ class MechanicChatListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      appBar: AppNavigation(title: "Chat List",),
-      body: Center(
-        child: Text('Chat screen'),
+    return Scaffold(
+      appBar: AppNavigation(title: 'chatList'.tr,),
+      body: const Center(
+        child: ChatHomePage(),
       ),
-      bottomNavigationBar: BottomNavigation(selectedIndex: 0, roleEndpoint: "mechanic"),
+      bottomNavigationBar: const BottomNavigation(selectedIndex: 0, roleEndpoint: "mechanic"),
     );
   }
 }

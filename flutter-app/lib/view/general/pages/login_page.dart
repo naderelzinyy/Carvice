@@ -3,16 +3,17 @@ import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../routes/routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.roleEndpoint}) : super(key: key);
   final String roleEndpoint;
 
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -31,7 +32,8 @@ class _LoginPageState extends State<LoginPage> {
   void updateButtonState() {
     // Enable button if both text fields are not empty, disable otherwise
     setState(() {
-      response = usernameController.text.isNotEmpty && passwordController.text.isNotEmpty;
+      response = usernameController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty;
     });
   }
 
@@ -65,11 +67,10 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-
               const SizedBox(height: 20),
-              const Text(
-                'Please Login To Your Account',
-                style: TextStyle(
+               Text(
+                'loginToYourAccount'.tr,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
@@ -78,29 +79,29 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 15),
               CustomTextFiled(
                   controller: usernameController,
-                  hintText: "username",
+                  hintText: 'username'.tr,
                   textInputType: TextInputType.name,
                   obscureText: false),
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: passwordController,
-                  hintText: "password",
+                  hintText:'password'.tr,
                   textInputType: TextInputType.text,
                   obscureText: true),
               const SizedBox(height: 20),
               CustomButton(
-                btnText: "Sign In",
+                btnText: 'signIn'.tr,
                 onTap: () async {
-                  response = await Authenticator().authenticate({
+                  response = await AccountManager().authenticate({
                     "username": usernameController.text,
                     "password": passwordController.text
                   }, roleEndpoint);
                   if (response) {
-                    if (roleEndpoint == "client"){
+                    if (roleEndpoint == "client") {
                       Get.offAllNamed(Routers.getClientHomePageRoute());
                     }
                     // make this more flexible to add new roles.
-                    else if (roleEndpoint == "mechanic"){
+                    else if (roleEndpoint == "mechanic") {
                       Get.offAllNamed(Routers.getMechanicHomePageRoute());
                     }
                   } else {
@@ -113,18 +114,18 @@ class _LoginPageState extends State<LoginPage> {
                   print(response);
                   print(text);
                 },
-                isDisabled:  !response,
+                isDisabled: !response,
               ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text("Forget your password?"),
+                   Text('forgotPassword'.tr),
                   InkWell(
                     onTap: () {
                       print("reset");
                     },
-                    child: const Text(" Reset Password"),
+                    child:Text('resetPassword'.tr),
                   )
                 ],
               ),
@@ -138,12 +139,12 @@ class _LoginPageState extends State<LoginPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Don't have an account?"),
+               Text('noAccount'.tr),
               InkWell(
                 onTap: () {
                   Get.offAllNamed(Routers.getSignupPageRoute(roleEndpoint));
                 },
-                child: const Text(" Sign Up"),
+                child: Text('signUp'.tr),
               ),
             ],
           )),

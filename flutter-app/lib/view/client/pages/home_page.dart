@@ -4,8 +4,6 @@ import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 
-import '../../../widgets/map_widget/map_page.dart';
-
 
 class ClientHomePage extends StatelessWidget {
   const ClientHomePage({super.key});
@@ -14,10 +12,10 @@ class ClientHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: AppNavigation(title: "Carvice",),
-      endDrawer: SideBarGlobal(),
+      endDrawer: SideBarGlobal(showMyCars: true),
 
-      body: Center(
-        child: MapTrackingPage(),
+        body: Center(
+        child: Text('My App client'),
       ),
       bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "client",),
     );
