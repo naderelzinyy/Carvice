@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:carvice_frontend/widgets/map_widget/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
 class MapTrackingPage extends StatefulWidget {
   const MapTrackingPage({Key? key}) : super(key: key);
@@ -18,23 +18,48 @@ class MapTrackingPageState extends State<MapTrackingPage> {
 
   static const LatLng sourceLocation = LatLng(40.990809, 28.796582);
   static const LatLng destination = LatLng(40.974768, 28.719443);
-  LocationData? locationData;
+  Position? currentPosition;
   List<LatLng> polylineCords = [];
 
-  void getCurrentLocation() {
-    Location location = Location();
-    location.getLocation().then((location) {
-      locationData = location;
+  void getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return;
+    }
+
+    // Request location permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return;
+      }
+    }
+
+    // Get current location
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+        forceAndroidLocationManager: true);
+
+    setState(() {
+      currentPosition = position;
     });
   }
 
-  void getPolyLinePoints() async {
+  void getPolylinePoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult polylineResult =
         await polylinePoints.getRouteBetweenCoordinates(
-            google_api_key,
-            PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-            PointLatLng(destination.latitude, destination.longitude));
+      google_api_key,
+      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+      PointLatLng(destination.latitude, destination.longitude),
+    );
+
     if (polylineResult.points.isNotEmpty) {
       polylineResult.points.forEach((PointLatLng pointLatLng) => polylineCords
           .add(LatLng(pointLatLng.latitude, pointLatLng.longitude)));
@@ -44,8 +69,8 @@ class MapTrackingPageState extends State<MapTrackingPage> {
 
   @override
   void initState() {
-    // getCurrentLocation();
-    getPolyLinePoints();
+    getCurrentLocation();
+    getPolylinePoints();
     super.initState();
   }
 
@@ -53,18 +78,30 @@ class MapTrackingPageState extends State<MapTrackingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        initialCameraPosition:
-            const CameraPosition(target: sourceLocation, zoom: 13),
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            currentPosition?.latitude ?? sourceLocation.latitude,
+            currentPosition?.longitude ?? sourceLocation.longitude,
+          ),
+          zoom: 13,
+        ),
         polylines: {
           Polyline(
-              polylineId: const PolylineId("route"),
-              points: polylineCords,
-              color: primaryColor,
-              width: 5)
+            polylineId: PolylineId("route"),
+            points: polylineCords,
+            color: primaryColor,
+            width: 5,
+          ),
         },
         markers: {
           const Marker(markerId: MarkerId("source"), position: sourceLocation),
-          const Marker(markerId: MarkerId("destination"), position: destination)
+          const Marker(
+              markerId: MarkerId("destination"), position: destination),
+        },
+        myLocationEnabled: true,
+        myLocationButtonEnabled: true,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
         },
       ),
     );
