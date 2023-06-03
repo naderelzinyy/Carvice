@@ -21,7 +21,6 @@ class User(AbstractUser):
 
 
 class Car(models.Model):
-    id = models.IntegerField(primary_key=True, auto_created=True)
     owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     brand = models.CharField(max_length=255)
     series = models.CharField(max_length=255)
