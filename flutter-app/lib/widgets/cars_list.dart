@@ -65,13 +65,7 @@ class CustomItemList extends StatelessWidget {
                           height: 120,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: list[index].picUrl != null &&
-                                    list[index].picUrl != ""
-                                ? Image.network(
-                                    list[index].picUrl!,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.asset(
+                            child: Image.asset(
                                     'assets/images/car_avatar.jpeg',
                                     fit: BoxFit.cover,
                                   ),
@@ -108,8 +102,7 @@ class CustomItemList extends StatelessWidget {
 
 class MyListItem {
   final String name;
-  final String? picUrl;
   final String carID;
 
-  MyListItem({required this.name, required this.carID, this.picUrl});
+  MyListItem({required this.name, required this.carID});
 }
