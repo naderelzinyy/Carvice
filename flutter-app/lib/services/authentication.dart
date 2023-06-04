@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
-List<Map<Object, dynamic>>? carsToken;
 
 String ip = "localhost"; // Enter your IP here to allow multiple emulators
 
@@ -81,16 +80,15 @@ class AccountManager {
     return true;
   }
 
-  Future<bool> getCars() async {
+  Future<List<dynamic>> getCars() async {
     RequestHandler requestHandler = RequestHandler(
         'http://localhost:8000/api/getCars',
         {"user_id": token!["id"].toString()});
     var data = await requestHandler.getData();
     print("cars :: $data");
     if (data.containsKey("cars")) {
-      carsToken = data!["cars"];
-      return true;
+      return data!["cars"];
     }
-    return false;
+    return [];
   }
 }
