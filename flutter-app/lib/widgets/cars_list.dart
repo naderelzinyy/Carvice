@@ -104,6 +104,7 @@ class CustomItemList extends StatelessWidget {
 class MyListItem {
   final String name;
   final String? picUrl;
+  final String carID;
 
-  MyListItem({required this.name, this.picUrl});
+  MyListItem({required this.name, required this.carID, this.picUrl});
 }
