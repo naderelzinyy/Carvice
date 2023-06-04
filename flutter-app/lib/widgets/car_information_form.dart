@@ -108,53 +108,10 @@ class _CarsFormState extends State<CarsForm> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.only(top: 80, left: 35, right: 35),
+          padding: const EdgeInsets.only(top: 20, left: 35, right: 35),
           child: Column(
             children: [
-              SizedBox(
-                width: 110,
-                height: 110,
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.asset(
-                          'assets/images/profile.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: MainColors.mainColor,
-                          ),
-                          child: IconButton(
-                            onPressed: () {
-                              // TODO: Add save functionality here
-                              print("save updates btn pressed in client");
-                            },
-                            icon: const Icon(Icons.edit),
-                            color: Colors.white,
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               CustomTextFiled(
                 controller: _carBrandController,
                 hintText: 'enterCarBrand'.tr,
