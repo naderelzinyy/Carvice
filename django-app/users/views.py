@@ -180,3 +180,24 @@ class GetCars(APIView):
         car_list = Car.objects.filter(owner_id=user).values()
         print(f"{car_list = }")
         return Response({"cars": car_list})
+
+
+class UpdateCarInfo(APIView):
+    @staticmethod
+    def post(request) -> Union[str, Response]:
+        print(f"update post :: {request.data = }")
+        try:
+            car = Car.objects.get(id=request.data.get("car_id"))
+            car.owner = request.data.get("owner", car.owner)
+            car.plate_number = request.data.get("plate_number", car.plate_number)
+            car.brand = request.data.get("brand", car.brand)
+            car.series = request.data.get("series", car.series)
+            car.model = request.data.get("model", car.model)
+            car.year = request.data.get("year", car.year)
+            car.fuel = request.data.get("fuel", car.fuel)
+            car.engine_power = request.data.get("engine_power", car.engine_power)
+            car.save()
+            return Response(data={"message": "success"})
+        except Exception as e:
+            print(f"Failure due to the following exception :: {e}")
+            return Response(data={"message": "failure"})

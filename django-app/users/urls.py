@@ -9,7 +9,8 @@ from .views import (SignupView,
                     SignOutView,
                     UpdateUserInfo,
                     AddCar,
-                    GetCars)
+                    GetCars,
+                    UpdateCarInfo)
 
 urlpatterns = [
     path('signup', SignupView.as_view()),
@@ -20,5 +21,6 @@ urlpatterns = [
     path('updateInfo', UpdateUserInfo.as_view()),
     path('addCar', AddCar.as_view()),
     path('getCars', GetCars.as_view()),
+    path('updateCar', UpdateCarInfo.as_view()),
 
 ]
