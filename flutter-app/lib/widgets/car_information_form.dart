@@ -17,6 +17,7 @@ class CarsForm extends StatefulWidget {
 
 class _CarsFormState extends State<CarsForm> {
   final _carBrandController = TextEditingController();
+  final _carPlateController = TextEditingController();
   final _carSeriesController = TextEditingController();
   final _carModelController = TextEditingController();
   final _carYearController = TextEditingController();
@@ -98,6 +99,12 @@ class _CarsFormState extends State<CarsForm> {
                   obscureText: false),
               const SizedBox(height: 16.0),
               CustomTextFiled(
+                  controller: _carPlateController,
+                  hintText: 'enterPlateNumber'.tr,
+                  textInputType: TextInputType.text,
+                  obscureText: false),
+              const SizedBox(height: 16.0),
+              CustomTextFiled(
                   controller: _carSeriesController,
                   hintText: 'enterCarSeries'.tr,
                   textInputType: TextInputType.text,
@@ -144,6 +151,7 @@ class _CarsFormState extends State<CarsForm> {
                       AccountManager().addCar({
                         "owner": token!['id'].toString(),
                         "brand": _carBrandController.text,
+                        "plate_number": _carPlateController.text,
                         "series": _carSeriesController.text,
                         "model": _carModelController.text,
                         "year": _carYearController.text,
