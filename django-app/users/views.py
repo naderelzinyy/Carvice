@@ -201,3 +201,14 @@ class UpdateCarInfo(APIView):
         except Exception as e:
             print(f"Failure due to the following exception :: {e}")
             return Response(data={"message": "failure"})
+
+
+class DeleteCar(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"{request.data = }")
+        try:
+            Car.objects.get(id=int(request.data.get("car_id"))).delete()
+            return Response({"message": "success"})
+        except Exception as e:
+            return Response({"message": "failure"})
