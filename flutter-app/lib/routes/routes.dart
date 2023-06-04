@@ -146,7 +146,8 @@ class Routers {
       name: editCarPage,
       page: ()  {
       var carID = Get.parameters['carID'];
-  return EditCarPage(carID: carID.toString());},
+          return EditCarPage(carID: carID.toString());
+          },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
