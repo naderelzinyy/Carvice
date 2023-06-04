@@ -94,10 +94,10 @@ class AboutUsPage extends StatelessWidget {
       bottomNavigationBar: Container(
           height: 80,
           alignment: Alignment.center,
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
 
-            children: [
+            children: const [
               Text(
                 "Made with ♥ by Carvice team",
               ),
