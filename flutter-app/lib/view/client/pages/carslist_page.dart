@@ -15,19 +15,24 @@ class CarsListPage extends StatefulWidget {
 }
 
 class CarsListPageState extends State<CarsListPage> {
-  Future<List<dynamic>> carsToken = AccountManager().getCars();
-  final List<MyListItem> _carsList = [
-    MyListItem(
-      name: 'Item 1',
-      picUrl: 'https://picsum.photos/200/300',
-    ),
-    MyListItem(
-      name: 'Item 2',
-    ),
-    MyListItem(
-      name: 'Item 3',
-    ),
-  ];
+  List<MyListItem> _carsList = [];
+  final AccountManager _accountManager = AccountManager();
+  void getCarsList() async {
+    List<dynamic> carsData = await _accountManager.getCars();
+    setState(() {
+      _carsList = carsData
+          .map((item) => MyListItem(
+          name: item["plate_number"],
+        carID: item["id"].toString()
+      ))
+          .toList();
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    getCarsList();
+  }
 
   @override
   Widget build(BuildContext context) {
