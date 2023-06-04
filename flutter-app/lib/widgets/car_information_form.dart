@@ -24,28 +24,6 @@ class _CarsFormState extends State<CarsForm> {
   final _carGearController = TextEditingController();
   final _carEnginePowerController = TextEditingController();
 
-  void _submitForm() {
-    final carBrand = _carBrandController.text;
-    final carSeries = _carSeriesController.text;
-    final carModel = _carModelController.text;
-    final carYear = _carYearController.text;
-    final carFuel = _carFuelController.text;
-    final carGear = _carGearController.text;
-    final carEnginePower = _carEnginePowerController.text;
-
-    // TODO: Save data to database
-    AccountManager().addCar({
-      "owner": token!['id'].toString(),
-      "brand": _carBrandController.text,
-      "series": _carSeriesController.text,
-      "model": _carModelController.text,
-      "year": _carYearController.text,
-      "gear": _carGearController.text,
-      "fuel": _carFuelController.text,
-      "engine_power": _carEnginePowerController.text,
-    });
-  }
-
   @override
   void initState() {
     super.initState();
