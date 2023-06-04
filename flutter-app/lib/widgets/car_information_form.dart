@@ -8,8 +8,9 @@ import 'package:get/get.dart';
 
 class CarsForm extends StatefulWidget {
   final bool update;
+  final String? carId;
 
-  const CarsForm({Key? key, required this.update}) : super(key: key);
+  const CarsForm({Key? key, required this.update,  this.carId}) : super(key: key);
 
   @override
   _CarsFormState createState() => _CarsFormState();
