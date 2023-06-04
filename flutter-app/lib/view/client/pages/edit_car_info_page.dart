@@ -7,8 +7,8 @@ import '../../../widgets/app_navigation.dart';
 
 
 class EditCarPage extends StatelessWidget {
-  const EditCarPage({Key? key}) : super(key: key);
-
+  const EditCarPage({Key? key, required this.carID}) : super(key: key);
+  final String carID;
 
   @override
   Widget build(BuildContext context) {
