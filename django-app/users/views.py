@@ -168,8 +168,7 @@ class AddCar(APIView):
         serializer = CarSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(validated_data=request.data)
-        # serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.error_response or serializer.data)
 
 
 class GetCars(APIView):

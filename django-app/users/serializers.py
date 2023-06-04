@@ -1,3 +1,6 @@
+from typing import Union
+
+from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
 
@@ -24,21 +27,24 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CarSerializer(serializers.ModelSerializer):
     owner = PrimaryKeyRelatedField(queryset=User.objects.all())
+    error_response = None
 
     class Meta:
         model = Car
         fields = "__all__"
 
-    def save(self, validated_data) -> Car:
+    def save(self, validated_data) -> Union[dict[str, str], Car, None]:
         """Handles possible extra operations in car creation."""
-        print("create car serializer starts")
-        car_instance = None
         try:
             validated_data['owner'] = User.objects.get(id=validated_data.get('owner', None))
             validated_data['plate_number'] = validated_data.get("plate_number", None).upper()
             car_instance = self.Meta.model(**validated_data)
             print(f"{validated_data = }")
             car_instance.save()
+            return car_instance
+        except IntegrityError:
+            self.error_response = {"message": "plate number exists"}
         except Exception as e:
             print(f"{e = }")
-        return car_instance
+            self.error_response = {"message": "couldn't add the car"}
+
