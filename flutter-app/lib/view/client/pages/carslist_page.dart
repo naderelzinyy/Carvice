@@ -1,3 +1,4 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -5,8 +6,6 @@ import '../../../routes/routes.dart';
 import '../../../widgets/button.dart';
 import '../../../widgets/cars_list.dart';
 import 'package:get/get.dart';
-
-
 
 class CarsListPage extends StatefulWidget {
   const CarsListPage({Key? key}) : super(key: key);
@@ -16,6 +15,7 @@ class CarsListPage extends StatefulWidget {
 }
 
 class CarsListPageState extends State<CarsListPage> {
+  Future<List<dynamic>> carsToken = AccountManager().getCars();
   final List<MyListItem> _carsList = [
     MyListItem(
       name: 'Item 1',
