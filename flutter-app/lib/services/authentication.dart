@@ -94,4 +94,19 @@ class AccountManager {
     }
     return [];
   }
+
+  Future<bool> deleteCar(Map<String, String> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/deleteCar', body);
+    print(token!["id"].toString());
+    var data = await requestHandler.getData();
+    if (data.containsKey("message")) {
+      if (data["message"] == "success") {
+        print("Deleted");
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 }

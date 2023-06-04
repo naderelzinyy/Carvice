@@ -1,3 +1,4 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/routes.dart';
@@ -29,16 +30,19 @@ class CustomItemList extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          onDismissed: (direction) {
+          onDismissed: (direction) async {
             // Remove the item from the data source.
-            list.removeAt(index);
+            if (await AccountManager()
+                .deleteCar({"car_id": list[index].carID})) {
+              list.removeAt(index);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('itemDeleted'.tr),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
             // Show a snackbar to notify the user that the item has been removed.
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('itemDeleted'.tr),
-                duration: const Duration(seconds: 2),
-              ),
-            );
           },
           child: GestureDetector(
             onTap: () {
@@ -46,7 +50,7 @@ class CustomItemList extends StatelessWidget {
             },
             child: ListTile(
               contentPadding:
-              const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
               leading: SizedBox(
                 height: 90,
                 width: 60,
@@ -61,15 +65,15 @@ class CustomItemList extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
                             child: list[index].picUrl != null &&
-                                list[index].picUrl != ""
+                                    list[index].picUrl != ""
                                 ? Image.network(
-                              list[index].picUrl!,
-                              fit: BoxFit.cover,
-                            )
+                                    list[index].picUrl!,
+                                    fit: BoxFit.cover,
+                                  )
                                 : Image.asset(
-                              'assets/images/car_avatar.jpeg',
-                              fit: BoxFit.cover,
-                            ),
+                                    'assets/images/car_avatar.jpeg',
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ],
