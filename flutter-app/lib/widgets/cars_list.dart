@@ -34,7 +34,7 @@ class CustomItemList extends StatelessWidget {
             list.removeAt(index);
             // Show a snackbar to notify the user that the item has been removed.
             ScaffoldMessenger.of(context).showSnackBar(
-               SnackBar(
+              SnackBar(
                 content: Text('itemDeleted'.tr),
                 duration: const Duration(seconds: 2),
               ),
@@ -42,11 +42,11 @@ class CustomItemList extends StatelessWidget {
           },
           child: GestureDetector(
             onTap: () {
-              Get.toNamed(Routers.getEditCarPageRoute());
+              Get.toNamed(Routers.getEditCarPageRoute(list[index].carID));
             },
-
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+              contentPadding:
+              const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
               leading: SizedBox(
                 height: 90,
                 width: 60,
@@ -54,29 +54,27 @@ class CustomItemList extends StatelessWidget {
                   padding: const EdgeInsets.all(1.0),
                   child: SizedBox(
                     child: Stack(
-                  children: [
-                  SizedBox(
-                  width: 120,
-                    height: 120,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: list[index].picUrl != null && list[index].picUrl != ""
-                          ? Image.network(
-                        list[index].picUrl!,
-                        fit: BoxFit.cover,
-                      )
-                          : Image.asset(
-                        'assets/images/car_avatar.jpeg',
-                        fit: BoxFit.cover,
-
-                      ),
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: list[index].picUrl != null &&
+                                list[index].picUrl != ""
+                                ? Image.network(
+                              list[index].picUrl!,
+                              fit: BoxFit.cover,
+                            )
+                                : Image.asset(
+                              'assets/images/car_avatar.jpeg',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  ],
-                    ),
-                  ),
-
-
                 ),
               ),
               title: Text(
@@ -89,7 +87,10 @@ class CustomItemList extends StatelessWidget {
               trailing: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.arrow_forward_ios, size: 20,),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 20,
+                  ),
                 ],
               ),
             ),
