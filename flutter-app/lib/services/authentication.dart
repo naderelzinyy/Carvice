@@ -110,3 +110,17 @@ class AccountManager {
     return false;
   }
 }
+
+Future<bool> updateCar(Map<String, String> body) async {
+  print(body);
+  RequestHandler requestHandler =
+      RequestHandler('http://localhost:8000/api/updateCar', body);
+  var data = await requestHandler.getData();
+  if (data.containsKey("message")) {
+    if (data["message"] == "success") {
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
