@@ -35,6 +35,7 @@ class CarSerializer(serializers.ModelSerializer):
         car_instance = None
         try:
             validated_data['owner'] = User.objects.get(id=validated_data.get('owner', None))
+            validated_data['plate_number'] = validated_data.get("plate_number", None).upper()
             car_instance = self.Meta.model(**validated_data)
             print(f"{validated_data = }")
             car_instance.save()

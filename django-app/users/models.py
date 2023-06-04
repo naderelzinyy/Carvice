@@ -22,6 +22,7 @@ class User(AbstractUser):
 
 class Car(models.Model):
     owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    plate_number = models.CharField(max_length=255, unique=True, default="undefined")
     brand = models.CharField(max_length=255)
     series = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
