@@ -27,7 +27,7 @@ const Map<String, String> tr = {
   'paymentMethod': 'Ödeme Yöntemi',
   'wallet': 'Cüzdan',
   'myCars': 'Arabalarım',
-  'editMyCar': 'Edit My Car',
+  'editMyCar': 'Aracımı Düzenle',
   'language': 'Dil',
   'supportAndHelp': 'Destek ve Yardım',
   'aboutUs': 'Hakkımızda',

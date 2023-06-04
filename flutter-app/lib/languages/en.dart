@@ -27,7 +27,7 @@ const Map<String, String> en = {
   'paymentMethod': 'Payment Method',
   'wallet': 'Wallet',
   'myCars': 'My Cars',
-  'editMyCar': 'Aracımı Düzenle',
+  'editMyCar': 'Edit My Car',
   'language': 'Language',
   'supportAndHelp': 'Support and Help',
   'aboutUs': 'About Us',
