@@ -46,7 +46,8 @@ class CustomItemList extends StatelessWidget {
           },
           child: GestureDetector(
             onTap: () {
-              Get.toNamed(Routers.getEditCarPageRoute(list[index].carID));
+              String carId = list[index].carID;
+              Get.toNamed(Routers.getEditCarPageRoute(carId));
             },
             child: ListTile(
               contentPadding:
