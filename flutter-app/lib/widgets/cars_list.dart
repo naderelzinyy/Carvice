@@ -83,7 +83,7 @@ class CustomItemList extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              trailing: Row(
+              trailing: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
