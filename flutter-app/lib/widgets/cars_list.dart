@@ -1,3 +1,4 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/routes.dart';
@@ -29,24 +30,28 @@ class CustomItemList extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          onDismissed: (direction) {
+          onDismissed: (direction) async {
             // Remove the item from the data source.
-            list.removeAt(index);
+            if (await AccountManager()
+                .deleteCar({"car_id": list[index].carID})) {
+              list.removeAt(index);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('itemDeleted'.tr),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
             // Show a snackbar to notify the user that the item has been removed.
-            ScaffoldMessenger.of(context).showSnackBar(
-               SnackBar(
-                content: Text('itemDeleted'.tr),
-                duration: const Duration(seconds: 2),
-              ),
-            );
           },
           child: GestureDetector(
             onTap: () {
-              Get.toNamed(Routers.getEditCarPageRoute());
+              String carId = list[index].carID;
+              Get.toNamed(Routers.getEditCarPageRoute(carId));
             },
-
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
               leading: SizedBox(
                 height: 90,
                 width: 60,
@@ -54,29 +59,21 @@ class CustomItemList extends StatelessWidget {
                   padding: const EdgeInsets.all(1.0),
                   child: SizedBox(
                     child: Stack(
-                  children: [
-                  SizedBox(
-                  width: 120,
-                    height: 120,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: list[index].picUrl != null && list[index].picUrl != ""
-                          ? Image.network(
-                        list[index].picUrl!,
-                        fit: BoxFit.cover,
-                      )
-                          : Image.asset(
-                        'assets/images/car_avatar.jpeg',
-                        fit: BoxFit.cover,
-
-                      ),
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.asset(
+                                    'assets/images/car_avatar.jpeg',
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  ],
-                    ),
-                  ),
-
-
                 ),
               ),
               title: Text(
@@ -86,10 +83,13 @@ class CustomItemList extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              trailing: Row(
+              trailing: const Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.arrow_forward_ios, size: 20,),
+                children: [
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 20,
+                  ),
                 ],
               ),
             ),
@@ -102,7 +102,7 @@ class CustomItemList extends StatelessWidget {
 
 class MyListItem {
   final String name;
-  final String? picUrl;
+  final String carID;
 
-  MyListItem({required this.name, this.picUrl});
+  MyListItem({required this.name, required this.carID});
 }
