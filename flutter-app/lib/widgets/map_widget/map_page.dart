@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:carvice_frontend/widgets/map_widget/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -22,7 +20,6 @@ class MapTrackingPageState extends State<MapTrackingPage> {
   static const LatLng sourceLocation = LatLng(40.990809, 28.796582);
   static const LatLng destination = LatLng(40.974768, 28.719443);
   Position? currentPosition;
-  List<LatLng> polylineCords = [];
 
   void getCurrentLocation() async {
     bool serviceEnabled;
@@ -54,26 +51,9 @@ class MapTrackingPageState extends State<MapTrackingPage> {
     });
   }
 
-  void getPolylinePoints() async {
-    PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult polylineResult =
-        await polylinePoints.getRouteBetweenCoordinates(
-      google_api_key,
-      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-      PointLatLng(destination.latitude, destination.longitude),
-    );
-
-    if (polylineResult.points.isNotEmpty) {
-      polylineResult.points.forEach((PointLatLng pointLatLng) => polylineCords
-          .add(LatLng(pointLatLng.latitude, pointLatLng.longitude)));
-      setState(() {});
-    }
-  }
-
   @override
   void initState() {
     getCurrentLocation();
-    getPolylinePoints();
     super.initState();
   }
 
@@ -90,14 +70,6 @@ class MapTrackingPageState extends State<MapTrackingPage> {
               ),
               zoom: 13,
             ),
-            polylines: {
-              Polyline(
-                polylineId: const PolylineId("route"),
-                points: polylineCords,
-                color: primaryColor,
-                width: 5,
-              ),
-            },
             markers: {
               const Marker(
                   markerId: MarkerId("source"), position: sourceLocation),
