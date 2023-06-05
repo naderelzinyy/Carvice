@@ -6,20 +6,24 @@ import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 
 import '../../../widgets/map_widget/map_page.dart';
 
-
 class MechanicHomePage extends StatelessWidget {
   const MechanicHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      appBar: AppNavigation(title: "Carvice",),
-      endDrawer: SideBarGlobal(),
-
-      body: Center(
-        child: MapTrackingPage(),
+    const bool isClient = false;
+    return const Scaffold(
+      appBar: AppNavigation(
+        title: "Carvice",
       ),
-      bottomNavigationBar: BottomNavigation(selectedIndex: 1, roleEndpoint: "mechanic",),
+      endDrawer: SideBarGlobal(),
+      body: Center(
+        child: MapTrackingPage(isClient),
+      ),
+      bottomNavigationBar: BottomNavigation(
+        selectedIndex: 1,
+        roleEndpoint: "mechanic",
+      ),
     );
   }
 }
