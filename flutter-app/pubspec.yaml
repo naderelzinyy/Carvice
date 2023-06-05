@@ -39,6 +39,9 @@ dependencies:
   get: ^4.6.5
   http: ^1.0.0
   jwt_decoder: ^2.0.1
+  google_maps_flutter: ^2.1.7
+  geolocator: ^9.0.2
+  flutter_svg: ^1.1.0
   animated_text_kit: ^4.2.2
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
@@ -68,6 +71,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/map_assets/
+    - assets/images/map_assets/icons/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
