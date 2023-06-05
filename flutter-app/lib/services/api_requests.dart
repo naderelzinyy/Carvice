@@ -9,8 +9,15 @@ class RequestHandler {
 
   Future getData() async {
     url = Uri.parse(url);
-
-    http.Response response = await http.post(url, body: body);
-    return jsonDecode(response.body);
+    try {
+      http.Response response =
+          await http.post(url, body: jsonEncode(body), headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json',
+      });
+      return jsonDecode(response.body);
+    } on Exception {
+      return {"message": "can't reach server"};
+    }
   }
 }

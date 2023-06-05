@@ -3,14 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
-String ip = "localhost" ; // Enter your IP here to allow multiple emulators
+List<dynamic>? carsData;
+
+String ip = "localhost"; // Enter your IP here to allow multiple emulators
+
 class AccountManager {
   Future<bool> authenticate(
       Map<String, String> body, String roleEndpoint) async {
     print("Request body: $body");
     print("role : $roleEndpoint");
-    RequestHandler requestHandler = RequestHandler(
-        'http://$ip:8000/api/${roleEndpoint}/signin', body);
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/${roleEndpoint}/signin', body);
     var data = await requestHandler.getData();
     if (data.containsKey("jwt")) {
       token = JwtDecoder.decode(data['jwt']);
@@ -33,7 +36,7 @@ class AccountManager {
               .collection('users')
               .doc(data["id"].toString())
               .set({'username': data["username"]});
-              return true;
+          return true;
         }
       } on Exception catch (e) {
         print(e);
@@ -65,6 +68,60 @@ class AccountManager {
     if (data.containsKey("jwt")) {
       token = JwtDecoder.decode(data['jwt']);
       return true;
+    }
+    return false;
+  }
+
+  Future<bool> addCar(Map<String, String> body) async {
+    print(body);
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/addCar', body);
+    var data = await requestHandler.getData();
+    print("car data :: $data");
+    if (data.containsKey("owner")) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<dynamic>> getCars() async {
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/getCars',
+        {"user_id": token!["id"].toString()});
+    print(token!["id"].toString());
+    var data = await requestHandler.getData();
+    if (data.containsKey("cars")) {
+      carsData = data["cars"];
+      print("cars data :: $carsData");
+      return data["cars"] as List<dynamic>;
+    }
+    return [];
+  }
+
+  Future<bool> deleteCar(Map<String, String> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/deleteCar', body);
+    print(token!["id"].toString());
+    var data = await requestHandler.getData();
+    if (data.containsKey("message")) {
+      if (data["message"] == "success") {
+        print("Deleted");
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  Future<bool> updateCar(Map<String, String> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/updateCar', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("message")) {
+      if (data["message"] == "success") {
+        return true;
+      }
+      return false;
     }
     return false;
   }

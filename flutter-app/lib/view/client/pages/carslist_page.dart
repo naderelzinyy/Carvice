@@ -1,3 +1,4 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -5,8 +6,6 @@ import '../../../routes/routes.dart';
 import '../../../widgets/button.dart';
 import '../../../widgets/cars_list.dart';
 import 'package:get/get.dart';
-
-
 
 class CarsListPage extends StatefulWidget {
   const CarsListPage({Key? key}) : super(key: key);
@@ -16,18 +15,24 @@ class CarsListPage extends StatefulWidget {
 }
 
 class CarsListPageState extends State<CarsListPage> {
-  final List<MyListItem> _carsList = [
-    MyListItem(
-      name: 'Item 1',
-      picUrl: 'https://picsum.photos/200/300',
-    ),
-    MyListItem(
-      name: 'Item 2',
-    ),
-    MyListItem(
-      name: 'Item 3',
-    ),
-  ];
+  List<MyListItem> _carsList = [];
+  final AccountManager _accountManager = AccountManager();
+  void getCarsList() async {
+    List<dynamic> carsData = await _accountManager.getCars();
+    setState(() {
+      _carsList = carsData
+          .map((item) => MyListItem(
+          name: item["plate_number"],
+        carID: item["id"].toString()
+      ))
+          .toList();
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    getCarsList();
+  }
 
   @override
   Widget build(BuildContext context) {

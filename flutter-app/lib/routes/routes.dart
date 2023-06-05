@@ -53,7 +53,7 @@ class Routers {
   static String getClientUpdateProfilePageRoute() => clientUpdateUserProfilePage;
   static String getMechanicUpdateProfilePageRoute() => mechanicUpdateUserProfilePage;
   static String getCarsListPageRoute() => carsListPage;
-  static String getEditCarPageRoute() => editCarPage;
+  static String getEditCarPageRoute(String carID) => '$editCarPage?carID=$carID';
   static String getAddCarPageRoute() => addCarPage;
   static String getAboutUsPageRoute() => aboutUsPage;
 
@@ -144,7 +144,10 @@ class Routers {
     ),
     GetPage(
       name: editCarPage,
-      page: () => const   EditCarPage(),
+      page: ()  {
+      var carID = Get.parameters['carID'];
+          return EditCarPage(carID: carID.toString());
+          },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
