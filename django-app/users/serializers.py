@@ -43,8 +43,8 @@ class CarSerializer(serializers.ModelSerializer):
             car_instance.save()
             return car_instance
         except IntegrityError:
-            self.error_response = {"message": "plate number exists"}
+            self.error_response = {"failure_message": "plate number exists"}
         except Exception as e:
             print(f"{e = }")
-            self.error_response = {"message": "couldn't add the car"}
+            self.error_response = {"failure_message": "couldn't add the car"}
 
