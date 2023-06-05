@@ -6,8 +6,11 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../utils/main.colors.dart';
+
 class MapTrackingPage extends StatefulWidget {
-  const MapTrackingPage({Key? key}) : super(key: key);
+  final bool isClient;
+  const MapTrackingPage(this.isClient, {Key? key}) : super(key: key);
 
   @override
   State<MapTrackingPage> createState() => MapTrackingPageState();
@@ -25,7 +28,7 @@ class MapTrackingPageState extends State<MapTrackingPage> {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Check if location services are enabled
+    // Check if location services enabled
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return;
@@ -77,32 +80,60 @@ class MapTrackingPageState extends State<MapTrackingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(
-            currentPosition?.latitude ?? sourceLocation.latitude,
-            currentPosition?.longitude ?? sourceLocation.longitude,
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(
+                currentPosition?.latitude ?? sourceLocation.latitude,
+                currentPosition?.longitude ?? sourceLocation.longitude,
+              ),
+              zoom: 13,
+            ),
+            polylines: {
+              Polyline(
+                polylineId: const PolylineId("route"),
+                points: polylineCords,
+                color: primaryColor,
+                width: 5,
+              ),
+            },
+            markers: {
+              const Marker(
+                  markerId: MarkerId("source"), position: sourceLocation),
+              const Marker(
+                  markerId: MarkerId("destination"), position: destination),
+            },
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
           ),
-          zoom: 13,
-        ),
-        polylines: {
-          Polyline(
-            polylineId: PolylineId("route"),
-            points: polylineCords,
-            color: primaryColor,
-            width: 5,
-          ),
-        },
-        markers: {
-          const Marker(markerId: MarkerId("source"), position: sourceLocation),
-          const Marker(
-              markerId: MarkerId("destination"), position: destination),
-        },
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+          if (widget.isClient)
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: SizedBox(
+                  width: 70, // set width
+                  height: 70, // set height
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      // Here, you can define your logic when the button is pressed
+                      print("Request Mechanic Button Pressed");
+                    }, // increase icon size as well
+                    backgroundColor: MainColors.mainColor,
+                    child: const Icon(
+                      Icons.build,
+                      size: 35,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
