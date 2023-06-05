@@ -26,6 +26,16 @@ class _CarsFormState extends State<CarsForm> {
   final _carEnginePowerController = TextEditingController();
   Map<String, dynamic>? carInfo;
 
+  bool _isSaveButtonEnabled = false;
+  late String _carBrand = '';
+  late String _carPlate = '';
+  late String _carSeries = '';
+  late String _carModel = '';
+  late String _carYear = '';
+  late String _carFuel = '';
+  late String _carGear= '';
+  late String _carEnginePower= '';
+
   void getCarInfo() {
     print(carsData);
     if (carsData != null) {
@@ -38,22 +48,47 @@ class _CarsFormState extends State<CarsForm> {
     }
   }
 
+  void setCarInfo(){
+    _carBrand = carInfo?['brand'];
+     _carPlate = carInfo?['plate_number'];
+    _carSeries = carInfo?['series'];
+    _carModel = carInfo?['model'];
+     _carYear = carInfo?['year'];
+     _carFuel =  carInfo?['fuel'];
+     _carGear = carInfo?['gear'];
+    _carEnginePower = carInfo?['engine_power'];
+  }
+
   @override
   void initState() {
     super.initState();
     if (widget.update) {
       getCarInfo();
       if (carInfo != null) {
-        _carBrandController.text = carInfo?['brand'];
-        _carPlateController.text = carInfo?['plate_number'];
-        _carSeriesController.text = carInfo?['series'];
-        _carModelController.text = carInfo?['model'];
-        _carYearController.text = carInfo?['year'];
-        _carFuelController.text = carInfo?['fuel'];
-        _carGearController.text = carInfo?['gear'];
-        _carEnginePowerController.text = carInfo?['engine_power'];
+        setCarInfo();
+        _carBrandController.text = _carBrand;
+        _carPlateController.text =  _carPlate;
+        _carSeriesController.text = _carSeries;
+        _carModelController.text = _carModel;
+        _carYearController.text = _carYear;
+        _carFuelController.text = _carFuel;
+        _carGearController.text = _carGear;
+        _carEnginePowerController.text = _carEnginePower;
       }
+    } else {
+      _isSaveButtonEnabled = _checkFieldsNotEmpty();
     }
+  }
+
+  bool _checkFieldsNotEmpty() {
+    return _carBrandController.text.isNotEmpty &&
+        _carPlateController.text.isNotEmpty &&
+        _carSeriesController.text.isNotEmpty &&
+        _carModelController.text.isNotEmpty &&
+        _carYearController.text.isNotEmpty &&
+        _carFuelController.text.isNotEmpty &&
+        _carGearController.text.isNotEmpty &&
+        _carEnginePowerController.text.isNotEmpty;
   }
 
   void _showSuccessAlert() {
@@ -115,6 +150,7 @@ class _CarsFormState extends State<CarsForm> {
                 hintText: 'enterCarBrand'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() && _carBrandController.text != _carBrand),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -122,6 +158,7 @@ class _CarsFormState extends State<CarsForm> {
                 hintText: 'enterPlateNumber'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() && _carPlateController.text != _carPlate),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -129,6 +166,7 @@ class _CarsFormState extends State<CarsForm> {
                 hintText: 'enterCarSeries'.tr,
                 textInputType: TextInputType.text,
                 obscureText: false,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() && _carSeriesController.text != _carSeries ),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -136,6 +174,7 @@ class _CarsFormState extends State<CarsForm> {
                 textInputType: TextInputType.text,
                 obscureText: false,
                 hintText: 'enterCarModel'.tr,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() &&  _carModelController.text != _carModel ),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -143,6 +182,7 @@ class _CarsFormState extends State<CarsForm> {
                 textInputType: TextInputType.number,
                 obscureText: false,
                 hintText: 'enterCarYear'.tr,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() &&  _carYearController.text != _carYear),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -150,6 +190,7 @@ class _CarsFormState extends State<CarsForm> {
                 textInputType: TextInputType.text,
                 obscureText: false,
                 hintText: 'enterCarFuel'.tr,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() && _carFuelController.text  != _carFuel),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -157,6 +198,7 @@ class _CarsFormState extends State<CarsForm> {
                 textInputType: TextInputType.text,
                 obscureText: false,
                 hintText: 'enterCarGear'.tr,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled =_checkFieldsNotEmpty() && _carGearController.text  != _carGear),
               ),
               const SizedBox(height: 16.0),
               CustomTextFiled(
@@ -164,11 +206,13 @@ class _CarsFormState extends State<CarsForm> {
                 textInputType: TextInputType.number,
                 obscureText: false,
                 hintText: 'enterCarEnginePower'.tr,
+                onChanged: (_) => setState(() => _isSaveButtonEnabled = _checkFieldsNotEmpty() && _carEnginePowerController.text  != _carEnginePower),
               ),
               const SizedBox(height: 25.0),
               CustomButton(
                 btnText: btnText,
                 onTap: _handleSaveButtonPressed,
+                isDisabled: !_isSaveButtonEnabled,
               ),
               const SizedBox(height: 16.0),
             ],
