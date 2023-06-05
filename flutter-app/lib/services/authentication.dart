@@ -78,7 +78,10 @@ class AccountManager {
         RequestHandler('http://localhost:8000/api/addCar', body);
     var data = await requestHandler.getData();
     print("car data :: $data");
-    return true;
+    if (data.containsKey("owner")) {
+      return true;
+    }
+    return false;
   }
 
   Future<List<dynamic>> getCars() async {
@@ -109,9 +112,10 @@ class AccountManager {
     }
     return false;
   }
+
   Future<bool> updateCar(Map<String, String> body) async {
     RequestHandler requestHandler =
-    RequestHandler('http://localhost:8000/api/updateCar', body);
+        RequestHandler('http://localhost:8000/api/updateCar', body);
     var data = await requestHandler.getData();
     if (data.containsKey("message")) {
       if (data["message"] == "success") {
@@ -122,5 +126,3 @@ class AccountManager {
     return false;
   }
 }
-
-
