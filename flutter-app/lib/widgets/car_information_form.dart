@@ -1,9 +1,7 @@
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
-import '../routes/routes.dart';
 import '../services/authentication.dart';
-import '../utils/main.colors.dart';
 import 'button.dart';
 import 'package:get/get.dart';
 
@@ -71,7 +69,7 @@ class _CarsFormState extends State<CarsForm> {
             CustomButton(
               btnText: 'OK',
               onTap: () {
-                Navigator.of(context).pop();
+                Get.until((route) => route.settings.name == '/cars_list');
               },
             ),
           ],
@@ -93,7 +91,7 @@ class _CarsFormState extends State<CarsForm> {
             CustomButton(
               btnText: 'OK',
               onTap: () {
-                Navigator.of(context).pop();
+                Get.until((route) => route.settings.name == '/cars_list');
               },
             ),
           ],
