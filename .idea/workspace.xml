@@ -6,8 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4d328649-4b3a-4829-b480-a213f1ad342e" name="Changes" comment="Removed flutter/lib from ignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/django-app/carvice_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/django-app/carvice_backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter-app/lib/services/authentication.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/services/authentication.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django-app/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/django-app/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/lib/view/client/pages/update_profile_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/view/client/pages/update_profile_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/lib/widgets/profile_form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/lib/widgets/profile_form.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter-app/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter-app/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +57,16 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feature_chatting_system" />
-                    <option name="lastUsedInstant" value="1682893816" />
+                    <option name="branchName" value="development" />
+                    <option name="lastUsedInstant" value="1685554763" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="development" />
-                    <option name="lastUsedInstant" value="1682872809" />
+                    <option name="branchName" value="fix_update_user_issue" />
+                    <option name="lastUsedInstant" value="1685139606" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature_chatting_system" />
+                    <option name="lastUsedInstant" value="1682893816" />
                   </RecentBranch>
                 </list>
               </option>
@@ -104,6 +114,9 @@
       <workItem from="1682969535699" duration="625000" />
       <workItem from="1683154306273" duration="2357000" />
       <workItem from="1683168946267" duration="1666000" />
+      <workItem from="1685546137332" duration="747000" />
+      <workItem from="1685548978207" duration="300000" />
+      <workItem from="1685551143861" duration="689000" />
     </task>
     <task id="LOCAL-00001" summary="Removed flutter/lib from ignore">
       <created>1683156115132</created>
