@@ -1,4 +1,4 @@
-.idea
+.idea/workspace.xml
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -128,12 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 django-app/users/migrations/0004_user_is_client_alter_user_is_mechanic.py
-.idea/workspace.xml
 flutter-app/.idea/workspace.xml
 django-app/db.sqlite3
 flutter-app/ios/Flutter/Debug.xcconfig
 flutter-app/ios/Flutter/Release.xcconfig
-flutter-app/ios/Runner.xcodeproj
+flutter-app/ios/Runner.xcodeproj/project.pbxproj
+flutter-app/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
 flutter-app/gradle.properties
 flutter-app/build
 flutter-app/ios/Flutter/.last_build_id
