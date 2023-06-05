@@ -20,7 +20,7 @@ class RiderInfo extends StatelessWidget {
             backgroundImage: AssetImage("assets/Avatar.png"),
           ),
           title: const Text(
-            "Mike Rojnidoost",
+            "Hasan Mechanic",
             style: TextStyle(
               fontWeight: FontWeight.w500,
             ),
