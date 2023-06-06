@@ -56,6 +56,7 @@ class Tokenizer:
             "username": user.username,
             "phone_number": str(user.phone_number),
             "email": user.email,
+            "balance":user.balance,
             "exp": datetime.datetime.now(datetime.timezone.utc)
                    + datetime.timedelta(minutes=60),
             "iat": datetime.datetime.now(datetime.timezone.utc),
