@@ -12,6 +12,7 @@ pyjwt = "*"
 django-cors-headers = "*"
 django-phonenumber-field = "*"
 phonenumbers = "*"
+pymongo = "*"
 
 [dev-packages]
 
