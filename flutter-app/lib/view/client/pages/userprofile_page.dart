@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/bottom_navigation.dart';
 import '../../../widgets/profile_menu.dart';
+import '../../../widgets/rating_alert.dart';
 import '../../../widgets/user_information_part.dart';
 
 class ClientUserProfilePage extends StatelessWidget {
@@ -41,14 +42,20 @@ class ClientUserProfilePage extends StatelessWidget {
               title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
-                print("Settings btn pressed");
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // we need to pass the mechanic id here in order to save it in the database. with the message
+                    return const RatingAlertWidget(message: 'This is an alert message.');
+                  },
+                );
               },
             ),
             ProfileMenu(
               title: 'myCars'.tr,
               icon: Icons.directions_car,
               onPress: () {
-                Get.toNamed(Routers.getCarsListPageRoute());
+                Get.toNamed(Routers.getListOfMechanicsPageRoute());
               },
             ),
             ProfileMenu(
