@@ -75,4 +75,6 @@ const Map<String, String> en = {
   'dialogErrorMessage': 'This user already exists!',
   'dialogTryAgain': 'Try again',
   'alreadyHaveAccount': 'Already have an account?',
+  'available_mechanics': 'Available Mechanics List',
+  'mechanic_profile': 'Mechanic Profile',
 };
