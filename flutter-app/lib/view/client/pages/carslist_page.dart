@@ -58,10 +58,10 @@ class CarsListPageState extends State<CarsListPage> {
       bottomNavigationBar: Container(
           height: 100,
           alignment: Alignment.center,
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
 
-            children: const [
+            children: [
               Text(
                 "Made with ♥ by Carvice team",
               ),
