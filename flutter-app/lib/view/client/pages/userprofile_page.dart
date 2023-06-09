@@ -42,7 +42,7 @@ class ClientUserProfilePage extends StatelessWidget {
               title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
-                print("sittings btn pressed");
+                Get.toNamed(Routers.getSettingsPageRoute());
               },
             ),
             ProfileMenu(
