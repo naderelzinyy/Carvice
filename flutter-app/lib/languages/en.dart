@@ -77,4 +77,5 @@ const Map<String, String> en = {
   'alreadyHaveAccount': 'Already have an account?',
   'available_mechanics': 'Available Mechanics List',
   'mechanic_profile': 'Mechanic Profile',
+  'mechanic_portfolio': 'Portfolio',
 };
