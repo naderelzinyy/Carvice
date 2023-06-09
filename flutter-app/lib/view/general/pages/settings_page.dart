@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../routes/routes.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/change_language_dialog.dart';
 
@@ -50,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             leading: const Icon(Icons.lock),
             onTap: () {
-              // Handle password change
+              Get.toNamed(Routers.getChangePasswordPageRoute());
             },
           ),
         ],

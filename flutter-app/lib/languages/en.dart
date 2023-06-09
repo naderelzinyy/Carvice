@@ -80,4 +80,9 @@ const Map<String, String> en = {
   'mechanic_portfolio': 'Portfolio',
   'change_password': 'Change Password',
   'change_language': 'Change Language',
+  'new_password': 'New Password',
+  'old_password': 'Old Password',
+  'conf_new_password': 'Confirm Password',
+  'error_message_password_must_be_5_char': 'New password should be at least 5 characters long.',
+  'error_message_new_password_conf_not_match': 'New password and confirmation password do not match.',
 };

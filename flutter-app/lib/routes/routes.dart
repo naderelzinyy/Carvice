@@ -16,6 +16,7 @@ import '../view/client/pages/home_page.dart';
 import '../view/client/pages/mechaniclist_page.dart';
 import '../view/client/pages/userprofile_page.dart';
 import '../view/general/pages/aboutus_page.dart';
+import '../view/general/pages/change_password_page.dart';
 import '../view/general/pages/settings_page.dart';
 import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
@@ -45,6 +46,7 @@ class Routers {
   static String mechanicProfileInClient = "/mechanic_profile_in_client";
   static String mechanicPortfolioPage = "/mechanic_portfolio";
   static String settingsPage = "/settings";
+  static String changePasswordPage = "/change_password";
 
 
 
@@ -68,6 +70,7 @@ class Routers {
   static String getMechanicProfileInClientRoute() => mechanicProfileInClient;
   static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
   static String getSettingsPageRoute() => settingsPage;
+  static String getChangePasswordPageRoute() => changePasswordPage;
 
 
   static List<GetPage> routes = [
@@ -196,6 +199,12 @@ class Routers {
     GetPage(
       name: settingsPage,
       page: () => const SettingsPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: changePasswordPage,
+      page: () => const ChangePasswordPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
