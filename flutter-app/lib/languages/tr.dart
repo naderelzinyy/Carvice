@@ -78,4 +78,6 @@ const Map<String, String> tr = {
   'available_mechanics': 'Uygun Tamirciler Listesi',
   'mechanic_profile': 'mekanik profil',
   'mechanic_portfolio': 'Mekanik Portföyü',
+  'change_password': 'Şifre değiştir',
+  'change_language': 'Dili değiştir',
 };

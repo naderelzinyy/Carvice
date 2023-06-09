@@ -78,4 +78,6 @@ const Map<String, String> en = {
   'available_mechanics': 'Available Mechanics List',
   'mechanic_profile': 'Mechanic Profile',
   'mechanic_portfolio': 'Portfolio',
+  'change_password': 'Change Password',
+  'change_language': 'Change Language',
 };
