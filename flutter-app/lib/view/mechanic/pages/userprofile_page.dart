@@ -41,7 +41,7 @@ class MechanicUserProfilePage extends StatelessWidget {
               title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
-                print("Settings btn pressed");
+                Get.toNamed(Routers.getSettingsPageRoute());
               },
             ),
             ProfileMenu(
