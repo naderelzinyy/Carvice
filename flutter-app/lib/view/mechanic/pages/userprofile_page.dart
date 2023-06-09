@@ -45,6 +45,13 @@ class MechanicUserProfilePage extends StatelessWidget {
               },
             ),
             ProfileMenu(
+              title: 'mechanic_portfolio'.tr,
+              icon: Icons.work,
+              onPress: () {
+                Get.toNamed(Routers.getMechanicPortfolioRoute());
+              },
+            ),
+            ProfileMenu(
               title: 'myAddress'.tr,
               icon: Icons.location_on,
               onPress: () {
