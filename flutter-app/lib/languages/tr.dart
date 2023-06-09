@@ -75,4 +75,7 @@ const Map<String, String> tr = {
   'dialogErrorMessage': 'Bu kullanıcı zaten mevcut!',
   'dialogTryAgain': 'Tekrar dene',
   'alreadyHaveAccount': 'Zaten hesabınız var mı? ',
+  'available_mechanics': 'Uygun Tamirciler Listesi',
+  'mechanic_profile': 'mekanik profil',
+  'mechanic_portfolio': 'Mekanik Portföyü',
 };

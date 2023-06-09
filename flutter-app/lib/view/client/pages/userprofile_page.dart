@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/bottom_navigation.dart';
 import '../../../widgets/profile_menu.dart';
+import '../../../widgets/rating_alert.dart';
 import '../../../widgets/user_information_part.dart';
 
 class ClientUserProfilePage extends StatelessWidget {
@@ -41,7 +42,7 @@ class ClientUserProfilePage extends StatelessWidget {
               title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
-                print("Settings btn pressed");
+                print("sittings btn pressed");
               },
             ),
             ProfileMenu(
