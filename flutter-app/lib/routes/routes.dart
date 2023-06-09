@@ -18,6 +18,7 @@ import '../view/client/pages/userprofile_page.dart';
 import '../view/general/pages/aboutus_page.dart';
 import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
+import '../view/mechanic/pages/portfolio_page.dart';
 import '../view/mechanic/pages/update_profile_page.dart';
 
 
@@ -41,6 +42,7 @@ class Routers {
   static String aboutUsPage = "/about_us";
   static String listOfMechanics = "/list_of_mechanics";
   static String mechanicProfileInClient = "/mechanic_profile_in_client";
+  static String mechanicPortfolioPage = "/mechanic_portfolio";
 
 
 
@@ -62,6 +64,7 @@ class Routers {
   static String getAboutUsPageRoute() => aboutUsPage;
   static String getListOfMechanicsPageRoute() => listOfMechanics;
   static String getMechanicProfileInClientRoute() => mechanicProfileInClient;
+  static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
 
 
   static List<GetPage> routes = [
@@ -178,6 +181,12 @@ class Routers {
     GetPage(
       name: mechanicProfileInClient,
       page: () => const MechanicProfile(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: mechanicPortfolioPage,
+      page: () => const MechanicPortfolioPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
