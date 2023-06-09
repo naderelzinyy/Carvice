@@ -80,4 +80,9 @@ const Map<String, String> tr = {
   'mechanic_portfolio': 'Mekanik Portföyü',
   'change_password': 'Şifre değiştir',
   'change_language': 'Dili değiştir',
+  'new_password': 'Yeni Şifre',
+  'old_password': 'Eski Şifre',
+  'conf_new_password': 'Şifreyi Onaylayın',
+  'error_message_password_must_be_5_char': 'Yeni şifre en az 5 karakter uzunluğunda olmalıdır.',
+  'error_message_new_password_conf_not_match': 'Yeni şifre ve onay şifresi uyuşmuyor.',
 };
