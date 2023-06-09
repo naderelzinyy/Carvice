@@ -42,20 +42,14 @@ class ClientUserProfilePage extends StatelessWidget {
               title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    // we need to pass the mechanic id here in order to save it in the database. with the message
-                    return const RatingAlertWidget(message: 'This is an alert message.');
-                  },
-                );
+                print("sittings btn pressed");
               },
             ),
             ProfileMenu(
               title: 'myCars'.tr,
               icon: Icons.directions_car,
               onPress: () {
-                Get.toNamed(Routers.getListOfMechanicsPageRoute());
+                Get.toNamed(Routers.getCarsListPageRoute());
               },
             ),
             ProfileMenu(

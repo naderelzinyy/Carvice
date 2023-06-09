@@ -5,6 +5,13 @@ import 'package:get/get.dart';
 
 class RatingAlertWidget extends StatefulWidget {
   final String message;
+  // Note : this alert must be used in this format: showDialog(
+  //                   context: context,
+  //                   builder: (BuildContext context) {
+  //                     // we need to pass the mechanic id here in order to save it in the database. with the message
+  //                     return const RatingAlertWidget(message: 'This is an alert message.');
+  //                   },
+  //                 );
 
   const RatingAlertWidget({Key? key, required this.message}) : super(key: key);
 
