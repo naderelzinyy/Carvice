@@ -85,4 +85,11 @@ const Map<String, String> en = {
   'conf_new_password': 'Confirm Password',
   'error_message_password_must_be_5_char': 'New password should be at least 5 characters long.',
   'error_message_new_password_conf_not_match': 'New password and confirmation password do not match.',
+  'cancel': 'Cancel',
+  'confirmation_code': 'Confirmation Code',
+  'find_account': 'Find Account',
+  'next': 'Next',
+  'invalid_confirmation_code': 'Invalid confirmation code',
+  'email_does_not_exist': 'Email does not exist',
+  'reset_password': 'Reset Password',
 };

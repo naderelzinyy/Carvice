@@ -85,4 +85,11 @@ const Map<String, String> tr = {
   'conf_new_password': 'Şifreyi Onaylayın',
   'error_message_password_must_be_5_char': 'Yeni şifre en az 5 karakter uzunluğunda olmalıdır.',
   'error_message_new_password_conf_not_match': 'Yeni şifre ve onay şifresi uyuşmuyor.',
+  'cancel': 'İptal',
+  'confirmation_code': 'Onay Kodu',
+  'find_account': 'Hesap Bul',
+  'next': 'Sonraki',
+  'invalid_confirmation_code': 'Geçersiz onay kodu',
+  'email_does_not_exist': 'E-posta mevcut değil',
+  'reset_password': 'Şifreyi Yenile',
 };
