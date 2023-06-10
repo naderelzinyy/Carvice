@@ -66,7 +66,7 @@ class Routers {
   static String getMechanicUpdateProfilePageRoute() => mechanicUpdateUserProfilePage;
   static String getCarsListPageRoute() => carsListPage;
   static String getEditCarPageRoute(String carID) => '$editCarPage?carID=$carID';
-  static String getAddCarPageRoute() => addCarPage;
+  static String getAddCarPageRoute(bool quickAdd) => '$addCarPage?quickAdd=$quickAdd';
   static String getAboutUsPageRoute() => aboutUsPage;
   static String getListOfMechanicsPageRoute() => listOfMechanics;
   static String getMechanicProfileInClientRoute() => mechanicProfileInClient;
@@ -171,7 +171,11 @@ class Routers {
     ),
     GetPage(
       name: addCarPage,
-      page: () => const   AddCarPage(),
+      page:()  {
+        var quickAdd = Get.parameters['quickAdd'];
+        var isQuickAdd = quickAdd == 'true'; // Convert the string back to a boolean
+        return  AddCarPage(quickAdd: isQuickAdd);
+      },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
