@@ -20,6 +20,19 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
 
+class Client(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    account_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Mechanic(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    commercial_name = models.CharField(max_length=255)
+    account_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Car(models.Model):
     owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     plate_number = models.CharField(max_length=255, unique=True, default="undefined")
