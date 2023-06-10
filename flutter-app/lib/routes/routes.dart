@@ -17,6 +17,7 @@ import '../view/client/pages/mechaniclist_page.dart';
 import '../view/client/pages/userprofile_page.dart';
 import '../view/general/pages/aboutus_page.dart';
 import '../view/general/pages/change_password_page.dart';
+import '../view/general/pages/forget_password_page.dart';
 import '../view/general/pages/settings_page.dart';
 import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
@@ -47,6 +48,7 @@ class Routers {
   static String mechanicPortfolioPage = "/mechanic_portfolio";
   static String settingsPage = "/settings";
   static String changePasswordPage = "/change_password";
+  static String setPasswordPage = "/set_new_password";
 
 
 
@@ -71,6 +73,7 @@ class Routers {
   static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
   static String getSettingsPageRoute() => settingsPage;
   static String getChangePasswordPageRoute() => changePasswordPage;
+  static String getSetNewPasswordRoute(String roleEndpoint) => '$setPasswordPage?roleEndpoint=$roleEndpoint';
 
 
   static List<GetPage> routes = [
@@ -207,6 +210,15 @@ class Routers {
       page: () => const ChangePasswordPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: setPasswordPage,
+      page: () {
+        var roleEndpoint = Get.parameters['roleEndpoint'];
+        return ForgotPasswordPage(roleEndpoint: roleEndpoint.toString());
+      },
+      transition: Transition.fade,
+      transitionDuration: const Duration(seconds: 1),
     ),
   ];
 }
