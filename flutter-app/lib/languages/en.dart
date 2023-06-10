@@ -92,4 +92,5 @@ const Map<String, String> en = {
   'invalid_confirmation_code': 'Invalid confirmation code',
   'email_does_not_exist': 'Email does not exist',
   'reset_password': 'Reset Password',
+  'select_car': 'Please Select A Car',
 };

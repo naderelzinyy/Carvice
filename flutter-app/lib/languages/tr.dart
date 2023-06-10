@@ -91,5 +91,5 @@ const Map<String, String> tr = {
   'next': 'Sonraki',
   'invalid_confirmation_code': 'Geçersiz onay kodu',
   'email_does_not_exist': 'E-posta mevcut değil',
-  'reset_password': 'Şifreyi Yenile',
+  'select_car': 'Lütfen Bir Araba Seçin',
 };

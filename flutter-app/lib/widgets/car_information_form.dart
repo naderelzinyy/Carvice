@@ -8,8 +8,9 @@ import 'package:get/get.dart';
 class CarsForm extends StatefulWidget {
   final bool update;
   final String? carId;
+  final bool quickAdd;
 
-  const CarsForm({Key? key, required this.update, this.carId}) : super(key: key);
+  const CarsForm({Key? key, required this.update, this.carId, this.quickAdd: false}) : super(key: key);
 
   @override
   _CarsFormState createState() => _CarsFormState();
@@ -25,6 +26,7 @@ class _CarsFormState extends State<CarsForm> {
   final _carGearController = TextEditingController();
   final _carEnginePowerController = TextEditingController();
   Map<String, dynamic>? carInfo;
+  late bool quickAdd = widget.quickAdd;
 
   bool _isSaveButtonEnabled = false;
   late String _carBrand = '';
@@ -104,7 +106,11 @@ class _CarsFormState extends State<CarsForm> {
             CustomButton(
               btnText: 'OK',
               onTap: () {
-                Get.until((route) => route.settings.name == '/cars_list');
+                if(quickAdd){
+                  Get.until((route) => route.settings.name == '/home') ;
+                }
+                else {Get.until((route) => route.settings.name == '/cars_list') ;}
+
               },
             ),
           ],
@@ -118,7 +124,7 @@ class _CarsFormState extends State<CarsForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Failure'),
+          title: const Text('Failure'),
           content: Text(widget.update
               ? 'Failed to update car details. Please try again.'
               : 'Failed to add car. Please try again.'),

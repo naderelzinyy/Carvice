@@ -7,7 +7,8 @@ import '../../../widgets/app_navigation.dart';
 
 
 class AddCarPage extends StatelessWidget {
-  const AddCarPage({Key? key}) : super(key: key);
+  const AddCarPage({Key? key, required this.quickAdd}) : super(key: key);
+  final bool quickAdd;
 
 
   @override
@@ -17,7 +18,7 @@ class AddCarPage extends StatelessWidget {
         title: 'addNewCar'.tr,
         automaticallyCallBack: true,
       ),
-      body: const CarsForm(update: false,
+      body:  CarsForm(update: false, quickAdd: quickAdd,
       ),
     );
   }

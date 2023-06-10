@@ -49,7 +49,7 @@ class CarsListPageState extends State<CarsListPage> {
             child: CustomButton(
               btnText:'addNewCar'.tr,
               onTap: () {
-                Get.toNamed(Routers.getAddCarPageRoute());
+                Get.toNamed(Routers.getAddCarPageRoute(false));
               },
             ),
           )
