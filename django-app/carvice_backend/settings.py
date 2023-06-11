@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'users',
     'reviews',
+    'geospatial_request'
 ]
 
 MIDDLEWARE = [
