@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
     path('api/review/', include('reviews.urls')),
+    path('api/geoRequest/', include('geospatial_request.urls')),
 
 ]
