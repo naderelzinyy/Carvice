@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/routes.dart';
 import '../services/authentication.dart';
+import 'change_language_dialog.dart';
 
 class SideBarGlobal extends StatelessWidget {
   final bool showMyCars;
@@ -12,31 +13,11 @@ class SideBarGlobal extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('selectLanguage'.tr),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title:  Text('turkish'.tr),
-                onTap: () {
-                  Get.updateLocale(const Locale('tr', 'TR'));
-                  Get.back(); // Close the dialog
-                },
-              ),
-              ListTile(
-                title:  Text('english'.tr),
-                onTap: () {
-                  Get.updateLocale(const Locale('en', 'US'));
-                  Get.back(); // Close the dialog
-                },
-              ),
-            ],
-          ),
-        );
+        return const LanguageDialog(); // Use the custom language dialog widget
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

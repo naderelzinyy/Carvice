@@ -47,6 +47,11 @@ dependencies:
   firebase_auth: ^4.2.5
   cloud_firestore: ^4.3.1
   loading_overlay: ^0.3.0
+  rating_dialog: ^2.0.4
+  flutter_rating_bar: ^4.0.1
+  rating_summary: ^1.0.2+1
+  flutter_dropdown: ^1.0.1+hotfix.1
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +78,7 @@ flutter:
     - assets/images/
     - assets/images/map_assets/
     - assets/images/map_assets/icons/
+    - assets/address_data/address_data_tr.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

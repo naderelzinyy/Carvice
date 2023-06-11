@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/main.colors.dart';
+import '../select_car_alert.dart';
 
 class MapTrackingPage extends StatefulWidget {
   final bool isClient;
@@ -94,7 +95,12 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                   child: FloatingActionButton(
                     onPressed: () {
                       // Here, you can define your logic when the button is pressed
-                      print("Request Mechanic Button Pressed");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const MyAlertDialog();
+                        },
+                      );
                     }, // increase icon size as well
                     backgroundColor: MainColors.mainColor,
                     child: const Icon(

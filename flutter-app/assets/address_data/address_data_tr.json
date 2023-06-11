@@ -1,0 +1,518 @@
+{
+  "cities": [
+    {
+      "name": "Ankara",
+      "counties": [
+        {
+          "name": "Altindag",
+          "districts": ["Altindag Merkez", "Anafartalar", "Ulus", "Yildirim"]
+        },
+        {
+          "name": "Akyurt",
+          "districts": ["Akyurt Merkez", "Golbasi", "Hacilar", "Kalecik"]
+        },
+        {
+          "name": "Bala",
+          "districts": ["Bala Merkez", "Akcaoren", "Elvankent", "Karagedik"]
+        },
+        {
+          "name": "Beypazari",
+          "districts": ["Beypazari Merkez", "Gulveren", "Kirikkavak", "Yenipazar"]
+        },
+        {
+          "name": "Cankaya",
+          "districts": ["Cankaya Merkez", "Bahcelievler", "Cebeci", "Kizilay"]
+        },
+        {
+          "name": "Cubuk",
+          "districts": ["Cubuk Merkez", "Ataturk", "Golbasi", "Karayaka"]
+        },
+        {
+          "name": "Elmadag",
+          "districts": ["Elmadag Merkez", "Demetevler", "Sentepe", "Yenikent"]
+        },
+        {
+          "name": "Etimesgut",
+          "districts": ["Etimesgut Merkez", "Eryaman", "Fatih", "Yapracik"]
+        },
+        {
+          "name": "Evren",
+          "districts": ["Evren Merkez", "Dikmen", "Incek", "Yayalar"]
+        },
+        {
+          "name": "Golbasi",
+          "districts": ["Golbasi Merkez", "Esertepe", "Kalecik", "Zafer"]
+        },
+        {
+          "name": "Gudul",
+          "districts": ["Gudul Merkez", "Kargapazari", "Kutludugun", "Yenicek"]
+        },
+        {
+          "name": "Haymana",
+          "districts": ["Haymana Merkez", "Bahce", "Sogutozu", "Yenimahalle"]
+        },
+        {
+          "name": "Kahramankazan",
+          "districts": ["Kahramankazan Merkez", "Kalecik", "Kizilcaoren", "Uzunkaya"]
+        },
+        {
+          "name": "Kalecik",
+          "districts": ["Kalecik Merkez", "Elmadağ", "Güdül", "Yeşilöz"]
+        },
+        {
+          "name": "Keçiören",
+          "districts": ["Keçiören Merkez", "Etlik", "Gülveren", "Siteler"]
+        },
+        {
+          "name": "Kizilcahamam",
+          "districts": ["Kizilcahamam Merkez", "Eskişehir", "Göynücek", "Tatlar"]
+        },
+        {
+          "name": "Mamak",
+          "districts": ["Mamak Merkez", "Bağlum", "Demetevler", "Ufuktepe"]
+        },
+        {
+          "name": "Nallihan",
+          "districts": ["Nallihan Merkez", "Kalecik", "Karapinar", "Saray"]
+        },
+        {
+          "name": "Polatlı",
+          "districts": ["Polatlı Merkez", "Karakeçili", "Karapürçek", "Yeniçağa"]
+        },
+        {
+          "name": "Pursaklar",
+          "districts": ["Pursaklar Merkez", "Dikmen", "Şentepe", "Yenikent"]
+        },
+        {
+          "name": "Sincan",
+          "districts": ["Sincan Merkez", "Ahievran", "Emek", "Yenikent"]
+        },
+        {
+          "name": "Şereflikoçhisar",
+          "districts": ["Şereflikoçhisar Merkez", "Atatürk", "Başak", "Emirler"]
+        },
+        {
+          "name": "Yenimahalle",
+          "districts": ["Yenimahalle Merkez", "Demetevler", "Göksu", "Yayla"]
+        }
+      ]
+    },
+    {
+      "name": "Antalya",
+      "counties": [
+        {
+          "name": "Muratpaşa",
+          "districts": ["Muratpaşa Merkez", "Kızılarık", "Lara", "Güzeloba"]
+        },
+        {
+          "name": "Kepez",
+          "districts": ["Kepez Merkez", "Varsak", "Güneş", "Göksu"]
+        },
+        {
+          "name": "Konyaaltı",
+          "districts": ["Konyaaltı Merkez", "Liman", "Arapsuyu", "Altınyaka"]
+        },
+        {
+          "name": "Aksu",
+          "districts": ["Aksu Merkez", "Yeşilköy", "Uçansu", "İncirliova"]
+        },
+        {
+          "name": "Döşemealtı",
+          "districts": ["Döşemealtı Merkez", "Düzlerçamı", "Karaisalı", "Karçallı"]
+        },
+        {
+          "name": "Korkuteli",
+          "districts": ["Korkuteli Merkez", "Kızılağaç", "Kızılcadağ", "Gümüşlük"]
+        },
+        {
+          "name": "Manavgat",
+          "districts": ["Manavgat Merkez", "Kızılot", "Çolaklı", "Side"]
+        },
+        {
+          "name": "Alanya",
+          "districts": ["Alanya Merkez", "Mahmutlar", "Avsallar", "Kargıcak"]
+        },
+        {
+          "name": "Serik",
+          "districts": ["Serik Merkez", "Belek", "Boğazkent", "Kadriye"]
+        },
+        {
+          "name": "Gazipaşa",
+          "districts": ["Gazipaşa Merkez", "Yeşilöz", "Çıplaklı", "Kahyalar"]
+        },
+        {
+          "name": "Kemer",
+          "districts": ["Kemer Merkez", "Çamyuva", "Beldibi", "Göynük"]
+        },
+        {
+          "name": "Finike",
+          "districts": ["Finike Merkez", "Kale", "Turunçova", "Çağlı"]
+        },
+        {
+          "name": "Demre",
+          "districts": ["Demre Merkez", "Gömbe", "Çayağzı", "Bezirgan"]
+        },
+        {
+          "name": "Kaş",
+          "districts": ["Kaş Merkez", "Kalkan", "Yeşilköy", "Üçağız"]
+        }
+      ]
+    },
+    {
+      "name": "Bursa",
+      "counties": [
+        {
+          "name": "Osmangazi",
+          "districts": ["Osmangazi Merkez", "Altıparmak", "Heykel", "İncirli"]
+        },
+        {
+          "name": "Nilüfer",
+          "districts": ["Nilüfer Merkez", "Çalı", "Görükle", "Odunluk"]
+        },
+        {
+          "name": "Yıldırım",
+          "districts": ["Yıldırım Merkez", "Altıntaş", "Namazgah", "Pınarbaşı"]
+        },
+        {
+          "name": "Osmangazi",
+          "districts": ["Osmangazi Merkez", "Altıparmak", "Heykel", "İncirli"]
+        },
+        {
+          "name": "Gürsu",
+          "districts": ["Gürsu Merkez", "Hacivat", "İhsaniye", "Karaköy"]
+        },
+        {
+          "name": "Gemlik",
+          "districts": ["Gemlik Merkez", "Dereköy", "Orhaniye", "Yunuslu"]
+        },
+        {
+          "name": "İnegöl",
+          "districts": ["İnegöl Merkez", "Yeniceköy", "Zafer", "Tatkavaklı"]
+        },
+        {
+          "name": "Kestel",
+          "districts": ["Kestel Merkez", "Derekızık", "Göçmen Konutları", "Yeni Mahalle"]
+        },
+        {
+          "name": "Mudanya",
+          "districts": ["Mudanya Merkez", "Cumhuriyet", "Güzelyalı", "Kurşunlu"]
+        },
+        {
+          "name": "Karacabey",
+          "districts": ["Karacabey Merkez", "Bahçedere", "Fındıklı", "Ortaköy"]
+        },
+        {
+          "name": "Mustafakemalpaşa",
+          "districts": ["Mustafakemalpaşa Merkez", "Güllüce", "Karanlıkdere", "Sarıbey"]
+        },
+        {
+          "name": "Orhangazi",
+          "districts": ["Orhangazi Merkez", "Hamidiye", "Kurtuluş", "Pervane"]
+        },
+        {
+          "name": "Yenişehir",
+          "districts": ["Yenişehir Merkez", "Derekızık", "Kırcaali", "Yunuslu"]
+        },
+        {
+          "name": "İznik",
+          "districts": ["İznik Merkez", "Balat", "Kapaklı", "Yeşil"]
+        },
+        {
+          "name": "Keles",
+          "districts": ["Keles Merkez", "Derekızık", "Karacaören", "Yunuslu"]
+        },
+        {
+          "name": "Orhaneli",
+          "districts": ["Orhaneli Merkez", "Derekızık", "Karacaören", "Yunuslu"]
+        },
+        {
+          "name": "Harmancık",
+          "districts": ["Harmancık Merkez", "Derekızık", "Karacaören", "Yunuslu"]
+        }
+      ]
+    },
+    {
+      "name": "Istanbul",
+      "counties": [
+        {
+          "name": "Adalar",
+          "districts": ["Burgazada", "Heybeliada", "Kinaliada", "Sedefadası"]
+        },
+        {
+          "name": "Arnavutkoy",
+          "districts": ["Arnavutkoy Merkez", "Durusu", "Hadimkoy", "Yakuplu"]
+        },
+        {
+          "name": "Atasehir",
+          "districts": ["Atasehir Merkez", "Yenisahra", "Kayisdagi", "Bostanci"]
+        },
+        {
+          "name": "Avcilar",
+          "districts": ["Avcilar Merkez", "Cihangir", "Denizkoskler", "Firuzkoy"]
+        },
+        {
+          "name": "Bagcilar",
+          "districts": ["Bagcilar Merkez", "Gunesli", "Mahmutbey", "Yenibosna"]
+        },
+        {
+          "name": "Bahcelievler",
+          "districts": ["Bahcelievler Merkez", "Basaksehir", "Kocasinan", "Soğanlı"]
+        },
+        {
+          "name": "Bakirkoy",
+          "districts": ["Bakirkoy Merkez", "Florya", "Yesilkoy", "Zeytinburnu"]
+        },
+        {
+          "name": "Basaksehir",
+          "districts": ["Basaksehir Merkez", "Kayasehir", "Olimpiyat", "Turgut Ozal"]
+        },
+        {
+          "name": "Bayrampasa",
+          "districts": ["Bayrampasa Merkez", "Cevatpasa", "Gungoren", "Kocatepe"]
+        },
+        {
+          "name": "Besiktas",
+          "districts": ["Besiktas Merkez", "Bebek", "Ortakoy", "Levent"]
+        },
+        {
+          "name": "Beykoz",
+          "districts": ["Beykoz Merkez", "Anadoluhisari", "Cengelkoy", "Riva"]
+        },
+        {
+          "name": "Beylikduzu",
+          "districts": ["Beylikduzu Merkez", "Buyukcekmece", "Gurpinar", "Kumburgaz"]
+        },
+        {
+          "name": "Beyoglu",
+          "districts": ["Beyoglu Merkez", "Cihangir", "Galata", "Karakoy"]
+        },
+        {
+          "name": "Buyukcekmece",
+          "districts": ["Buyukcekmece Merkez", "Kumburgaz", "Mimarsinan", "Tepecik"]
+        },
+        {
+          "name": "Catalca",
+          "districts": ["Catalca Merkez", "Cilingoz", "Deliklikaya", "Karacakoy"]
+        },
+        {
+          "name": "Esenler",
+          "districts": ["Esenler Merkez", "Gungoren", "Kucukkoy", "Topcular"]
+        },
+        {
+          "name": "Esenyurt",
+          "districts": ["Esenyurt Merkez", "Akcaburgaz", "Beylikduzu", "Buyukcekmece"]
+        },
+        {
+          "name": "Eyup",
+          "districts": ["Eyup Merkez", "Alibeykoy", "Gaziosmanpasa", "Rami"]
+        },
+        {
+          "name": "Fatih",
+          "districts": ["Fatih Merkez", "Aksaray", "Balat", "Kumkapi"]
+        },
+        {
+          "name": "Gaziosmanpasa",
+          "districts": ["Gaziosmanpasa Merkez", "Besyol", "Karadeniz", "Yildiztepe"]
+        },
+        {
+          "name": "Gungoren",
+          "districts": ["Gungoren Merkez", "Karacahmet", "Karayollari", "Yesiltepe"]
+        },
+        {
+          "name": "Kadikoy",
+          "districts": ["Kadikoy Merkez", "Feneryolu", "Kozyatagi", "Rasimpasa"]
+        },
+        {
+          "name": "Kagithane",
+          "districts": ["Kagithane Merkez", "Caglayan", "Gultepe", "Seyrantepe"]
+        },
+        {
+          "name": "Kartal",
+          "districts": ["Kartal Merkez", "Atalar", "Esentepe", "Yali"]
+        },
+        {
+          "name": "Kucukcekmece",
+          "districts": ["Kucukcekmece Merkez", "Cennet", "Kucukcekmece", "Yesilkoy"]
+        },
+        {
+          "name": "Maltepe",
+          "districts": ["Maltepe Merkez", "Altaycesme", "Bostanci", "Gulsuyu"]
+        },
+        {
+          "name": "Pendik",
+          "districts": ["Pendik Merkez", "Akcakesme", "Esenyalı", "Kurtköy"]
+        },
+        {
+          "name": "Sancaktepe",
+          "districts": ["Sancaktepe Merkez", "Eyup Sultan", "Icerenkoy", "Yavuz Sultan Selim"]
+        },
+        {
+          "name": "Sariyer",
+          "districts": ["Sariyer Merkez", "Baltalimani", "Emirgan", "Rumeli Kavagi"]
+        },
+        {
+          "name": "Sile",
+          "districts": ["Sile Merkez", "Agva", "Kumbaba", "Yeni"]
+        },
+        {
+          "name": "Silivri",
+          "districts": ["Silivri Merkez", "Binkilic", "Gumusyaka", "Yeni"]
+        },
+        {
+          "name": "Sisli",
+          "districts": ["Sisli Merkez", "Fulya", "Mecidiyekoy", "Nisantasi"]
+        },
+        {
+          "name": "Sultanbeyli",
+          "districts": ["Sultanbeyli Merkez", "Umraniye", "Yenidogan", "Yenisehir"]
+        },
+        {
+          "name": "Sultangazi",
+          "districts": ["Sultangazi Merkez", "Cebeci", "Ikitelli", "Yayladagi"]
+        },
+        {
+          "name": "Tuzla",
+          "districts": ["Tuzla Merkez", "Aydinli", "Tepeoren", "Yayalar"]
+        },
+        {
+          "name": "Umraniye",
+          "districts": ["Umraniye Merkez", "Cakmak", "Yukari Dudullu", "Zeynep Kamil"]
+        },
+        {
+          "name": "Uskudar",
+          "districts": ["Uskudar Merkez", "Kandilli", "Kuleli", "Salacak"]
+        },
+        {
+          "name": "Zeytinburnu",
+          "districts": ["Zeytinburnu Merkez", "Kazlicesme", "Maltepe", "Veliefendi"]
+        }
+      ]
+    },
+    {
+      "name": "Izmir",
+      "counties": [
+        {
+          "name": "Aliağa",
+          "districts": ["Aliağa Merkez", "Akdeniz", "Babademirtas", "Şahinler"]
+        },
+        {
+          "name": "Balçova",
+          "districts": ["Balçova Merkez", "Gümüşpala", "Narlıdere", "Korutürk"]
+        },
+        {
+          "name": "Bayındır",
+          "districts": ["Bayındır Merkez", "Erikli", "Kızılca", "Yuvacık"]
+        },
+        {
+          "name": "Bayraklı",
+          "districts": ["Bayraklı Merkez", "Gürçeşme", "Örnekköy", "Sahilevleri"]
+        },
+        {
+          "name": "Bergama",
+          "districts": ["Bergama Merkez", "Atatürk", "Eşrefpaşa", "Küçüklü"]
+        },
+        {
+          "name": "Beydağ",
+          "districts": ["Beydağ Merkez", "Atatürk", "Göktepe", "Kurtuluş"]
+        },
+        {
+          "name": "Bornova",
+          "districts": ["Bornova Merkez", "Çamdibi", "Gölcük", "Yeşilova"]
+        },
+        {
+          "name": "Buca",
+          "districts": ["Buca Merkez", "Bostanlı", "Çamlıkule", "Özkanlar"]
+        },
+        {
+          "name": "Çeşme",
+          "districts": ["Çeşme Merkez", "Dalyan", "Paşalimanı", "Sakarya"]
+        },
+        {
+          "name": "Çiğli",
+          "districts": ["Çiğli Merkez", "Atatürk", "Karşıyaka", "Yeşildere"]
+        },
+        {
+          "name": "Dikili",
+          "districts": ["Dikili Merkez", "Bademli", "Kumru", "Sarıköy"]
+        },
+        {
+          "name": "Foça",
+          "districts": ["Foça Merkez", "Eski Foça", "Kozbeyli", "Yenifoça"]
+        },
+        {
+          "name": "Gaziemir",
+          "districts": ["Gaziemir Merkez", "Atatürk", "Yeni", "Yeşilova"]
+        },
+        {
+          "name": "Güzelbahçe",
+          "districts": ["Güzelbahçe Merkez", "Balaban", "Mavişehir", "Toklu"]
+        },
+        {
+          "name": "Karabağlar",
+          "districts": ["Karabağlar Merkez", "Ata", "Cennetçeşme", "Egekent"]
+        },
+        {
+          "name": "Karaburun",
+          "districts": ["Karaburun Merkez", "Aydınlık", "Çeşmelik", "Sarpıncık"]
+        },
+        {
+          "name": "Karşıyaka",
+          "districts": ["Karşıyaka Merkez", "Bostanlı", "Çiğli", "Mavişehir"]
+        },
+        {
+          "name": "Kemalpaşa",
+          "districts": ["Kemalpaşa Merkez", "Esenkent", "Gülbahçe", "Kızılçullu"]
+        },
+        {
+          "name": "Kınık",
+          "districts": ["Kınık Merkez", "Bademler", "Gerenköy", "Tuzla"]
+        },
+        {
+          "name": "Kiraz",
+          "districts": ["Kiraz Merkez", "Alancık", "Kızılçullu", "Tekeler"]
+        },
+        {
+          "name": "Konak",
+          "districts": ["Konak Merkez", "Bahribaba", "Karataş", "Mansuroğlu"]
+        },
+        {
+          "name": "Menderes",
+          "districts": ["Menderes Merkez", "Ayrancılar", "Değirmendere", "Salihli"]
+        },
+        {
+          "name": "Menemen",
+          "districts": ["Menemen Merkez", "Akpinar", "Gölcük", "Mahmutlar"]
+        },
+        {
+          "name": "Narlıdere",
+          "districts": ["Narlıdere Merkez", "Altınyol", "Güzeltepe", "Özkanlar"]
+        },
+        {
+          "name": "Ödemiş",
+          "districts": ["Ödemiş Merkez", "Akköy", "Gölcük", "Yeşilköy"]
+        },
+        {
+          "name": "Seferihisar",
+          "districts": ["Seferihisar Merkez", "Akçaköy", "Gülbahçe", "Orhanlı"]
+        },
+        {
+          "name": "Selçuk",
+          "districts": ["Selçuk Merkez", "Camiatik", "Kavaklıdere", "Yeniköy"]
+        },
+        {
+          "name": "Tire",
+          "districts": ["Tire Merkez", "Dutluca", "Karapınar", "Yeni"]
+        },
+        {
+          "name": "Torbalı",
+          "districts": ["Torbalı Merkez", "Karakuyu", "Kesikköprü", "Tepeköy"]
+        },
+        {
+          "name": "Urla",
+          "districts": ["Urla Merkez", "Alaçatı", "Güvendik", "Özbek"]
+        }
+      ]
+    }
+
+  ]
+}

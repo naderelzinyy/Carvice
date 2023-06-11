@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes.dart';
+import '../../../widgets/forget_password_enter_email_alert.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.roleEndpoint}) : super(key: key);
@@ -36,6 +37,16 @@ class _LoginPageState extends State<LoginPage> {
           passwordController.text.isNotEmpty;
     });
   }
+
+  void showPasswordResetAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ResetPasswordAlert(roleEndpoint: roleEndpoint,);
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                    Text('forgotPassword'.tr),
                   InkWell(
                     onTap: () {
-                      print("reset");
+                      showPasswordResetAlert(context);
                     },
                     child:Text('resetPassword'.tr),
                   )
