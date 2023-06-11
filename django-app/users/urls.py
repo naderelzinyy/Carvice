@@ -11,7 +11,10 @@ from .views import (SignupView,
                     AddCar,
                     GetCars,
                     UpdateCarInfo,
-                    DeleteCar)
+                    DeleteCar,
+                    DepositView,
+                    WithdrawView,
+                    TransferView)
 
 urlpatterns = [
     path('signup', SignupView.as_view()),
@@ -24,5 +27,8 @@ urlpatterns = [
     path('getCars', GetCars.as_view()),
     path('updateCar', UpdateCarInfo.as_view()),
     path('deleteCar', DeleteCar.as_view()),
+    path('deposit', DepositView.as_view()),
+    path('withdraw', WithdrawView.as_view()),
+    path('transfer', TransferView.as_view()),
 
 ]
