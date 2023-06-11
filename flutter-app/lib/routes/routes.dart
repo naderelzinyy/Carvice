@@ -3,6 +3,7 @@ import 'package:carvice_frontend/view/client/pages/carslist_page.dart';
 import 'package:carvice_frontend/view/client/pages/edit_car_info_page.dart';
 import 'package:carvice_frontend/view/client/pages/mechanic_profile_page.dart';
 import 'package:carvice_frontend/view/client/pages/update_profile_page.dart';
+import 'package:carvice_frontend/view/mechanic/pages/update_address.dart';
 import 'package:carvice_frontend/view/mechanic/pages/userprofile_page.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +20,7 @@ import '../view/general/pages/aboutus_page.dart';
 import '../view/general/pages/change_password_page.dart';
 import '../view/general/pages/forget_password_page.dart';
 import '../view/general/pages/settings_page.dart';
+import '../view/mechanic/pages/adress.dart';
 import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
 import '../view/mechanic/pages/portfolio_page.dart';
@@ -49,6 +51,8 @@ class Routers {
   static String settingsPage = "/settings";
   static String changePasswordPage = "/change_password";
   static String setPasswordPage = "/set_new_password";
+  static String address = "/address";
+  static String updateAddress = "/update_address";
 
 
 
@@ -73,6 +77,8 @@ class Routers {
   static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
   static String getSettingsPageRoute() => settingsPage;
   static String getChangePasswordPageRoute() => changePasswordPage;
+  static String getAddressPageRoute() => address;
+  static String getUpdateAddressPageRoute() => updateAddress;
   static String getSetNewPasswordRoute(String roleEndpoint) => '$setPasswordPage?roleEndpoint=$roleEndpoint';
 
 
@@ -212,6 +218,18 @@ class Routers {
     GetPage(
       name: changePasswordPage,
       page: () => const ChangePasswordPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: address,
+      page: () =>  const AddAddressPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: updateAddress,
+      page: () =>  const UpdateAddressPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
