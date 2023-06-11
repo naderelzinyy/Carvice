@@ -213,3 +213,16 @@ class DeleteCar(APIView):
             return Response({"message": "success"})
         except Exception as e:
             return Response({"message": "failure"})
+
+class DepositView(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"{request.data = }")
+        user = User.objects.get(id=request.data.get("id"))
+        if request.data.get("amount") > 25001:
+            return Response({"message": "Over Deposit Limit"})
+        user.balance += request.data.get("amount")
+        print(user.balance)
+        user.save()
+        return Response({"message": "success"})
+
