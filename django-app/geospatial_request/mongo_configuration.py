@@ -1,5 +1,4 @@
-from pymongo import MongoClient, GEOSPHERE
-import pprint
+from pymongo import MongoClient
 
 cluster = "mongodb+srv://carviceapp:LOl2NqSS6YZehcaG@cluster0.mdyliea.mongodb.net/?retryWrites=true&w=majority"
 # "mongodb+srv://carviceapp:<password>@cluster0.mdyliea.mongodb.net/"
