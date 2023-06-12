@@ -125,4 +125,14 @@ class AccountManager {
     }
     return false;
   }
+
+  Future<bool> addMechanicLocation(Map<String, dynamic> body) async {
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/addMechanicLocation', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("success_message")) {
+      return true;
+    }
+    return false;
+  }
 }
