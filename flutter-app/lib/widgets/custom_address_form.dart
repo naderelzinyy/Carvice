@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -6,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
 
 import '../../../widgets/text_field.dart';
+import '../services/authentication.dart';
 
 class City {
   final String name;
@@ -16,7 +18,8 @@ class City {
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
       name: json['name'],
-      counties: List<County>.from(json['counties'].map((x) => County.fromJson(x))),
+      counties:
+          List<County>.from(json['counties'].map((x) => County.fromJson(x))),
     );
   }
 }
@@ -60,6 +63,9 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     super.initState();
     fetchCities();
     selectedData = {
+      'location': null,
+      'user_id': null,
+      'commercial_name': '',
       'city': null,
       'county': null,
       'district': null,
@@ -71,13 +77,13 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
 
   Future<void> fetchCities() async {
     final String jsonData =
-    await rootBundle.loadString('assets/address_data/address_data_tr.json');
+        await rootBundle.loadString('assets/address_data/address_data_tr.json');
     final Map<String, dynamic> data = jsonDecode(jsonData);
 
     final List<dynamic> citiesJson = data['cities'];
 
     final List<City> fetchedCities =
-    citiesJson.map((json) => City.fromJson(json)).toList();
+        citiesJson.map((json) => City.fromJson(json)).toList();
 
     setState(() {
       cities = fetchedCities;
@@ -86,11 +92,14 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
         // Set initial values when updating
         // You can modify the initial values as needed
         selectedCity = cities.firstWhere((city) => city.name == 'Istanbul');
-        selectedCounty = selectedCity?.counties.firstWhere((county) => county.name == 'Avcilar');
-        selectedDistrict = selectedCounty?.districts.firstWhere((district) => district == 'Firuzkoy');
+        selectedCounty = selectedCity?.counties
+            .firstWhere((county) => county.name == 'Avcilar');
+        selectedDistrict = selectedCounty?.districts
+            .firstWhere((district) => district == 'Firuzkoy');
         streetNameController.text = 'Blv';
         streetNumberController.text = '34320';
         apartmentNoController.text = '75';
+        commercialNameController.text = 'DizaynVip';
       }
     });
   }
@@ -103,7 +112,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     try {
       // Retrieve the coordinates
       List<Location> locations =
-      await geocoding.locationFromAddress(formattedAddress);
+          await geocoding.locationFromAddress(formattedAddress);
 
       if (locations.isNotEmpty) {
         // Extract the first location
@@ -112,14 +121,15 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
         // Access the coordinates
         double latitude = location.latitude;
         double longitude = location.longitude;
-
-        selectedData['latitude'] = latitude;
-        selectedData['longitude'] = longitude;
-
+        Map<String, dynamic> locationMap = {
+          "coordinates": [latitude, longitude],
+          "type": "Point"
+        };
+        print('locationMap: $locationMap');
+        selectedData['location'] = locationMap;
         print('Latitude: $latitude');
         print('Longitude: $longitude');
-        String address =
-        await getAddressFromCoordinates(latitude, longitude);
+        String address = await getAddressFromCoordinates(latitude, longitude);
         print(address);
       } else {
         print('No coordinates found for the address.');
@@ -132,7 +142,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
   Future<String> getAddressFromCoordinates(
       double latitude, double longitude) async {
     List<Placemark> placemarks =
-    await placemarkFromCoordinates(latitude, longitude);
+        await placemarkFromCoordinates(latitude, longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -155,18 +165,27 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
   }
 
   void saveData() async {
+    selectedData['user_id'] = token!["id"];
     selectedData['city'] = selectedCity?.name;
     selectedData['county'] = selectedCounty?.name;
     selectedData['district'] = selectedDistrict;
     selectedData['streetName'] = streetNameController.text;
     selectedData['streetNumber'] = streetNumberController.text;
     selectedData['apartmentNo'] = apartmentNoController.text;
+    selectedData['commercial_name'] = commercialNameController.text;
     await getAddressCoordinates();
-    print(selectedData);
-    // Perform any other operations with the selected data here
+    print("selected data :: $selectedData");
+
+    if (await AccountManager().addMechanicLocation(selectedData)) {
+      print("succcess");
+    } else {
+      print("failure");
+    }
   }
 
   final TextEditingController streetNameController = TextEditingController();
+  final TextEditingController commercialNameController =
+      TextEditingController();
   final TextEditingController streetNumberController = TextEditingController();
   final TextEditingController apartmentNoController = TextEditingController();
 
@@ -232,24 +251,23 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               child: DropdownButton<County>(
                 value: selectedCounty,
                 hint: const Text('Select a county'),
-                onChanged:  (County? newValue) {
-                    if (newValue != null) {
+                onChanged: (County? newValue) {
+                  if (newValue != null) {
                     setState(() {
-                    selectedCounty = newValue;
-                    selectedDistrict = null;
-                    isCountySelected = true; // Update county selection
-                    }
-                    );
-                    }
-                    },
-    items: selectedCity != null
+                      selectedCounty = newValue;
+                      selectedDistrict = null;
+                      isCountySelected = true; // Update county selection
+                    });
+                  }
+                },
+                items: selectedCity != null
                     ? selectedCity!.counties
-                    .map<DropdownMenuItem<County>>((County county) {
-                  return DropdownMenuItem<County>(
-                    value: county,
-                    child: Text(county.name),
-                  );
-                }).toList()
+                        .map<DropdownMenuItem<County>>((County county) {
+                        return DropdownMenuItem<County>(
+                          value: county,
+                          child: Text(county.name),
+                        );
+                      }).toList()
                     : null,
                 disabledHint: const Text(
                   'Select a city first',
@@ -277,19 +295,19 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               child: DropdownButton<String>(
                 value: selectedDistrict,
                 hint: const Text('Select a district'),
-                onChanged:(String? newValue) {
+                onChanged: (String? newValue) {
                   setState(() {
                     selectedDistrict = newValue;
                   });
                 },
                 items: selectedCounty != null
                     ? selectedCounty!.districts
-                    .map<DropdownMenuItem<String>>((String district) {
-                  return DropdownMenuItem<String>(
-                    value: district,
-                    child: Text(district),
-                  );
-                }).toList()
+                        .map<DropdownMenuItem<String>>((String district) {
+                        return DropdownMenuItem<String>(
+                          value: district,
+                          child: Text(district),
+                        );
+                      }).toList()
                     : null,
                 disabledHint: const Text(
                   'Select a county first',
@@ -336,6 +354,21 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNameController.text.isEmpty ||
                     streetNumberController.text.isEmpty;
+              });
+            },
+          ),
+          const SizedBox(height: 16),
+          CustomTextFiled(
+            controller: commercialNameController,
+            hintText: 'Commercial Name',
+            textInputType: TextInputType.text,
+            obscureText: false,
+            onChanged: (value) {
+              setState(() {
+                areTextFieldsEmpty = value.isEmpty ||
+                    streetNameController.text.isEmpty ||
+                    streetNumberController.text.isEmpty ||
+                    apartmentNoController.text.isEmpty;
               });
             },
           ),
