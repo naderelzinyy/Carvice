@@ -60,4 +60,13 @@ class GetAvailableMechanics(APIView):
 
 
 class UpdateMechanicInfo(APIView):
-    pass
+    @staticmethod
+    def post(request) -> Response:
+        """Handles the request passed to UpdateMechanicInfo view."""
+        result = db.mechanic.update_one({"user_id": request.data.get("user_id")}, request.data)
+
+        # Check if the document was successfully updated
+        if result.modified_count > 0:
+            return Response({"message": "Document updated successfully."})
+        else:
+            return Response({"failure_message": "Document couldn't be updated."})
