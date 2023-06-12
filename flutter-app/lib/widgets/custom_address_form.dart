@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:get/get.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -164,6 +164,51 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     }
   }
 
+  void _showSuccessAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success'),
+          content: Text(widget.update
+              ? 'Address updated successfully!'
+              : 'Address added successfully!'),
+          actions: <Widget>[
+            CustomButton(
+              btnText: 'OK',
+              onTap: () {
+                 Get.until((route) => route.settings.name == '/mechanic_home') ;
+
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showFailureAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Failure'),
+          content: Text(widget.update
+              ? 'Failed to update address details. Please try again.'
+              : 'Failed to add an Address. Please try again.'),
+          actions: <Widget>[
+            CustomButton(
+              btnText: 'OK',
+              onTap: () {
+                Get.until((route) => route.settings.name == '/mechanic_home');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void saveData() async {
     selectedData['user_id'] = token!["id"];
     selectedData['city'] = selectedCity?.name;
@@ -175,17 +220,20 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     selectedData['commercial_name'] = commercialNameController.text;
     await getAddressCoordinates();
     print("selected data :: $selectedData");
-
-    if (await AccountManager().addMechanicLocation(selectedData)) {
-      print("succcess");
-    } else {
-      print("failure");
+    if (widget.update) {
+      // we need to add the update functionality here :)
+    }
+    else{
+      if (await AccountManager().addMechanicLocation(selectedData)) {
+        _showSuccessAlert();
+      } else {
+        _showFailureAlert();
+      }
     }
   }
 
   final TextEditingController streetNameController = TextEditingController();
-  final TextEditingController commercialNameController =
-      TextEditingController();
+  final TextEditingController commercialNameController = TextEditingController();
   final TextEditingController streetNumberController = TextEditingController();
   final TextEditingController apartmentNoController = TextEditingController();
 
