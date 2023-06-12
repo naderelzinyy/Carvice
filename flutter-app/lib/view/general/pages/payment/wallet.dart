@@ -12,7 +12,7 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
-  double currentBalance = 1000.0; // update this according to your logic
+  double currentBalance = 1000.0; //TODO update this according to your logic
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,27 @@ class _WalletPageState extends State<WalletPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Current Balance: ${currentBalance.toStringAsFixed(currentBalance.truncateToDouble() == currentBalance ? 0 : 2)}TL',
-              style: TextStyle(
-                fontSize: 20,
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
+              child: Text(
+                'Current Balance: ${currentBalance.toStringAsFixed(currentBalance.truncateToDouble() == currentBalance ? 0 : 2)}TL',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: MainColors.mainColor,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -40,7 +57,8 @@ class _WalletPageState extends State<WalletPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const PaymentPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const PaymentPage(isDeposit: true)),
                 );
               },
               child: const Text('Deposit'),
@@ -51,8 +69,12 @@ class _WalletPageState extends State<WalletPage> {
                 backgroundColor: MainColors.mainColor,
               ),
               onPressed: () {
-                // TODO: Implement withdraw logic here
-                print('Withdraw button pressed');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const PaymentPage(isDeposit: false)),
+                );
               },
               child: const Text('Withdraw'),
             ),
