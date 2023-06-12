@@ -18,6 +18,20 @@ class AddMechanicLocation(APIView):
             return Response({"failure_message": "Couldn't add the location."})
 
 
+class GetMechanicAddressInfo(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        """Handles adding mechanics locations."""
+        print(f"{request.data = }")
+        try:
+            result = db.mechanics.find_one({"user_id": request.data.get("user_id")}, {"_id": False})
+            print(f"{result = }")
+            return Response({"mechanic_info": result})
+        except Exception as e:
+            print(f"{e = }")
+            return Response({"failure_message": "Couldn't find such an address."})
+
+
 class GetAvailableMechanics(APIView):
     @staticmethod
     def post(request) -> Response:
