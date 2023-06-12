@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import '../../../../widgets/app_navigation.dart';
 
 class PaymentPage extends StatefulWidget {
-  const PaymentPage({Key? key}) : super(key: key);
+  final bool isDeposit;
+  const PaymentPage({Key? key, this.isDeposit = true}) : super(key: key);
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -32,11 +33,12 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppNavigation(
-        title: 'Payment'.tr,
+        title: widget.isDeposit ? 'Deposit' : 'Withdrawal',
         automaticallyCallBack: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             children: [
@@ -45,13 +47,15 @@ class _PaymentPageState extends State<PaymentPage> {
                 child: TextField(
                   controller: _controller,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter deposit amount',
-                    border: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    labelText: widget.isDeposit
+                        ? 'Enter deposit amount'
+                        : 'Enter withdrawal amount',
+                    border: const OutlineInputBorder(
                       borderSide:
                           BorderSide(color: Color(0xFFF2B133), width: 2.0),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide:
                           BorderSide(color: Color(0xFFF2B133), width: 2.0),
                     ),
@@ -78,7 +82,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   backgroundColor: MainColors.mainColor,
                 ),
                 onPressed: _makeCustomPayment,
-                child: const Text('Deposit'),
+                child: Text(widget.isDeposit ? 'Deposit' : 'Withdraw'),
               ),
               const SizedBox(height: 10),
               if (_paymentMessage.isNotEmpty)
@@ -101,7 +105,10 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   void _makePayment(double amount) {
-    if (amount <= 20) {
+    // TODO: Implement payment logic here
+    String operation = widget.isDeposit ? 'Deposit' : 'Withdrawal';
+
+    if (amount <= 0) {
       setState(() {
         _paymentMessage =
             'Invalid amount.\nPlease enter an amount greater than 0.';
@@ -112,11 +119,10 @@ class _PaymentPageState extends State<PaymentPage> {
             'Invalid amount.\nPlease enter an amount less than 25000.';
       });
     } else {
-      // TODO: Implement payment logic here
-      print('Deposited $amount');
+      print('$operation $amount');
 
       setState(() {
-        _paymentMessage = 'Payment Succeeded!';
+        _paymentMessage = '$operation successful!';
       });
     }
   }
