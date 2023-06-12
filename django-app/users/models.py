@@ -29,7 +29,6 @@ class Client(models.Model):
 class Mechanic(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    commercial_name = models.CharField(max_length=255)
     account_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
