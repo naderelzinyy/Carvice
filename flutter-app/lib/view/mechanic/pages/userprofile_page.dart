@@ -67,8 +67,7 @@ class MechanicUserProfilePage extends StatelessWidget {
               icon: Icons.location_on,
               onPress: () async {
                 // Check if the address exists in the database
-                bool addressExists =
-                    mechanicAddressInfo!.containsKey("user_id") ? true : false;
+                bool addressExists = mechanicAddressInfo != null ? true : false;
 
                 if (addressExists) {
                   Get.toNamed(Routers.getUpdateAddressPageRoute());
