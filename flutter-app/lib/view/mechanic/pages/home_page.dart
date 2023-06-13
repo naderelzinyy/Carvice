@@ -13,16 +13,16 @@ class MechanicHomePage extends StatelessWidget {
   Future<bool> hasRegisteredAddress() async {
     // Replace this with your logic to check the registered address in your database
     // Return true if there is a registered address, false otherwise
-    await AccountManager().getMechanicAddressInfo({"user_id": token!["id"]});
-    if (mechanicAddressInfo!.containsKey("user_id")) {
+
+    if (await AccountManager()
+        .getMechanicAddressInfo({"user_id": token!["id"]})) {
       return true;
     }
     return false;
   }
 
   Future<void> init(BuildContext context) async {
-    bool hasAddress = await hasRegisteredAddress();
-    if (!hasAddress) {
+    if (!await hasRegisteredAddress()) {
       handleAddAddress(context);
     }
   }
