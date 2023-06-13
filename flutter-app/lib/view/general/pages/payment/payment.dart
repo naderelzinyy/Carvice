@@ -1,7 +1,9 @@
 import 'package:carvice_frontend/utils/main.colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
+import 'bank_card_information.dart';
 
 class PaymentPage extends StatefulWidget {
   final bool isDeposit;
@@ -14,12 +16,27 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   final TextEditingController _controller = TextEditingController();
   String _paymentMessage = '';
+  double currentBalance = token!['balance'];
   List<double> predefinedAmounts = [250, 500, 1000, 5000];
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(_hideSuccessMessage);
+    _updateBalance();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateBalance();
+  }
+
+  _updateBalance() async {
+    var userId =
+        token!['id'];
+    currentBalance = await AccountManager().fetchBalance(userId);
+    setState(() {});
   }
 
   @override
@@ -119,11 +136,19 @@ class _PaymentPageState extends State<PaymentPage> {
             'Invalid amount.\nPlease enter an amount less than 25000.';
       });
     } else {
+      if (!widget.isDeposit && amount > currentBalance) {
+        setState(() {
+          _paymentMessage =
+              'Invalid amount.\nYou can\'t withdraw more than your balance.';
+        });
+        return;
+      }
       print('$operation $amount');
-
-      setState(() {
-        _paymentMessage = '$operation successful!';
-      });
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CardInformation(
+                isDeposit: widget.isDeposit,
+                amount: amount,
+              )));
     }
   }
 
