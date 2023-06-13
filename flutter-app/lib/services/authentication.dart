@@ -143,8 +143,19 @@ class AccountManager {
     var data = await requestHandler.getData();
     if (data.containsKey("mechanic_info")) {
       mechanicAddressInfo = data["mechanic_info"];
-      print("data :: $data");
       print("$mechanicAddressInfo");
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> updateMechanicAddressInfo(Map<String, dynamic> body) async {
+    print("update request :: $body");
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/updateMechanicInfo', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("message")) {
+      return true;
     }
     return false;
   }
