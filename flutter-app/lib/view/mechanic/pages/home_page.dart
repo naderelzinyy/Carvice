@@ -1,30 +1,40 @@
-import 'package:flutter/material.dart';
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/app_navigation.dart';
-import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
+import 'package:carvice_frontend/widgets/side_bar.dart';
+import 'package:flutter/material.dart';
+
 import '../../../widgets/add_addres_alert.dart';
 import '../../../widgets/map_widget/map_page.dart';
 
 class MechanicHomePage extends StatelessWidget {
-  const MechanicHomePage({super.key});
+  MechanicHomePage({Key? key}) : super(key: key);
 
-
-
-  // Function to check if the mechanic has a registered address
-  bool hasRegisteredAddress() {
+  Future<bool> hasRegisteredAddress() async {
     // Replace this with your logic to check the registered address in your database
     // Return true if there is a registered address, false otherwise
+    await AccountManager().getMechanicAddressInfo({"user_id": token!["id"]});
+    if (mechanicAddressInfo!.containsKey("user_id")) {
+      return true;
+    }
     return false;
   }
 
-  // Function to handle the "Add My Address" button click
+  Future<void> init(BuildContext context) async {
+    bool hasAddress = await hasRegisteredAddress();
+    if (!hasAddress) {
+      handleAddAddress(context);
+    }
+  }
+
   void handleAddAddress(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return const CustomAddAddressAlertDialog(
           title: 'Please Add Your Address',
-          content: Text('You need to add your address in order to start receiving requests!'),
+          content: Text(
+              'You need to add your address in order to start receiving requests!'),
         );
       },
     );
@@ -33,13 +43,10 @@ class MechanicHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const bool isClient = false;
-    bool hasAddress = hasRegisteredAddress();
 
-    if (!hasAddress) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        handleAddAddress(context);
-      });
-    }
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      init(context);
+    });
 
     return const Scaffold(
       appBar: AppNavigation(
