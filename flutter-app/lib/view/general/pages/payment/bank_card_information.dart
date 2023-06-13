@@ -1,4 +1,5 @@
 import 'package:carvice_frontend/utils/main.colors.dart';
+import 'package:carvice_frontend/view/general/pages/payment/wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -167,6 +168,11 @@ class CardInformationState extends State<CardInformation> {
         AccountManager().deposit(data).then((success) {
           if (success) {
             print('Deposit successful');
+            //TODO: Add a popup to success message with close button to go back to wallet
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const WalletPage()),
+            );
           } else {
             print('Deposit failed');
           }
@@ -175,6 +181,11 @@ class CardInformationState extends State<CardInformation> {
         AccountManager().withdraw(data).then((success) {
           if (success) {
             print('Withdrawal successful');
+            //TODO: Add a popup to success message with close button to go back to wallet
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const WalletPage()),
+            );
           } else {
             print('Withdrawal failed');
           }
