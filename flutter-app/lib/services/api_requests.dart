@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class RequestHandler {
-  RequestHandler(this.url, this.body);
+  RequestHandler(this.url, [this.body]);
   var url;
   var body;
 
