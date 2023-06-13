@@ -125,4 +125,25 @@ class AccountManager {
     }
     return false;
   }
+
+  Future<bool> deposit(Map<String, dynamic> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/deposit', body);
+    var data = await requestHandler.getData();
+    return data.containsKey("message") && data["message"] == "success";
+  }
+
+  Future<bool> withdraw(Map<String, dynamic> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/withdraw', body);
+    var data = await requestHandler.getData();
+    return data.containsKey("message") && data["message"] == "success";
+  }
+
+  Future<bool> transfer(Map<String, dynamic> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/transfer', body);
+    var data = await requestHandler.getData();
+    return data.containsKey("message") && data["message"] == "success";
+  }
 }
