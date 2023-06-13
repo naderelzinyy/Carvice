@@ -2,6 +2,7 @@ import 'package:carvice_frontend/utils/main.colors.dart';
 import 'package:carvice_frontend/view/general/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
 
 class WalletPage extends StatefulWidget {
@@ -12,7 +13,27 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
-  double currentBalance = 1000.0; //TODO update this according to your logic
+  double currentBalance =
+      token!['balance'];
+
+  @override
+  void initState() {
+    super.initState();
+    _updateBalance();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateBalance();
+  }
+
+  _updateBalance() async {
+    var userId =
+        token!['id'];
+    currentBalance = await AccountManager().fetchBalance(userId);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
