@@ -179,7 +179,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
             CustomButton(
               btnText: 'OK',
               onTap: () {
-                Get.until((route) => route.settings.name == '/mechanic_home');
+                Get.offAllNamed(Routers.getMechanicHomePageRoute());
               },
             ),
           ],
