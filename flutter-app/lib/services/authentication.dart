@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
+Map<Object, dynamic>? mechanicAddressInfo;
 List<dynamic>? carsData;
 
 String ip = "localhost"; // Enter your IP here to allow multiple emulators
@@ -132,6 +133,18 @@ class AccountManager {
     var data = await requestHandler.getData();
     if (data.containsKey("success_message")) {
       return true;
+    }
+    return false;
+  }
+
+  Future<bool> getMechanicAddressInfo(Map<String, dynamic> body) async {
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/getMechanicAddressInfo', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("mechanic_info")) {
+      mechanicAddressInfo = data["mechanic_info"];
+      print("data :: $data");
+      print("$mechanicAddressInfo");
     }
     return false;
   }
