@@ -146,4 +146,15 @@ class AccountManager {
     var data = await requestHandler.getData();
     return data.containsKey("message") && data["message"] == "success";
   }
+
+  Future<double> fetchBalance(int userId) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/balance/$userId');
+    var data = await requestHandler.getDataWithGet();
+    if (data.containsKey("balance")) {
+      return data["balance"];
+    } else {
+      throw Exception('Failed to fetch balance');
+    }
+  }
 }
