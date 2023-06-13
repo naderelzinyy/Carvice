@@ -20,4 +20,16 @@ class RequestHandler {
       return {"message": "can't reach server"};
     }
   }
+
+  Future getDataWithGet() async {
+    url = Uri.parse(url);
+    try {
+      http.Response response = await http.get(url, headers: {
+        'Accept': 'application/json',
+      });
+      return jsonDecode(response.body);
+    } on Exception {
+      return {"message": "can't reach server"};
+    }
+  }
 }
