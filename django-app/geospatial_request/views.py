@@ -63,10 +63,36 @@ class UpdateMechanicInfo(APIView):
     @staticmethod
     def post(request) -> Response:
         """Handles the request passed to UpdateMechanicInfo view."""
-        result = db.mechanic.update_one({"user_id": request.data.get("user_id")}, request.data)
 
-        # Check if the document was successfully updated
-        if result.modified_count > 0:
-            return Response({"message": "Document updated successfully."})
-        else:
-            return Response({"failure_message": "Document couldn't be updated."})
+        try:
+            new_data = request.data.get("new_data")
+            location = new_data.get("location")
+            print(f"{request.data = }")
+            update = {
+                "$set": {
+                    "city": new_data.get("city"),
+                    "county": new_data.get("county"),
+                    "district": new_data.get("district"),
+                    "streetName": new_data.get("streetName"),
+                    "streetNumber": new_data.get("streetNumber"),
+                    "apartmentNo": new_data.get("apartmentNo"),
+                    "location": {
+                        "coordinates": location.get("coordinates"),
+                        "type": location.get("type")
+                    },
+                    "commercial_name": new_data.get("commercial_name")
+                }
+            }
+            user_id = int(request.data.get("user_id"))
+            print(f"{user_id = }")
+            result = db.mechanics.update_one(filter={"user_id": user_id}, update=update, upsert=True)
+            updated_doc = db.mechanics.find_one({"user_id": user_id})
+            print(f"{updated_doc = }")
+
+            # check if the document was successfully updated
+            if result.modified_count > 0:
+                return Response({"message": "Document updated successfully."})
+            else:
+                return Response({"failure_message": "Document couldn't be updated."})
+        except Exception as e:
+            print(f"{e=}")
