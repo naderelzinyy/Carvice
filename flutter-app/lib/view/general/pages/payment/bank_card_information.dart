@@ -1,14 +1,21 @@
 import 'package:carvice_frontend/utils/main.colors.dart';
-import 'package:carvice_frontend/view/general/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
 
+import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
 
 class CardInformation extends StatefulWidget {
-  const CardInformation({Key? key}) : super(key: key);
+  final bool isDeposit;
+  final double amount;
+
+  const CardInformation({
+    Key? key,
+    this.isDeposit = true,
+    required this.amount,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CardInformationState();
@@ -149,17 +156,32 @@ class CardInformationState extends State<CardInformation> {
 
   void _onValidate() {
     if (formKey.currentState!.validate()) {
-      print('valid!');
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const PaymentPage()),
-      );
+      print('valid bank card!');
+
+      Map<String, dynamic> data = {
+        'id': token!['id'],
+        'amount': widget.amount,
+      };
+
+      if (widget.isDeposit) {
+        AccountManager().deposit(data).then((success) {
+          if (success) {
+            print('Deposit successful');
+          } else {
+            print('Deposit failed');
+          }
+        });
+      } else {
+        AccountManager().withdraw(data).then((success) {
+          if (success) {
+            print('Withdrawal successful');
+          } else {
+            print('Withdrawal failed');
+          }
+        });
+      }
     } else {
-      print('invalid!');
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const PaymentPage()),
-      // );
+      print('invalid bank card!');
     }
   }
 
