@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:get/get.dart';
+
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:geocoding/geocoding.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
+import 'package:get/get.dart';
 
 import '../../../widgets/text_field.dart';
 import '../services/authentication.dart';
@@ -91,15 +92,16 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
       if (widget.update) {
         // Set initial values when updating
         // You can modify the initial values as needed
-        selectedCity = cities.firstWhere((city) => city.name == 'Istanbul');
-        selectedCounty = selectedCity?.counties
-            .firstWhere((county) => county.name == 'Avcilar');
-        selectedDistrict = selectedCounty?.districts
-            .firstWhere((district) => district == 'Firuzkoy');
-        streetNameController.text = 'Blv';
-        streetNumberController.text = '34320';
-        apartmentNoController.text = '75';
-        commercialNameController.text = 'DizaynVip';
+        selectedCity = cities
+            .firstWhere((city) => city.name == mechanicAddressInfo!["city"]);
+        selectedCounty = selectedCity?.counties.firstWhere(
+            (county) => county.name == mechanicAddressInfo!["county"]);
+        selectedDistrict = selectedCounty?.districts.firstWhere(
+            (district) => district == mechanicAddressInfo!["district"]);
+        streetNameController.text = mechanicAddressInfo!["streetName"];
+        streetNumberController.text = mechanicAddressInfo!["streetNumber"];
+        apartmentNoController.text = mechanicAddressInfo!["apartmentNo"];
+        commercialNameController.text = mechanicAddressInfo!["commercial_name"];
       }
     });
   }
@@ -177,8 +179,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
             CustomButton(
               btnText: 'OK',
               onTap: () {
-                 Get.until((route) => route.settings.name == '/mechanic_home') ;
-
+                Get.until((route) => route.settings.name == '/mechanic_home');
               },
             ),
           ],
@@ -222,8 +223,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     print("selected data :: $selectedData");
     if (widget.update) {
       // we need to add the update functionality here :)
-    }
-    else{
+    } else {
       if (await AccountManager().addMechanicLocation(selectedData)) {
         _showSuccessAlert();
       } else {
@@ -233,7 +233,8 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
   }
 
   final TextEditingController streetNameController = TextEditingController();
-  final TextEditingController commercialNameController = TextEditingController();
+  final TextEditingController commercialNameController =
+      TextEditingController();
   final TextEditingController streetNumberController = TextEditingController();
   final TextEditingController apartmentNoController = TextEditingController();
 
