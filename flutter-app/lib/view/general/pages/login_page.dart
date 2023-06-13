@@ -42,11 +42,12 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ResetPasswordAlert(roleEndpoint: roleEndpoint,);
+        return ResetPasswordAlert(
+          roleEndpoint: roleEndpoint,
+        );
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 20),
-               Text(
+              Text(
                 'loginToYourAccount'.tr,
                 style: const TextStyle(
                   color: Colors.black,
@@ -96,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: passwordController,
-                  hintText:'password'.tr,
+                  hintText: 'password'.tr,
                   textInputType: TextInputType.text,
                   obscureText: true),
               const SizedBox(height: 20),
@@ -131,12 +132,12 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                   Text('forgotPassword'.tr),
+                  Text('forgotPassword'.tr),
                   InkWell(
                     onTap: () {
                       showPasswordResetAlert(context);
                     },
-                    child:Text('resetPassword'.tr),
+                    child: Text('resetPassword'.tr),
                   )
                 ],
               ),
@@ -150,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Text('noAccount'.tr),
+              Text('noAccount'.tr),
               InkWell(
                 onTap: () {
                   Get.offAllNamed(Routers.getSignupPageRoute(roleEndpoint));
