@@ -253,3 +253,12 @@ class TransferView(APIView):
         receiver.save()
         return Response({"message": "success"})
 
+
+class BalanceView(APIView):
+    @staticmethod
+    def get(request, user_id) -> Response:
+        print("testing")
+        user = User.objects.get(id=user_id)
+        print(user.balance)
+        print(user.id)
+        return Response({"balance": user.balance})
