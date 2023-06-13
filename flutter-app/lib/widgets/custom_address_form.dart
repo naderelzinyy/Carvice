@@ -221,8 +221,26 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     selectedData['commercial_name'] = commercialNameController.text;
     await getAddressCoordinates();
     print("selected data :: $selectedData");
+    var updateRequest = {
+      "user_id": token!["id"],
+      "new_data": {
+        "city": selectedData['city'],
+        "county": selectedData['county'],
+        "district": selectedData['district'],
+        "streetName": selectedData['streetName'],
+        "streetNumber": selectedData['streetNumber'],
+        "apartmentNo": selectedData['apartmentNo'],
+        "location": selectedData["location"],
+        "commercial_name": selectedData['commercial_name']
+      }
+    };
     if (widget.update) {
       // we need to add the update functionality here :)
+      if (await AccountManager().updateMechanicAddressInfo(updateRequest)) {
+        _showSuccessAlert();
+      } else {
+        _showFailureAlert();
+      }
     } else {
       if (await AccountManager().addMechanicLocation(selectedData)) {
         _showSuccessAlert();
