@@ -159,4 +159,16 @@ class AccountManager {
     }
     return false;
   }
+
+  Future<List<dynamic>> getAvailableMechanics(Map<String, dynamic> body) async {
+    print("coordinates request :: $body");
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/getNearMechanics', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("available_mechanics")) {
+      print(data['available_mechanics']);
+      return data["available_mechanics"];
+    }
+    return [];
+  }
 }
