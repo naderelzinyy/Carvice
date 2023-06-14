@@ -169,10 +169,10 @@ class CardInformationState extends State<CardInformation> {
           if (success) {
             print('Deposit successful');
             //TODO: Add a popup to success message with close button to go back to wallet
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const WalletPage()),
-            );
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const WalletPage()));
           } else {
             print('Deposit failed');
           }
@@ -182,10 +182,10 @@ class CardInformationState extends State<CardInformation> {
           if (success) {
             print('Withdrawal successful');
             //TODO: Add a popup to success message with close button to go back to wallet
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const WalletPage()),
-            );
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const WalletPage()));
           } else {
             print('Withdrawal failed');
           }
