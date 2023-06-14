@@ -52,8 +52,8 @@ class GetAvailableMechanics(APIView):
                 }
             }
             available_mechanics = list(db.mechanics.find(query, {'_id': False}))
-            print(f"after find {type(available_mechanics)}")
-            return Response({"available_mechanics": available_mechanics})
+            print(f"Available mechanics :: {available_mechanics = }")
+            return Response({"available_mechanics": available_mechanics} if available_mechanics else {"failure_message": "Couldn't find mechanics in your area."})
         except Exception as e:
             print(f"{e = }")
             return Response({"failure_message": "Couldn't fetch mechanics locations."})
