@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes.dart';
+import '../../../utils/main.colors.dart';
+import '../../../widgets/forget_password_enter_email_alert.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.roleEndpoint}) : super(key: key);
@@ -20,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   bool response = false;
   String text = "";
   late String roleEndpoint = widget.roleEndpoint;
+  late String role = roleEndpoint == "mechanic" ? 'mechanic'.tr : 'client'.tr;
 
   @override
   void initState() {
@@ -37,6 +40,16 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  void showPasswordResetAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ResetPasswordAlert(roleEndpoint: roleEndpoint,);
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,14 +61,26 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Container(
                 alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/images/transparent_logo.png',
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                  fit: BoxFit.contain,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/transparent_logo.png',
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.width * 0.6,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(
+                      role,
+                      style:  TextStyle(
+                        color: MainColors.mainColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -123,9 +148,22 @@ class _LoginPageState extends State<LoginPage> {
                    Text('forgotPassword'.tr),
                   InkWell(
                     onTap: () {
-                      print("reset");
+                      showPasswordResetAlert(context);
                     },
                     child:Text('resetPassword'.tr),
+                  )
+                ],
+              ),
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text('Wrong Page? '),
+                  InkWell(
+                    onTap: () {
+                      Get.offAllNamed(Routers.getStartingPageRoute());
+                    },
+                    child:const Text('Go back'),
                   )
                 ],
               ),

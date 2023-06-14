@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../services/authentication.dart';
+import '../../../widgets/add_addres_alert.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/bottom_navigation.dart';
 import '../../../widgets/profile_menu.dart';
@@ -11,6 +12,18 @@ import '../../general/pages/payment/wallet.dart';
 
 class MechanicUserProfilePage extends StatelessWidget {
   const MechanicUserProfilePage({Key? key}) : super(key: key);
+
+  Future<bool> checkAddressExistence() async {
+    // Add your logic here to check if the address exists in the database
+    // You can use any database querying method or API call to perform the check
+
+    // For demonstration purposes, let's assume the address exists
+    bool addressExists = false;
+
+
+    return addressExists;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +55,36 @@ class MechanicUserProfilePage extends StatelessWidget {
               title: 'settings'.tr,
               icon: Icons.settings,
               onPress: () {
-                print("Settings btn pressed");
+                Get.toNamed(Routers.getSettingsPageRoute());
+              },
+            ),
+            ProfileMenu(
+              title: 'mechanic_portfolio'.tr,
+              icon: Icons.work,
+              onPress: () {
+                Get.toNamed(Routers.getMechanicPortfolioRoute());
               },
             ),
             ProfileMenu(
               title: 'myAddress'.tr,
               icon: Icons.location_on,
-              onPress: () {
-                print("Addresses btn pressed");
+              onPress: () async {
+                // Check if the address exists in the database
+                bool addressExists = await checkAddressExistence();
+
+                if (addressExists) {
+                  Get.toNamed(Routers.getUpdateAddressPageRoute());
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const CustomAddAddressAlertDialog(
+                        title: "You Don't Have an address yet please add one",
+                        content: Text('You need to add your address in order to start receiving requests!'),
+                      );
+                    },
+                  );
+                }
               },
             ),
             ProfileMenu(
