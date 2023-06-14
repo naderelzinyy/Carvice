@@ -13,8 +13,7 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
-  double currentBalance =
-      token!['balance'];
+  double currentBalance = token!['balance'];
 
   @override
   void initState() {
@@ -29,8 +28,7 @@ class _WalletPageState extends State<WalletPage> {
   }
 
   _updateBalance() async {
-    var userId =
-        token!['id'];
+    var userId = token!['id'];
     currentBalance = await AccountManager().fetchBalance(userId);
     setState(() {});
   }
@@ -79,7 +77,8 @@ class _WalletPageState extends State<WalletPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const PaymentPage(isDeposit: true)),
+                      builder: (context) => const PaymentPage(isDeposit: true),
+                      maintainState: false),
                 );
               },
               child: const Text('Deposit'),
@@ -93,8 +92,8 @@ class _WalletPageState extends State<WalletPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          const PaymentPage(isDeposit: false)),
+                      builder: (context) => const PaymentPage(isDeposit: false),
+                      maintainState: false),
                 );
               },
               child: const Text('Withdraw'),
