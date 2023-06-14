@@ -29,10 +29,10 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
       _carsList = carsData
           .map(
             (item) => SelectCar(
-          name: item["plate_number"],
-          carID: item["id"].toString(),
-        ),
-      )
+              name: item["plate_number"],
+              carID: item["id"].toString(),
+            ),
+          )
           .toList();
     });
   }
@@ -91,8 +91,8 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
           TextButton(
             onPressed: noteController.text.isNotEmpty
                 ? () {
-              handleFinalNextButtonPressed();
-            }
+                    handleFinalNextButtonPressed();
+                  }
                 : null,
             child: Text(
               'Next',
@@ -116,29 +116,29 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
         height: 150,
         child: isEmptyList
             ? const Center(
-          child: Text(
-            'You don\'t have any car in your list. Please add a new car.',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        )
+                child: Text(
+                  'You don\'t have any car in your list. Please add a new car.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
             : CustomSelectCarList(
-          list: _carsList,
-          onCarSelected: handleCarSelected,
-        ),
+                list: _carsList,
+                onCarSelected: handleCarSelected,
+              ),
       ),
       actions: [
         TextButton(
           onPressed: isEmptyList
               ? () {
-            Get.toNamed(Routers.getAddCarPageRoute(true));
-          }
+                  Get.toNamed(Routers.getAddCarPageRoute(true));
+                }
               : isNextButtonEnabled
-              ? () {
-            handleNextButtonPressed();
-          }
-              : null,
+                  ? () {
+                      handleNextButtonPressed();
+                    }
+                  : null,
           child: Text(
             isEmptyList ? 'Add New Car' : 'Next',
             style: TextStyle(
@@ -147,8 +147,8 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
               color: isEmptyList
                   ? MainColors.mainColor
                   : isNextButtonEnabled
-                  ? MainColors.mainColor
-                  : Colors.grey,
+                      ? MainColors.mainColor
+                      : Colors.grey,
             ),
           ),
         ),
