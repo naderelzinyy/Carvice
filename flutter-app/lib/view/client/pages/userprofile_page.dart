@@ -8,6 +8,7 @@ import '../../../widgets/bottom_navigation.dart';
 import '../../../widgets/profile_menu.dart';
 import '../../../widgets/rating_alert.dart';
 import '../../../widgets/user_information_part.dart';
+import '../../general/pages/payment/wallet.dart';
 
 class ClientUserProfilePage extends StatelessWidget {
   const ClientUserProfilePage({Key? key}) : super(key: key);
@@ -57,6 +58,10 @@ class ClientUserProfilePage extends StatelessWidget {
               icon: Icons.account_balance_wallet,
               onPress: () {
                 print("wallet btn pressed");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WalletPage()),
+                );
               },
             ),
             ProfileMenu(
