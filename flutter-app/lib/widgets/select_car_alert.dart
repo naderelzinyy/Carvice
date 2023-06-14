@@ -72,10 +72,10 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
 
     if (isNextButtonPressed) {
       return AlertDialog(
-        title: const Text('Enter Note'),
+        title: Text('note_alert'.tr),
         content: CustomTextFiled(
           controller: noteController,
-          hintText: 'Note',
+          hintText: 'note_alert_text_hint'.tr,
           textInputType: TextInputType.text,
           obscureText: false,
         ),
@@ -87,7 +87,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
             }
                 : null,
             child: Text(
-              'Next',
+              'next'.tr,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -107,10 +107,10 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
         width: double.maxFinite,
         height: 150,
         child: isEmptyList
-            ? const Center(
+            ?  Center(
           child: Text(
-            'You don\'t have any car in your list. Please add a new car.',
-            style: TextStyle(
+            'no_car_alert'.tr,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -132,7 +132,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
           }
               : null,
           child: Text(
-            isEmptyList ? 'Add New Car' : 'Next',
+            isEmptyList ? 'addNewCar' : 'next'.tr,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,

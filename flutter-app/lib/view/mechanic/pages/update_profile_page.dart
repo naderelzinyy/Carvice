@@ -23,7 +23,6 @@ class MechanicUpdateProfilePage extends StatelessWidget {
         email: token!["email"],
         phoneNumber: token!["phone_number"],
         onTap: () {
-          // TODO: Add save functionality here
           print("save updates btn pressed in mechanic");
         },
           roleEndpoint: "mechanic"

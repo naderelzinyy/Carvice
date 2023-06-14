@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+import 'package:get/get.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/custom_address_form.dart';
 
@@ -20,7 +20,7 @@ class _MyWidgetState extends State<AddAddressPage> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-        appBar:  const AppNavigation(title: 'Add Address', automaticallyCallBack: true,),
+        appBar:  AppNavigation(title: 'add_address'.tr, automaticallyCallBack: true,),
     body:  const CustomAddressWidget(update: false),
         bottomNavigationBar: Container(
         height: 100,

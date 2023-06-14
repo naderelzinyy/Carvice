@@ -77,9 +77,9 @@ class MechanicUserProfilePage extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const CustomAddAddressAlertDialog(
-                        title: "You Don't Have an address yet please add one",
-                        content: Text('You need to add your address in order to start receiving requests!'),
+                      return  CustomAddAddressAlertDialog(
+                        title: 'no_address_alert'.tr,
+                        content: Text('no_address_alert_clarification'.tr),
                       );
                     },
                   );

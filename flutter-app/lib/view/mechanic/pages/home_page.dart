@@ -4,6 +4,7 @@ import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:carvice_frontend/widgets/bottom_navigation.dart';
 import '../../../widgets/add_addres_alert.dart';
 import '../../../widgets/map_widget/map_page.dart';
+import 'package:get/get.dart';
 
 class MechanicHomePage extends StatelessWidget {
   const MechanicHomePage({super.key});
@@ -22,9 +23,9 @@ class MechanicHomePage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const CustomAddAddressAlertDialog(
-          title: 'Please Add Your Address',
-          content: Text('You need to add your address in order to start receiving requests!'),
+        return  CustomAddAddressAlertDialog(
+          title: 'no_address_alert'.tr,
+          content: Text('no_address_alert_clarification'.tr),
         );
       },
     );
