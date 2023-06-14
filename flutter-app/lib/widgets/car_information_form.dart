@@ -98,10 +98,10 @@ class _CarsFormState extends State<CarsForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Success'),
+          title:  Text('success'.tr),
           content: Text(widget.update
-              ? 'Car details updated successfully!'
-              : 'Car added successfully!'),
+              ? 'success_to_update_car'.tr
+              : 'success_to_save_car'.tr),
           actions: <Widget>[
             CustomButton(
               btnText: 'OK',
@@ -124,10 +124,10 @@ class _CarsFormState extends State<CarsForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Failure'),
+          title:  Text('failure'.tr),
           content: Text(widget.update
-              ? 'Failed to update car details. Please try again.'
-              : 'Failed to add car. Please try again.'),
+              ? 'failed_to_update_car'.tr
+              : 'failed_to_save_car'.tr),
           actions: <Widget>[
             CustomButton(
               btnText: 'OK',

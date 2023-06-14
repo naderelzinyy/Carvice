@@ -87,9 +87,9 @@ class _ResetPasswordAlertState extends State<ResetPasswordAlert> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (showEmailErrorMessage) // Display email error message if showEmailErrorMessage is true
-                const Text(
-                  'email_does_not_exist',
-                  style: TextStyle(color: Colors.red),
+                 Text(
+                  'email_does_not_exist'.tr,
+                  style: const TextStyle(color: Colors.red),
                 ),
               if (!emailExists)
                 CustomTextFiled(
@@ -99,7 +99,7 @@ class _ResetPasswordAlertState extends State<ResetPasswordAlert> {
                       showEmailErrorMessage = false; // Hide the email error message when email is changed
                     });
                   },
-                  hintText: 'Email',
+                  hintText: 'email'.tr,
                   textInputType: TextInputType.text,
                   obscureText: false,
                 ),

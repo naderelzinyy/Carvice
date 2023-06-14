@@ -101,8 +101,8 @@ class _ProfileFormState extends State<ProfileForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Success', style: TextStyle(color: Colors.green)),
-          content: const Text('User information updated successfully.'),
+          title:  Text('success'.tr, style: const TextStyle(color: Colors.green)),
+          content: Text('user_info_updated'.tr),
           actions: <Widget>[
             CustomButton(
               btnText: 'OK',
@@ -126,14 +126,14 @@ class _ProfileFormState extends State<ProfileForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(
-            'Failed to Update',
-            style: TextStyle(color: Colors.red),
+          title: Text(
+            'failed_to_update'.tr,
+            style: const TextStyle(color: Colors.red),
           ),
-          content: const Text('Sorry, an error occurred while updating user information.'),
+          content: Text('failed_to_update_message'.tr),
           actions: <Widget>[
             CustomButton(
-              btnText: 'OK',
+              btnText: 'ok'.tr,
               onTap: () {
                 Navigator.of(context).pop();
               },
@@ -281,22 +281,22 @@ class _ProfileFormState extends State<ProfileForm> {
                 onTap: () async {
                   if (_isFormChanged) {
                     if (!_isFirstNameValid(_firstName) && _isFieldChanged(_firstName, widget.firstName)) {
-                      _showWarningMessage('Please enter a valid first name');
+                      _showWarningMessage('enter_valid_name'.tr);
                       return;
                     }
 
                     if (!_isLastNameValid(_lastName) && _isFieldChanged(_lastName, widget.lastName)) {
-                      _showWarningMessage('Please enter a valid last name');
+                      _showWarningMessage('enter_valid_surname'.tr);
                       return;
                     }
 
                     if (!_isPhoneNumberValid(_phoneNumber)&& _isFieldChanged(_phoneNumber, widget.phoneNumber)) {
-                      _showWarningMessage('Please enter a valid phone number');
+                      _showWarningMessage('enter_valid_phone'.tr);
                       return;
                     }
 
                     if (!_isEmailValid(_email)&& _isFieldChanged(_email, widget.email)) {
-                      _showWarningMessage('Please enter a valid email address');
+                      _showWarningMessage('enter_valid_email'.tr);
                       return;
                     }
 

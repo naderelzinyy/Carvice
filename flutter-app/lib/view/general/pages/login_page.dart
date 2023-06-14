@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   } else {
                     setState(() {
-                      text = "Username or password is not correct";
+                      text = 'user_login_error'.tr;
                       usernameController.clear(); // Clear the username field
                       passwordController.clear(); // Clear the password field
                     });
@@ -158,12 +158,12 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text('Wrong Page? '),
+                   Text('wrong_page'.tr),
                   InkWell(
                     onTap: () {
                       Get.offAllNamed(Routers.getStartingPageRoute());
                     },
-                    child:const Text('Go back'),
+                    child: Text('go_back'.tr),
                   )
                 ],
               ),
