@@ -2,18 +2,21 @@ import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/select_car.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes.dart';
 import '../utils/main.colors.dart';
 
 class MyAlertDialog extends StatefulWidget {
-  const MyAlertDialog({Key? key}) : super(key: key);
-
+  const MyAlertDialog({Key? key, required this.position}) : super(key: key);
+  final Position? position;
   @override
   _MyAlertDialogState createState() => _MyAlertDialogState();
 }
+
 class _MyAlertDialogState extends State<MyAlertDialog> {
+  late Position? position = widget.position;
   List<SelectCar> _carsList = [];
   final AccountManager _accountManager = AccountManager();
   SelectCar? selectedItem;
@@ -50,12 +53,17 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     });
   }
 
-  void handleNextButtonPressed() {
+  Future<void> handleNextButtonPressed() async {
     if (selectedItem != null) {
       setState(() {
         isNextButtonPressed = true;
       });
     }
+    print("position :: $position");
+    List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
+      "coordinates": [position?.longitude, position?.latitude]
+    }));
+    print("mechanics :: $mechanics");
   }
 
   void handleFinalNextButtonPressed() {
