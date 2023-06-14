@@ -167,7 +167,7 @@ class AccountManager {
     var data = await requestHandler.getData();
     if (data.containsKey("available_mechanics")) {
       print(data['available_mechanics']);
-      return data["available_mechanics"];
+      return data["available_mechanics"] as List<dynamic>;
     }
     return [];
   }

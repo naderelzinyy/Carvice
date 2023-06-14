@@ -73,7 +73,9 @@ class Routers {
   static String getAddCarPageRoute(bool quickAdd) =>
       '$addCarPage?quickAdd=$quickAdd';
   static String getAboutUsPageRoute() => aboutUsPage;
-  static String getListOfMechanicsPageRoute() => listOfMechanics;
+  static String getListOfMechanicsPageRoute(String mechanicsData) =>
+      '$listOfMechanics?mechanicsData=$mechanicsData';
+
   static String getMechanicProfileInClientRoute() => mechanicProfileInClient;
   static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
   static String getSettingsPageRoute() => settingsPage;
@@ -196,7 +198,10 @@ class Routers {
     ),
     GetPage(
       name: listOfMechanics,
-      page: () => const MechanicListPage(),
+      page: () {
+        var mechanicsData = Get.parameters['mechanicsData'];
+        return MechanicListPage(mechanics: mechanicsData);
+      },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/select_car.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
@@ -63,6 +65,9 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
       "coordinates": [position?.longitude, position?.latitude]
     }));
+    String mechanicsDataString = jsonEncode(mechanics);
+    Get.toNamed(
+        Routers.getListOfMechanicsPageRoute(mechanicsDataString));
     print("mechanics :: $mechanics");
   }
 
