@@ -56,6 +56,7 @@ class Tokenizer:
             "username": user.username,
             "phone_number": str(user.phone_number),
             "email": user.email,
+            "balance":user.balance,
             "exp": datetime.datetime.now(datetime.timezone.utc)
                    + datetime.timedelta(minutes=60),
             "iat": datetime.datetime.now(datetime.timezone.utc),
@@ -212,3 +213,52 @@ class DeleteCar(APIView):
             return Response({"message": "success"})
         except Exception as e:
             return Response({"message": "failure"})
+
+class DepositView(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"{request.data = }")
+        user = User.objects.get(id=request.data.get("id"))
+        if request.data.get("amount") > 25001:
+            return Response({"message": "Over Deposit Limit"})
+        user.balance += request.data.get("amount")
+        print(user.balance)
+        user.save()
+        return Response({"message": "success"})
+
+
+class WithdrawView(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"{request.data = }")
+        user = User.objects.get(id=request.data.get("id"))
+        if user.balance < request.data.get("amount"):
+            return Response({"message": "Insufficient funds"})
+        user.balance -= request.data.get("amount")
+        print(user.balance)
+        user.save()
+        return Response({"message": "success"})
+
+
+class TransferView(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        sender = User.objects.get(id=request.data.get("sender_id"))
+        receiver = User.objects.get(id=request.data.get("receiver_id"))
+        if sender.balance < request.data.get("amount") or sender == receiver:
+            return Response({"message": "Transfer Failed"})
+        sender.balance -= request.data.get("amount")
+        receiver.balance += request.data.get("amount")
+        sender.save()
+        receiver.save()
+        return Response({"message": "success"})
+
+
+class BalanceView(APIView):
+    @staticmethod
+    def get(request, user_id) -> Response:
+        print("testing")
+        user = User.objects.get(id=user_id)
+        print(user.balance)
+        print(user.id)
+        return Response({"balance": user.balance})

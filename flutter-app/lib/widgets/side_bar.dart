@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/routes.dart';
 import '../services/authentication.dart';
+import '../view/general/pages/payment/wallet.dart';
 import 'change_language_dialog.dart';
 
 class SideBarGlobal extends StatelessWidget {
@@ -62,7 +63,10 @@ class SideBarGlobal extends StatelessWidget {
             leading: const Icon(Icons.account_balance_wallet),
             title:  Text('wallet'.tr),
             onTap: () {
-              // Handle wallet tap
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const WalletPage()),
+              );
             },
           ),
           if (showMyCars)
