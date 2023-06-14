@@ -33,8 +33,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   _updateBalance() async {
-    var userId =
-        token!['id'];
+    var userId = token!['id'];
     currentBalance = await AccountManager().fetchBalance(userId);
     setState(() {});
   }
@@ -122,7 +121,6 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   void _makePayment(double amount) {
-    // TODO: Implement payment logic here
     String operation = widget.isDeposit ? 'Deposit' : 'Withdrawal';
 
     if (amount <= 0) {
