@@ -445,6 +445,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               setState(() {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNumberController.text.isEmpty ||
+                    commercialNameController.text.isEmpty ||
                     apartmentNoController.text.isEmpty;
               });
             },
@@ -459,6 +460,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               setState(() {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNameController.text.isEmpty ||
+                    commercialNameController.text.isEmpty ||
                     apartmentNoController.text.isEmpty;
               });
             },
@@ -473,6 +475,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               setState(() {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNameController.text.isEmpty ||
+                    commercialNameController.text.isEmpty ||
                     streetNumberController.text.isEmpty;
               });
             },
