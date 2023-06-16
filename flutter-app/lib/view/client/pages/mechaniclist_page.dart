@@ -26,7 +26,7 @@ class MechanicListPageState extends State<MechanicListPage> {
           .map((item) => MyMechanicItem(
           name: item["name"],
           rate: 4.0,
-          imagePath: ''
+          imagePath: 'assets/images/person.jpeg'
       ))
           .toList();
     });
