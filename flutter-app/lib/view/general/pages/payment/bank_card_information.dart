@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
+import '../../../../widgets/custom_app_footer.dart';
 
 class CardInformation extends StatefulWidget {
   final bool isDeposit;
@@ -152,6 +153,7 @@ class CardInformationState extends State<CardInformation> {
           ],
         ),
       ),
+        bottomNavigationBar: const CustomFooterWidget()
     );
   }
 

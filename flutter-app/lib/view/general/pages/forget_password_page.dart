@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../routes/routes.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/button.dart';
+import '../../../widgets/custom_app_footer.dart';
 import '../../../widgets/text_field.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -116,18 +117,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        alignment: Alignment.center,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Made with ♥ by Carvice team",
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

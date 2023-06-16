@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/custom_address_form.dart';
+import '../../../widgets/custom_app_footer.dart';
 
 
 
@@ -22,19 +23,7 @@ class _MyWidgetState extends State<UpdateAddressPage> {
     return   Scaffold(
       appBar:   AppNavigation(title: 'update_address'.tr, automaticallyCallBack: true,),
       body:  const CustomAddressWidget(update: true),
-      bottomNavigationBar: Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [
-              Text(
-                "Made with ♥ by Carvice team",
-              ),
-            ],
-          )
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

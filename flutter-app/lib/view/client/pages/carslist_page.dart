@@ -7,6 +7,8 @@ import '../../../widgets/button.dart';
 import '../../../widgets/cars_list.dart';
 import 'package:get/get.dart';
 
+import '../../../widgets/custom_app_footer.dart';
+
 class CarsListPage extends StatefulWidget {
   const CarsListPage({Key? key}) : super(key: key);
 
@@ -55,19 +57,7 @@ class CarsListPageState extends State<CarsListPage> {
           )
         ],
       ),
-      bottomNavigationBar: Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [
-              Text(
-                "Made with ♥ by Carvice team",
-              ),
-            ],
-          )
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes.dart';
+import '../../../widgets/custom_app_footer.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key, required this.roleEndpoint}) : super(key: key);
@@ -225,21 +226,7 @@ class _SignUpState extends State<SignUp> {
           ),
         )),
       ),
-      bottomNavigationBar: Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-               Text('alreadyHaveAccount'.tr),
-              InkWell(
-                onTap: () {
-                  Get.offAllNamed(Routers.getLoginPageRoute(roleEndpoint));
-                },
-                child: Text('signIn'.tr),
-              )
-            ],
-          )),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

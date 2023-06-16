@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
+import '../../../../widgets/custom_app_footer.dart';
 import 'bank_card_information.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -111,6 +112,7 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         ],
       ),
+        bottomNavigationBar: const CustomFooterWidget()
     );
   }
 
