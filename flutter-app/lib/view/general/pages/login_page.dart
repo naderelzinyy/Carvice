@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/routes.dart';
+import '../../../utils/main.colors.dart';
 import '../../../widgets/forget_password_enter_email_alert.dart';
 
 class LoginPage extends StatefulWidget {

@@ -226,7 +226,22 @@ class _SignUpState extends State<SignUp> {
           ),
         )),
       ),
-      bottomNavigationBar: const CustomFooterWidget()
+      bottomNavigationBar: Container(
+          height: 100,
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('alreadyHaveAccount'.tr),
+              InkWell(
+                onTap: () {
+                  Get.offAllNamed(Routers.getLoginPageRoute(roleEndpoint));
+                },
+                child: Text('signIn'.tr),
+              )
+            ],
+          )
+      ),
     );
   }
 }
