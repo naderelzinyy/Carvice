@@ -333,7 +333,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: DropdownButton<City>(
                 value: selectedCity,
-                hint: const Text('Select a city'),
+                hint:  Text('select_city'.tr),
                 onChanged: (City? newValue) {
                   setState(() {
                     selectedCity = newValue;
@@ -370,9 +370,9 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: DropdownButton<County>(
                 value: selectedCounty,
-                hint: const Text('Select a county'),
-                onChanged: (County? newValue) {
-                  if (newValue != null) {
+                hint: Text('select_county'.tr),
+                onChanged:  (County? newValue) {
+                    if (newValue != null) {
                     setState(() {
                       selectedCounty = newValue;
                       selectedDistrict = null;
@@ -389,9 +389,9 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
                         );
                       }).toList()
                     : null,
-                disabledHint: const Text(
-                  'Select a city first',
-                  style: TextStyle(color: Colors.grey),
+                disabledHint: Text(
+                  'select_city_first'.tr,
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ),
@@ -414,8 +414,8 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: DropdownButton<String>(
                 value: selectedDistrict,
-                hint: const Text('Select a district'),
-                onChanged: (String? newValue) {
+                hint: Text('select_district'.tr),
+                onChanged:(String? newValue) {
                   setState(() {
                     selectedDistrict = newValue;
                   });
@@ -429,9 +429,9 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
                         );
                       }).toList()
                     : null,
-                disabledHint: const Text(
-                  'Select a county first',
-                  style: TextStyle(color: Colors.grey),
+                disabledHint: Text(
+                  'select_county_first'.tr,
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ),
@@ -453,7 +453,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
           const SizedBox(height: 16),
           CustomTextFiled(
             controller: streetNumberController,
-            hintText: 'Street Number',
+            hintText: 'street_number'.tr,
             textInputType: TextInputType.number,
             obscureText: false,
             onChanged: (value) {
@@ -468,7 +468,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
           const SizedBox(height: 16),
           CustomTextFiled(
             controller: apartmentNoController,
-            hintText: 'Apartment No',
+            hintText: 'apartment_no'.tr,
             textInputType: TextInputType.text,
             obscureText: false,
             onChanged: (value) {
@@ -499,7 +499,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
           // Save button
           CustomButton(
             onTap: saveData,
-            btnText: widget.update ? 'Update' : 'Save',
+            btnText: widget.update ? 'update'.tr : 'save'.tr,
             isDisabled: areTextFieldsEmpty ||
                 !isCountySelected ||
                 selectedDistrict == null,

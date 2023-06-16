@@ -8,6 +8,7 @@ import '../../../widgets/app_navigation.dart';
 import '../../../widgets/bottom_navigation.dart';
 import '../../../widgets/profile_menu.dart';
 import '../../../widgets/user_information_part.dart';
+import '../../general/pages/payment/wallet.dart';
 
 class MechanicUserProfilePage extends StatelessWidget {
   const MechanicUserProfilePage({Key? key}) : super(key: key);
@@ -75,10 +76,9 @@ class MechanicUserProfilePage extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const CustomAddAddressAlertDialog(
-                        title: "You Don't Have an address yet please add one",
-                        content: Text(
-                            'You need to add your address in order to start receiving requests!'),
+                      return  CustomAddAddressAlertDialog(
+                        title: 'no_address_alert'.tr,
+                        content: Text('no_address_alert_clarification'.tr),
                       );
                     },
                   );
@@ -90,6 +90,10 @@ class MechanicUserProfilePage extends StatelessWidget {
               icon: Icons.account_balance_wallet,
               onPress: () {
                 print("wallet btn pressed");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WalletPage()),
+                );
               },
             ),
             ProfileMenu(

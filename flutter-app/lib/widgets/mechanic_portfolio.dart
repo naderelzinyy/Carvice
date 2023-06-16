@@ -2,6 +2,7 @@ import '../../../widgets/button.dart';
 import '../../../widgets/feedbacks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_summary/rating_summary.dart';
+import 'package:get/get.dart';
 
 class MechanicPortfolio extends StatefulWidget {
   final bool isClient;
@@ -72,7 +73,7 @@ class _MechanicPortfolioState extends State<MechanicPortfolio> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: CustomButton(
-              btnText: 'Make a request',
+              btnText: 'make_request'.tr,
               onTap: () {
                 print("hi");
               },

@@ -15,13 +15,13 @@ class CustomAddAddressAlertDialog extends StatelessWidget {
       content: content,
       actions: <Widget>[
         CustomAlertButton(
-          text: 'Add Address',
+          text: 'add_address'.tr,
           onPressed: () {
             Get.toNamed(Routers.getAddressPageRoute());
           },
         ),
         CustomAlertButton(
-          text: 'Close',
+          text: 'close'.tr,
           onPressed: () {
             Navigator.of(context).pop();
           },

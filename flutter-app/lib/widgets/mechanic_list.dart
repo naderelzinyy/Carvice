@@ -84,7 +84,7 @@ class CustomMechanicList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
-              child: const Text('Request'),
+              child:  Text('request'.tr),
             ),
           ),
         );

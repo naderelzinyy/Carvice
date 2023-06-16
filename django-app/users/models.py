@@ -15,6 +15,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     is_mechanic = models.BooleanField("is_mechanic", default=False)
     is_client = models.BooleanField("is_client", default=False)
+    balance = models.FloatField(default=0)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []

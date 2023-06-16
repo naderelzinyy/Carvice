@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   bool response = false;
   String text = "";
   late String roleEndpoint = widget.roleEndpoint;
+  late String role = roleEndpoint == "mechanic" ? 'mechanic'.tr : 'client'.tr;
 
   @override
   void initState() {
@@ -60,14 +61,26 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Container(
                 alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/images/transparent_logo.png',
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                  fit: BoxFit.contain,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/transparent_logo.png',
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.width * 0.6,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(
+                      role,
+                      style:  TextStyle(
+                        color: MainColors.mainColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -118,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   } else {
                     setState(() {
-                      text = "Username or password is not correct";
+                      text = 'user_login_error'.tr;
                       usernameController.clear(); // Clear the username field
                       passwordController.clear(); // Clear the password field
                     });
@@ -141,17 +154,31 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('wrong_page'.tr),
+                  InkWell(
+                    onTap: () {
+                      Get.offAllNamed(Routers.getStartingPageRoute());
+                    },
+                    child: Text('go_back'.tr),
+                  )
+                ],
+              ),
             ],
           ),
         )),
       ),
+
       bottomNavigationBar: Container(
           height: 100,
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('noAccount'.tr),
+               Text('noAccount'.tr),
               InkWell(
                 onTap: () {
                   Get.offAllNamed(Routers.getSignupPageRoute(roleEndpoint));

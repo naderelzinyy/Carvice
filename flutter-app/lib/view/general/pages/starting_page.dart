@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 
 import '../../../routes/routes.dart';
+import '../../../widgets/custom_app_footer.dart';
 
 class StartingPage extends StatelessWidget {
   const StartingPage({Key? key}) : super(key: key);
@@ -48,17 +49,7 @@ class StartingPage extends StatelessWidget {
           ),
         )),
       ),
-      bottomNavigationBar: Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                  "Made with ♥ by Carvice team",
-              ),
-            ],
-          )),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 
 import '../../../widgets/app_navigation.dart';
+import '../../../widgets/custom_app_footer.dart';
 import '../../../widgets/mechanic_portfolio.dart';
 
 
@@ -20,18 +21,7 @@ class MechanicProfile extends StatelessWidget {
       body: SafeArea(
         child: MechanicPortfolio(isClient: true)
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        alignment: Alignment.center,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Made with ♥ by Carvice team",
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

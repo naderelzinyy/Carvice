@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-
+import 'package:get/get.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/custom_address_form.dart';
+import '../../../widgets/custom_app_footer.dart';
 
 
 
@@ -20,21 +21,9 @@ class _MyWidgetState extends State<AddAddressPage> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-        appBar:  const AppNavigation(title: 'Add Address', automaticallyCallBack: true,),
+        appBar:  AppNavigation(title: 'add_address'.tr, automaticallyCallBack: true,),
     body:  const CustomAddressWidget(update: false),
-        bottomNavigationBar: Container(
-        height: 100,
-        alignment: Alignment.center,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            Text(
-              "Made with ♥ by Carvice team",
-            ),
-          ],
-        )
-    ),
+        bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }
