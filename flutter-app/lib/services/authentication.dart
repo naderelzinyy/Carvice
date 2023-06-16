@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 Map<Object, dynamic>? token;
+Map<Object, dynamic>? mechanicAddressInfo;
 List<dynamic>? carsData;
 
 String ip = "localhost"; // Enter your IP here to allow multiple emulators
@@ -124,6 +125,51 @@ class AccountManager {
       return false;
     }
     return false;
+  }
+
+  Future<bool> addMechanicLocation(Map<String, dynamic> body) async {
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/addMechanicLocation', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("success_message")) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> getMechanicAddressInfo(Map<String, dynamic> body) async {
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/getMechanicAddressInfo', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("mechanic_info")) {
+      mechanicAddressInfo = data["mechanic_info"];
+      print("$mechanicAddressInfo");
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> updateMechanicAddressInfo(Map<String, dynamic> body) async {
+    print("update request :: $body");
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/updateMechanicInfo', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("message")) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<dynamic>> getAvailableMechanics(Map<String, dynamic> body) async {
+    print("coordinates request :: $body");
+    RequestHandler requestHandler = RequestHandler(
+        'http://localhost:8000/api/geoRequest/getNearMechanics', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("available_mechanics")) {
+      print(data['available_mechanics']);
+      return data["available_mechanics"] as List<dynamic>;
+    }
+    return [];
   }
 
   Future<bool> deposit(Map<String, dynamic> body) async {

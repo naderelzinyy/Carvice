@@ -47,6 +47,7 @@ class MapTrackingPageState extends State<MapTrackingPage> {
         desiredAccuracy: LocationAccuracy.high,
         forceAndroidLocationManager: true);
 
+    print("Current position :: $position");
     setState(() {
       currentPosition = position;
     });
@@ -98,7 +99,7 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return const MyAlertDialog();
+                          return MyAlertDialog(position: currentPosition);
                         },
                       );
                     }, // increase icon size as well

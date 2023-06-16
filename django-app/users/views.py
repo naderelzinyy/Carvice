@@ -1,12 +1,12 @@
 import datetime
-from typing import Union
+from typing import Union, Any
 
 import jwt
 
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.views import APIView
-from .serializers import UserSerializer, CarSerializer
+from .serializers import UserSerializer, CarSerializer, MechanicSerializer, ClientSerializer
 from django.contrib.auth import get_user_model
 from .models import Car
 
@@ -14,15 +14,64 @@ from .models import Car
 User = get_user_model()
 
 
+class SignUpHandler:
+
+    def __init__(self):
+        self.role_directors = {
+            "mechanic": self.sign_up_mechanic,
+            "client": self.sign_up_client,
+        }
+
+    @staticmethod
+    def save_user(request) -> tuple[Response, Any]:
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data), serializer.data
+
+    @staticmethod
+    def sign_up_mechanic(request) -> None:
+        serializer = MechanicSerializer(data=request)
+        serializer.is_valid(raise_exception=True)
+        serializer.create(validated_data=request)
+
+    @staticmethod
+    def sign_up_client(request) -> None:
+        print(f"{request = }")
+        try:
+            serializer = ClientSerializer(data=request)
+            serializer.is_valid(raise_exception=True)
+            serializer.create(validated_data=request)
+        except Exception as e:
+            print(f"{e = }")
+
+
 class SignupView(APIView):
 
     @staticmethod
     def post(request) -> Response:
         """Handles the registration POST requests."""
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        role = "client" if int(request.data.get("is_client")) else "mechanic"
+        print(f"{role = }")
+        response, serialized_data = SignUpHandler.save_user(request=request)
+        # save to client or mechanic table.
+        if role == "client":
+            modified_request = {
+                                "account_id": serialized_data.get("id"),
+                                "first_name": serialized_data.get("first_name"),
+                                "last_name": serialized_data.get("last_name")}
+        else:
+            print("inside else")
+            modified_request = {
+                                "account_id": serialized_data.get("id"),
+                                "first_name": serialized_data.get("first_name"),
+                                "last_name": serialized_data.get("last_name"),
+                                "commercial_name": request.data.get("commercial_name")}
+
+        signup_action = SignUpHandler().role_directors.get(role)
+        print(f"{signup_action = }")
+        signup_action(request=modified_request)
+        return response
 
 
 class RoleFactory:

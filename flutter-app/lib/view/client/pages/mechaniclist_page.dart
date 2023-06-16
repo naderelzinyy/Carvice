@@ -1,32 +1,43 @@
+import 'dart:convert';
+
 import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../services/authentication.dart';
 import '../../../widgets/custom_app_footer.dart';
 import '../../../widgets/mechanic_list.dart';
 
 class MechanicListPage extends StatefulWidget {
-  const MechanicListPage({Key? key}) : super(key: key);
+  const MechanicListPage({Key? key, required this.mechanics}) : super(key: key);
+  final String? mechanics;
 
   @override
   MechanicListPageState createState() => MechanicListPageState();
 }
 
 class MechanicListPageState extends State<MechanicListPage> {
-  List<MyMechanicItem> mechanicList = [
-    MyMechanicItem(
-      name: 'John Doe',
-      imagePath: 'assets/images/mechanic_profile.jpeg',
-      rate: 4.0,
-    ),
-    MyMechanicItem(
-      name: 'Jane Smith',
-      imagePath: 'assets/images/person.jpeg',
-      rate: 3.7,
-    ),
-    // Add more mechanic items as needed
-  ];
+  List<MyMechanicItem> mechanicList = [];
+  late String? mechanics=  widget.mechanics;
+  void getMechanicList()  {
+    List<dynamic> mechanicsData = jsonDecode(mechanics!);
+    setState(() {
+      mechanicList = mechanicsData
+          .map((item) => MyMechanicItem(
+          name: item["name"],
+          rate: 4.0,
+          imagePath: 'assets/images/person.jpeg'
+      ))
+          .toList();
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    getMechanicList();
+  }
+
 
   @override
   Widget build(BuildContext context) {

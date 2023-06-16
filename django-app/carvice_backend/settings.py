@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     "phonenumber_field",
     'users',
+    'reviews',
+    'geospatial_request'
 ]
 
 MIDDLEWARE = [
