@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 import '../../../routes/routes.dart';
 import '../../../utils/main.colors.dart';
-import '../../../widgets/custom_app_footer.dart';
 import '../../../widgets/forget_password_enter_email_alert.dart';
 
 class LoginPage extends StatefulWidget {
@@ -172,7 +171,21 @@ class _LoginPageState extends State<LoginPage> {
           ),
         )),
       ),
-      bottomNavigationBar:const CustomFooterWidget()
+      bottomNavigationBar: Container(
+          height: 100,
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('noAccount'.tr),
+              InkWell(
+                onTap: () {
+                  Get.offAllNamed(Routers.getSignupPageRoute(roleEndpoint));
+                },
+                child: Text('signUp'.tr),
+              ),
+            ],
+          )),
     );
   }
 }
