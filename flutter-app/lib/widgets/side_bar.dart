@@ -53,13 +53,6 @@ class SideBarGlobal extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.payment),
-            title:  Text('paymentMethod'.tr),
-            onTap: () {
-              // Handle payment method tap
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.account_balance_wallet),
             title:  Text('wallet'.tr),
             onTap: () {
