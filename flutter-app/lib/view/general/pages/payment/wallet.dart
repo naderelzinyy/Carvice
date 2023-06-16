@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
+import '../../../../widgets/custom_app_footer.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({Key? key}) : super(key: key);
@@ -101,6 +102,7 @@ class _WalletPageState extends State<WalletPage> {
           ],
         ),
       ),
+        bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

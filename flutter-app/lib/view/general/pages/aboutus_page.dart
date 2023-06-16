@@ -2,6 +2,8 @@ import 'package:carvice_frontend/widgets/app_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../widgets/custom_app_footer.dart';
+
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({Key? key}) : super(key: key);
 
@@ -91,18 +93,6 @@ class AboutUsPage extends StatelessWidget {
 
         ),
       ),
-      bottomNavigationBar: Container(
-          height: 80,
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: const [
-              Text(
-                "Made with ♥ by Carvice team",
-              ),
-            ],
-          )
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }}

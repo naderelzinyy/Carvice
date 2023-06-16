@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../widgets/custom_app_footer.dart';
 import '../../../widgets/mechanic_list.dart';
 
 class MechanicListPage extends StatefulWidget {
@@ -39,19 +40,7 @@ class MechanicListPageState extends State<MechanicListPage> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [
-              Text(
-                "Made with ♥ by Carvice team",
-              ),
-            ],
-          )
-      ),
+      bottomNavigationBar:const CustomFooterWidget()
     );
   }
 }

@@ -5,6 +5,8 @@ import '../services/authentication.dart';
 import 'button.dart';
 import 'package:get/get.dart';
 
+import 'custom_app_footer.dart';
+
 class CarsForm extends StatefulWidget {
   final bool update;
   final String? carId;
@@ -225,18 +227,7 @@ class _CarsFormState extends State<CarsForm> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        alignment: Alignment.center,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Made with ♥ by Carvice team",
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 

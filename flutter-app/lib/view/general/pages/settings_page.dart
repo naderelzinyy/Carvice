@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../routes/routes.dart';
 import '../../../widgets/app_navigation.dart';
 import '../../../widgets/change_language_dialog.dart';
+import '../../../widgets/custom_app_footer.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -56,18 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        alignment: Alignment.center,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Made with ♥ by Carvice team",
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomFooterWidget()
     );
   }
 }

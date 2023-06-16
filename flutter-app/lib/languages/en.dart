@@ -22,7 +22,7 @@ const Map<String, String> en = {
   'updateProfile': 'Update Profile',
   'update': 'Update',
   'mechanic': 'Mechanic',
-  'client': 'Customer',
+  'client': 'Client',
   'notifications': 'Notifications',
   'paymentMethod': 'Payment Method',
   'wallet': 'Wallet',
