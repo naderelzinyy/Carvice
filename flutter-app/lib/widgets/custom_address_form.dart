@@ -107,7 +107,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     });
   }
 
-  Future<void> getAddressCoordinates() async {
+  Future<bool> getAddressCoordinates() async {
     // Create the formatted address
     String formattedAddress =
         '${selectedData['streetName']} ${selectedData['streetNumber']}, ${selectedData['district']}, ${selectedData['county']}, ${selectedData['city']}';
@@ -132,40 +132,41 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
         selectedData['location'] = locationMap;
         print('Latitude: $latitude');
         print('Longitude: $longitude');
-        String address = await getAddressFromCoordinates(latitude, longitude);
-        print(address);
+        return true;
       } else {
         print('No coordinates found for the address.');
+        return false;
       }
     } catch (e) {
       print('Error: $e');
+      return false;
     }
   }
 
-  Future<String> getAddressFromCoordinates(
-      double latitude, double longitude) async {
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
-
-    if (placemarks.isNotEmpty) {
-      Placemark placemark = placemarks.first;
-
-      String street = placemark.street ?? '';
-      String subLocality = placemark.subLocality ?? '';
-      String locality = placemark.locality ?? '';
-      String subAdministrativeArea = placemark.subAdministrativeArea ?? '';
-      String administrativeArea = placemark.administrativeArea ?? '';
-      String postalCode = placemark.postalCode ?? '';
-      String country = placemark.country ?? '';
-
-      String address =
-          '$street, $subLocality, $locality, $subAdministrativeArea, $administrativeArea $postalCode, $country';
-
-      return address;
-    } else {
-      return 'No address found for the given coordinates.';
-    }
-  }
+  // Future<String> getAddressFromCoordinates(
+  //     double latitude, double longitude) async {
+  //   List<Placemark> placemarks =
+  //       await placemarkFromCoordinates(latitude, longitude);
+  //
+  //   if (placemarks.isNotEmpty) {
+  //     Placemark placemark = placemarks.first;
+  //
+  //     String street = placemark.street ?? '';
+  //     String subLocality = placemark.subLocality ?? '';
+  //     String locality = placemark.locality ?? '';
+  //     String subAdministrativeArea = placemark.subAdministrativeArea ?? '';
+  //     String administrativeArea = placemark.administrativeArea ?? '';
+  //     String postalCode = placemark.postalCode ?? '';
+  //     String country = placemark.country ?? '';
+  //
+  //     String address =
+  //         '$street, $subLocality, $locality, $subAdministrativeArea, $administrativeArea $postalCode, $country';
+  //
+  //     return address;
+  //   } else {
+  //     return 'No address found for the given coordinates.';
+  //   }
+  // }
 
   void _showSuccessAlert() {
     showDialog(
@@ -202,7 +203,53 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
             CustomButton(
               btnText: 'OK',
               onTap: () {
-                Get.until((route) => route.settings.name == '/mechanic_home');
+                setState(() {
+                  // Reset the selected choices and text fields
+                  selectedCity = null;
+                  selectedCounty = null;
+                  selectedDistrict = null;
+                  streetNameController.clear();
+                  commercialNameController.clear();
+                  streetNumberController.clear();
+                  apartmentNoController.clear();
+                  areTextFieldsEmpty = true;
+                  isCitySelected = false;
+                  isCountySelected = false;
+                });
+                Navigator.pop(context); // Close the alert dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showFailedToFindAddressAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Failure'),
+          content: const Text( 'The entered address does not exist please add correct address!'),
+          actions: <Widget>[
+            CustomButton(
+              btnText: 'OK',
+              onTap: () {
+                setState(() {
+                  // Reset the selected choices and text fields
+                  selectedCity = null;
+                  selectedCounty = null;
+                  selectedDistrict = null;
+                  streetNameController.clear();
+                  commercialNameController.clear();
+                  streetNumberController.clear();
+                  apartmentNoController.clear();
+                  areTextFieldsEmpty = true;
+                  isCitySelected = false;
+                  isCountySelected = false;
+                });
+                Navigator.pop(context); // Close the alert dialog
               },
             ),
           ],
@@ -221,34 +268,39 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     selectedData['apartmentNo'] = apartmentNoController.text;
     selectedData['commercial_name'] = commercialNameController.text;
     await getAddressCoordinates();
-    print("selected data :: $selectedData");
-    var updateRequest = {
-      "user_id": token!["id"],
-      "new_data": {
-        "city": selectedData['city'],
-        "county": selectedData['county'],
-        "district": selectedData['district'],
-        "streetName": selectedData['streetName'],
-        "streetNumber": selectedData['streetNumber'],
-        "apartmentNo": selectedData['apartmentNo'],
-        "location": selectedData["location"],
-        "commercial_name": selectedData['commercial_name']
-      }
-    };
-    if (widget.update) {
-      // we need to add the update functionality here :)
-      if (await AccountManager().updateMechanicAddressInfo(updateRequest)) {
-        _showSuccessAlert();
+    if (await getAddressCoordinates()){
+      print("selected data :: $selectedData");
+      var updateRequest = {
+        "user_id": token!["id"],
+        "new_data": {
+          "city": selectedData['city'],
+          "county": selectedData['county'],
+          "district": selectedData['district'],
+          "streetName": selectedData['streetName'],
+          "streetNumber": selectedData['streetNumber'],
+          "apartmentNo": selectedData['apartmentNo'],
+          "location": selectedData["location"],
+          "commercial_name": selectedData['commercial_name']
+        }
+      };
+      if (widget.update) {
+        // we need to add the update functionality here :)
+        if (await AccountManager().updateMechanicAddressInfo(updateRequest)) {
+          _showSuccessAlert();
+        } else {
+          _showFailureAlert();
+        }
       } else {
-        _showFailureAlert();
+        if (await AccountManager().addMechanicLocation(selectedData)) {
+          _showSuccessAlert();
+        } else {
+          _showFailureAlert();
+        }
       }
-    } else {
-      if (await AccountManager().addMechanicLocation(selectedData)) {
-        _showSuccessAlert();
-      } else {
-        _showFailureAlert();
-      }
+    } else{
+      _showFailedToFindAddressAlert();
     }
+
   }
 
   final TextEditingController streetNameController = TextEditingController();
