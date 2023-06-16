@@ -1,11 +1,15 @@
 import 'dart:convert';
+
+import 'package:carvice_frontend/routes/routes.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:geocoding/geocoding.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:get/get.dart';
+
 import '../../../widgets/text_field.dart';
+import '../services/authentication.dart';
 
 class City {
   final String name;
@@ -16,7 +20,8 @@ class City {
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
       name: json['name'],
-      counties: List<County>.from(json['counties'].map((x) => County.fromJson(x))),
+      counties:
+          List<County>.from(json['counties'].map((x) => County.fromJson(x))),
     );
   }
 }
@@ -60,6 +65,9 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     super.initState();
     fetchCities();
     selectedData = {
+      'location': null,
+      'user_id': null,
+      'commercial_name': '',
       'city': null,
       'county': null,
       'district': null,
@@ -71,13 +79,13 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
 
   Future<void> fetchCities() async {
     final String jsonData =
-    await rootBundle.loadString('assets/address_data/address_data_tr.json');
+        await rootBundle.loadString('assets/address_data/address_data_tr.json');
     final Map<String, dynamic> data = jsonDecode(jsonData);
 
     final List<dynamic> citiesJson = data['cities'];
 
     final List<City> fetchedCities =
-    citiesJson.map((json) => City.fromJson(json)).toList();
+        citiesJson.map((json) => City.fromJson(json)).toList();
 
     setState(() {
       cities = fetchedCities;
@@ -85,17 +93,21 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
       if (widget.update) {
         // Set initial values when updating
         // You can modify the initial values as needed
-        selectedCity = cities.firstWhere((city) => city.name == 'Istanbul');
-        selectedCounty = selectedCity?.counties.firstWhere((county) => county.name == 'Avcilar');
-        selectedDistrict = selectedCounty?.districts.firstWhere((district) => district == 'Firuzkoy');
-        streetNameController.text = 'Blv';
-        streetNumberController.text = '34320';
-        apartmentNoController.text = '75';
+        selectedCity = cities
+            .firstWhere((city) => city.name == mechanicAddressInfo!["city"]);
+        selectedCounty = selectedCity?.counties.firstWhere(
+            (county) => county.name == mechanicAddressInfo!["county"]);
+        selectedDistrict = selectedCounty?.districts.firstWhere(
+            (district) => district == mechanicAddressInfo!["district"]);
+        streetNameController.text = mechanicAddressInfo!["streetName"];
+        streetNumberController.text = mechanicAddressInfo!["streetNumber"];
+        apartmentNoController.text = mechanicAddressInfo!["apartmentNo"];
+        commercialNameController.text = mechanicAddressInfo!["commercial_name"];
       }
     });
   }
 
-  Future<void> getAddressCoordinates() async {
+  Future<bool> getAddressCoordinates() async {
     // Create the formatted address
     String formattedAddress =
         '${selectedData['streetName']} ${selectedData['streetNumber']}, ${selectedData['district']}, ${selectedData['county']}, ${selectedData['city']}';
@@ -103,7 +115,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
     try {
       // Retrieve the coordinates
       List<Location> locations =
-      await geocoding.locationFromAddress(formattedAddress);
+          await geocoding.locationFromAddress(formattedAddress);
 
       if (locations.isNotEmpty) {
         // Extract the first location
@@ -112,61 +124,188 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
         // Access the coordinates
         double latitude = location.latitude;
         double longitude = location.longitude;
-
-        selectedData['latitude'] = latitude;
-        selectedData['longitude'] = longitude;
-
+        Map<String, dynamic> locationMap = {
+          "coordinates": [latitude, longitude],
+          "type": "Point"
+        };
+        print('locationMap: $locationMap');
+        selectedData['location'] = locationMap;
         print('Latitude: $latitude');
         print('Longitude: $longitude');
-        String address =
-        await getAddressFromCoordinates(latitude, longitude);
-        print(address);
+        return true;
       } else {
         print('No coordinates found for the address.');
+        return false;
       }
     } catch (e) {
       print('Error: $e');
+      return false;
     }
   }
 
-  Future<String> getAddressFromCoordinates(
-      double latitude, double longitude) async {
-    List<Placemark> placemarks =
-    await placemarkFromCoordinates(latitude, longitude);
+  // Future<String> getAddressFromCoordinates(
+  //     double latitude, double longitude) async {
+  //   List<Placemark> placemarks =
+  //       await placemarkFromCoordinates(latitude, longitude);
+  //
+  //   if (placemarks.isNotEmpty) {
+  //     Placemark placemark = placemarks.first;
+  //
+  //     String street = placemark.street ?? '';
+  //     String subLocality = placemark.subLocality ?? '';
+  //     String locality = placemark.locality ?? '';
+  //     String subAdministrativeArea = placemark.subAdministrativeArea ?? '';
+  //     String administrativeArea = placemark.administrativeArea ?? '';
+  //     String postalCode = placemark.postalCode ?? '';
+  //     String country = placemark.country ?? '';
+  //
+  //     String address =
+  //         '$street, $subLocality, $locality, $subAdministrativeArea, $administrativeArea $postalCode, $country';
+  //
+  //     return address;
+  //   } else {
+  //     return 'No address found for the given coordinates.';
+  //   }
+  // }
 
-    if (placemarks.isNotEmpty) {
-      Placemark placemark = placemarks.first;
+  void _showSuccessAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success'),
+          content: Text(widget.update
+              ? 'Address updated successfully!'
+              : 'Address added successfully!'),
+          actions: <Widget>[
+            CustomButton(
+              btnText: 'OK',
+              onTap: () {
+                Get.offAllNamed(Routers.getMechanicHomePageRoute());
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-      String street = placemark.street ?? '';
-      String subLocality = placemark.subLocality ?? '';
-      String locality = placemark.locality ?? '';
-      String subAdministrativeArea = placemark.subAdministrativeArea ?? '';
-      String administrativeArea = placemark.administrativeArea ?? '';
-      String postalCode = placemark.postalCode ?? '';
-      String country = placemark.country ?? '';
+  void _showFailureAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Failure'),
+          content: Text(widget.update
+              ? 'Failed to update address details. Please try again.'
+              : 'Failed to add an Address. Please try again.'),
+          actions: <Widget>[
+            CustomButton(
+              btnText: 'OK',
+              onTap: () {
+                setState(() {
+                  // Reset the selected choices and text fields
+                  selectedCity = null;
+                  selectedCounty = null;
+                  selectedDistrict = null;
+                  streetNameController.clear();
+                  commercialNameController.clear();
+                  streetNumberController.clear();
+                  apartmentNoController.clear();
+                  areTextFieldsEmpty = true;
+                  isCitySelected = false;
+                  isCountySelected = false;
+                });
+                Navigator.pop(context); // Close the alert dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-      String address =
-          '$street, $subLocality, $locality, $subAdministrativeArea, $administrativeArea $postalCode, $country';
-
-      return address;
-    } else {
-      return 'No address found for the given coordinates.';
-    }
+  void _showFailedToFindAddressAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Failure'),
+          content: const Text( 'The entered address does not exist please add correct address!'),
+          actions: <Widget>[
+            CustomButton(
+              btnText: 'OK',
+              onTap: () {
+                setState(() {
+                  // Reset the selected choices and text fields
+                  selectedCity = null;
+                  selectedCounty = null;
+                  selectedDistrict = null;
+                  streetNameController.clear();
+                  commercialNameController.clear();
+                  streetNumberController.clear();
+                  apartmentNoController.clear();
+                  areTextFieldsEmpty = true;
+                  isCitySelected = false;
+                  isCountySelected = false;
+                });
+                Navigator.pop(context); // Close the alert dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void saveData() async {
+    selectedData['user_id'] = token!["id"];
     selectedData['city'] = selectedCity?.name;
     selectedData['county'] = selectedCounty?.name;
     selectedData['district'] = selectedDistrict;
     selectedData['streetName'] = streetNameController.text;
     selectedData['streetNumber'] = streetNumberController.text;
     selectedData['apartmentNo'] = apartmentNoController.text;
+    selectedData['commercial_name'] = commercialNameController.text;
     await getAddressCoordinates();
-    print(selectedData);
-    // Perform any other operations with the selected data here
+    if (await getAddressCoordinates()){
+      print("selected data :: $selectedData");
+      var updateRequest = {
+        "user_id": token!["id"],
+        "new_data": {
+          "city": selectedData['city'],
+          "county": selectedData['county'],
+          "district": selectedData['district'],
+          "streetName": selectedData['streetName'],
+          "streetNumber": selectedData['streetNumber'],
+          "apartmentNo": selectedData['apartmentNo'],
+          "location": selectedData["location"],
+          "commercial_name": selectedData['commercial_name']
+        }
+      };
+      if (widget.update) {
+        // we need to add the update functionality here :)
+        if (await AccountManager().updateMechanicAddressInfo(updateRequest)) {
+          _showSuccessAlert();
+        } else {
+          _showFailureAlert();
+        }
+      } else {
+        if (await AccountManager().addMechanicLocation(selectedData)) {
+          _showSuccessAlert();
+        } else {
+          _showFailureAlert();
+        }
+      }
+    } else{
+      _showFailedToFindAddressAlert();
+    }
+
   }
 
   final TextEditingController streetNameController = TextEditingController();
+  final TextEditingController commercialNameController =
+      TextEditingController();
   final TextEditingController streetNumberController = TextEditingController();
   final TextEditingController apartmentNoController = TextEditingController();
 
@@ -235,21 +374,20 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
                 onChanged:  (County? newValue) {
                     if (newValue != null) {
                     setState(() {
-                    selectedCounty = newValue;
-                    selectedDistrict = null;
-                    isCountySelected = true; // Update county selection
-                    }
-                    );
-                    }
-                    },
-    items: selectedCity != null
+                      selectedCounty = newValue;
+                      selectedDistrict = null;
+                      isCountySelected = true; // Update county selection
+                    });
+                  }
+                },
+                items: selectedCity != null
                     ? selectedCity!.counties
-                    .map<DropdownMenuItem<County>>((County county) {
-                  return DropdownMenuItem<County>(
-                    value: county,
-                    child: Text(county.name),
-                  );
-                }).toList()
+                        .map<DropdownMenuItem<County>>((County county) {
+                        return DropdownMenuItem<County>(
+                          value: county,
+                          child: Text(county.name),
+                        );
+                      }).toList()
                     : null,
                 disabledHint: Text(
                   'select_city_first'.tr,
@@ -284,12 +422,12 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
                 },
                 items: selectedCounty != null
                     ? selectedCounty!.districts
-                    .map<DropdownMenuItem<String>>((String district) {
-                  return DropdownMenuItem<String>(
-                    value: district,
-                    child: Text(district),
-                  );
-                }).toList()
+                        .map<DropdownMenuItem<String>>((String district) {
+                        return DropdownMenuItem<String>(
+                          value: district,
+                          child: Text(district),
+                        );
+                      }).toList()
                     : null,
                 disabledHint: Text(
                   'select_county_first'.tr,
@@ -307,6 +445,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               setState(() {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNumberController.text.isEmpty ||
+                    commercialNameController.text.isEmpty ||
                     apartmentNoController.text.isEmpty;
               });
             },
@@ -321,6 +460,7 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               setState(() {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNameController.text.isEmpty ||
+                    commercialNameController.text.isEmpty ||
                     apartmentNoController.text.isEmpty;
               });
             },
@@ -335,7 +475,23 @@ class _CustomAddressWidgetState extends State<CustomAddressWidget> {
               setState(() {
                 areTextFieldsEmpty = value.isEmpty ||
                     streetNameController.text.isEmpty ||
+                    commercialNameController.text.isEmpty ||
                     streetNumberController.text.isEmpty;
+              });
+            },
+          ),
+          const SizedBox(height: 16),
+          CustomTextFiled(
+            controller: commercialNameController,
+            hintText: 'Commercial Name',
+            textInputType: TextInputType.text,
+            obscureText: false,
+            onChanged: (value) {
+              setState(() {
+                areTextFieldsEmpty = value.isEmpty ||
+                    streetNameController.text.isEmpty ||
+                    streetNumberController.text.isEmpty ||
+                    apartmentNoController.text.isEmpty;
               });
             },
           ),

@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
 
-from .models import User, Car
+from .models import User, Car, Client, Mechanic
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -48,3 +48,39 @@ class CarSerializer(serializers.ModelSerializer):
             print(f"{e = }")
             self.error_response = {"failure_message": "couldn't add the car"}
 
+
+class ClientSerializer(serializers.ModelSerializer):
+    account_id = PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = Client
+        fields = "__all__"
+
+    def create(self, validated_data) -> Client:
+        """Handles extra operations in Client creation."""
+        validated_data['account_id'] = User.objects.get(id=validated_data.get('account_id', None))
+        # removing unneeded pairs.
+        validated_data.pop("user_id")
+        client_instance = self.Meta.model(**validated_data)
+        client_instance.save()
+        return client_instance
+
+
+class MechanicSerializer(serializers.ModelSerializer):
+    account_id = PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = Mechanic
+        fields = "__all__"
+
+    def create(self, validated_data) -> Mechanic:
+        """Handles extra operations in Mechanic creation."""
+        try:
+            validated_data['account_id'] = User.objects.get(id=validated_data.get('account_id', None))
+            # removing unneeded pairs.
+            validated_data.pop("user_id")
+            mechanic_instance = self.Meta.model(**validated_data)
+            mechanic_instance.save()
+            return mechanic_instance
+        except Exception as e:
+            print(e)

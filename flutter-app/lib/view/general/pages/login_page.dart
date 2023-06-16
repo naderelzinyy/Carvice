@@ -44,11 +44,12 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ResetPasswordAlert(roleEndpoint: roleEndpoint,);
+        return ResetPasswordAlert(
+          roleEndpoint: roleEndpoint,
+        );
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 20),
-               Text(
+              Text(
                 'loginToYourAccount'.tr,
                 style: const TextStyle(
                   color: Colors.black,
@@ -110,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
               CustomTextFiled(
                   controller: passwordController,
-                  hintText:'password'.tr,
+                  hintText: 'password'.tr,
                   textInputType: TextInputType.text,
                   obscureText: true),
               const SizedBox(height: 20),
@@ -145,12 +146,12 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                   Text('forgotPassword'.tr),
+                  Text('forgotPassword'.tr),
                   InkWell(
                     onTap: () {
                       showPasswordResetAlert(context);
                     },
-                    child:Text('resetPassword'.tr),
+                    child: Text('resetPassword'.tr),
                   )
                 ],
               ),
@@ -158,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                   Text('wrong_page'.tr),
+                  Text('wrong_page'.tr),
                   InkWell(
                     onTap: () {
                       Get.offAllNamed(Routers.getStartingPageRoute());
@@ -171,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         )),
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar:Container(
           height: 100,
           alignment: Alignment.center,
           child: Row(

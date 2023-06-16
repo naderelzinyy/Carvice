@@ -4,14 +4,13 @@ import 'package:carvice_frontend/view/client/pages/edit_car_info_page.dart';
 import 'package:carvice_frontend/view/general/pages/help_and_support_page.dart';
 import 'package:carvice_frontend/view/client/pages/mechanic_profile_page.dart';
 import 'package:carvice_frontend/view/client/pages/update_profile_page.dart';
+import 'package:carvice_frontend/view/general/pages/login_page.dart';
+import 'package:carvice_frontend/view/general/pages/signup_page.dart';
+import 'package:carvice_frontend/view/general/pages/splash_page.dart';
+import 'package:carvice_frontend/view/general/pages/starting_page.dart';
 import 'package:carvice_frontend/view/mechanic/pages/update_address.dart';
 import 'package:carvice_frontend/view/mechanic/pages/userprofile_page.dart';
 import 'package:get/get.dart';
-
-import 'package:carvice_frontend/view/general/pages/signup_page.dart';
-import 'package:carvice_frontend/view/general/pages/starting_page.dart';
-import 'package:carvice_frontend/view/general/pages/login_page.dart';
-import 'package:carvice_frontend/view/general/pages/splash_page.dart';
 
 import '../view/client/pages/chatlist_page.dart';
 import '../view/client/pages/home_page.dart';
@@ -22,12 +21,10 @@ import '../view/general/pages/change_password_page.dart';
 import '../view/general/pages/forget_password_page.dart';
 import '../view/general/pages/settings_page.dart';
 import '../view/mechanic/pages/adress.dart';
-import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/chatlist_page.dart';
+import '../view/mechanic/pages/home_page.dart';
 import '../view/mechanic/pages/portfolio_page.dart';
 import '../view/mechanic/pages/update_profile_page.dart';
-
-
 
 class Routers {
   static String splashPage = "/";
@@ -57,25 +54,31 @@ class Routers {
   static String clientHelpAndSupportPage = "/client_help_and_support";
   static String mechanicHelpAndSupportPage = "/mechanic_help_and_support";
 
-
-
   static String getMainRoute() => splashPage;
   static String getStartingPageRoute() => startingPage;
-  static String getLoginPageRoute(String roleEndpoint) => '$loginPage?roleEndpoint=$roleEndpoint';
-  static String getSignupPageRoute(String roleEndpoint) => '$signupPage?roleEndpoint=$roleEndpoint';
+  static String getLoginPageRoute(String roleEndpoint) =>
+      '$loginPage?roleEndpoint=$roleEndpoint';
+  static String getSignupPageRoute(String roleEndpoint) =>
+      '$signupPage?roleEndpoint=$roleEndpoint';
   static String getClientHomePageRoute() => clientHomePage;
   static String getMechanicHomePageRoute() => mechanicHomePage;
   static String getUserProfileRoute() => clientUserProfilePage;
   static String getMechanicUserProfileRoute() => mechanicUserProfilePage;
   static String getClientChatListRoute() => clientChatListPage;
   static String getMechanicChatListRoute() => mechanicChatListPage;
-  static String getClientUpdateProfilePageRoute() => clientUpdateUserProfilePage;
-  static String getMechanicUpdateProfilePageRoute() => mechanicUpdateUserProfilePage;
+  static String getClientUpdateProfilePageRoute() =>
+      clientUpdateUserProfilePage;
+  static String getMechanicUpdateProfilePageRoute() =>
+      mechanicUpdateUserProfilePage;
   static String getCarsListPageRoute() => carsListPage;
-  static String getEditCarPageRoute(String carID) => '$editCarPage?carID=$carID';
-  static String getAddCarPageRoute(bool quickAdd) => '$addCarPage?quickAdd=$quickAdd';
+  static String getEditCarPageRoute(String carID) =>
+      '$editCarPage?carID=$carID';
+  static String getAddCarPageRoute(bool quickAdd) =>
+      '$addCarPage?quickAdd=$quickAdd';
   static String getAboutUsPageRoute() => aboutUsPage;
-  static String getListOfMechanicsPageRoute() => listOfMechanics;
+  static String getListOfMechanicsPageRoute(String mechanicsData) =>
+      '$listOfMechanics?mechanicsData=$mechanicsData';
+
   static String getMechanicProfileInClientRoute() => mechanicProfileInClient;
   static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
   static String getSettingsPageRoute() => settingsPage;
@@ -84,11 +87,12 @@ class Routers {
   static String getUpdateAddressPageRoute() => updateAddress;
   static String getClientHelpAndSupportPagePageRoute() => clientHelpAndSupportPage;
   static String getMechanicHelpAndSupportPagePageRoute() => mechanicHelpAndSupportPage;
-  static String getSetNewPasswordRoute(String roleEndpoint) => '$setPasswordPage?roleEndpoint=$roleEndpoint';
-
+  static String getSetNewPasswordRoute(String roleEndpoint) =>
+      '$setPasswordPage?roleEndpoint=$roleEndpoint';
 
   static List<GetPage> routes = [
-    GetPage(name: splashPage,
+    GetPage(
+      name: splashPage,
       page: () => const SplashPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(seconds: 1),
@@ -102,9 +106,9 @@ class Routers {
     GetPage(
       name: loginPage,
       page: () {
-      var roleEndpoint = Get.parameters['roleEndpoint'];
+        var roleEndpoint = Get.parameters['roleEndpoint'];
         return LoginPage(roleEndpoint: roleEndpoint.toString());
-  },
+      },
       transition: Transition.fade,
       transitionDuration: const Duration(seconds: 1),
     ),
@@ -125,7 +129,7 @@ class Routers {
     ),
     GetPage(
       name: mechanicHomePage,
-      page: () => const MechanicHomePage(),
+      page: () => MechanicHomePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
@@ -149,56 +153,60 @@ class Routers {
     ),
     GetPage(
       name: mechanicUserProfilePage,
-      page: () => const   MechanicUserProfilePage(),
+      page: () => const MechanicUserProfilePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: clientUpdateUserProfilePage,
-      page: () => const   ClientUpdateProfilePage(),
+      page: () => const ClientUpdateProfilePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: mechanicUpdateUserProfilePage,
-      page: () => const   MechanicUpdateProfilePage(),
+      page: () => const MechanicUpdateProfilePage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: carsListPage,
-      page: () => const   CarsListPage(),
+      page: () => const CarsListPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: editCarPage,
-      page: ()  {
-      var carID = Get.parameters['carID'];
-          return EditCarPage(carID: carID.toString());
-          },
+      page: () {
+        var carID = Get.parameters['carID'];
+        return EditCarPage(carID: carID.toString());
+      },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: addCarPage,
-      page:()  {
+      page: () {
         var quickAdd = Get.parameters['quickAdd'];
-        var isQuickAdd = quickAdd == 'true'; // Convert the string back to a boolean
-        return  AddCarPage(quickAdd: isQuickAdd);
+        var isQuickAdd =
+            quickAdd == 'true'; // Convert the string back to a boolean
+        return AddCarPage(quickAdd: isQuickAdd);
       },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: aboutUsPage,
-      page: () => const   AboutUsPage(),
+      page: () => const AboutUsPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: listOfMechanics,
-      page: () => const   MechanicListPage(),
+      page: () {
+        var mechanicsData = Get.parameters['mechanicsData'];
+        return MechanicListPage(mechanics: mechanicsData);
+      },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
@@ -228,13 +236,13 @@ class Routers {
     ),
     GetPage(
       name: address,
-      page: () =>  const AddAddressPage(),
+      page: () => const AddAddressPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: updateAddress,
-      page: () =>  const UpdateAddressPage(),
+      page: () => const UpdateAddressPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),

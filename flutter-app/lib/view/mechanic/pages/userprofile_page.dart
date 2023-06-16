@@ -20,15 +20,13 @@ class MechanicUserProfilePage extends StatelessWidget {
     // For demonstration purposes, let's assume the address exists
     bool addressExists = false;
 
-
     return addressExists;
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppNavigation(
+      appBar: AppNavigation(
         title: 'profile'.tr,
       ),
       body: SingleChildScrollView(
@@ -70,7 +68,7 @@ class MechanicUserProfilePage extends StatelessWidget {
               icon: Icons.location_on,
               onPress: () async {
                 // Check if the address exists in the database
-                bool addressExists = await checkAddressExistence();
+                bool addressExists = mechanicAddressInfo != null ? true : false;
 
                 if (addressExists) {
                   Get.toNamed(Routers.getUpdateAddressPageRoute());

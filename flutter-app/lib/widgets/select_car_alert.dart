@@ -1,19 +1,24 @@
+import 'dart:convert';
+
 import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/select_car.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes.dart';
 import '../utils/main.colors.dart';
 
 class MyAlertDialog extends StatefulWidget {
-  const MyAlertDialog({Key? key}) : super(key: key);
-
+  const MyAlertDialog({Key? key, required this.position}) : super(key: key);
+  final Position? position;
   @override
   _MyAlertDialogState createState() => _MyAlertDialogState();
 }
+
 class _MyAlertDialogState extends State<MyAlertDialog> {
+  late Position? position = widget.position;
   List<SelectCar> _carsList = [];
   final AccountManager _accountManager = AccountManager();
   SelectCar? selectedItem;
@@ -26,10 +31,10 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
       _carsList = carsData
           .map(
             (item) => SelectCar(
-          name: item["plate_number"],
-          carID: item["id"].toString(),
-        ),
-      )
+              name: item["plate_number"],
+              carID: item["id"].toString(),
+            ),
+          )
           .toList();
     });
   }
@@ -58,8 +63,16 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     }
   }
 
-  void handleFinalNextButtonPressed() {
+  Future<void> handleFinalNextButtonPressed() async {
     if (noteController.text.isNotEmpty) {
+      print("position :: $position");
+      List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
+        "coordinates": [position?.longitude, position?.latitude]
+      }));
+      String mechanicsDataString = jsonEncode(mechanics);
+      Get.toNamed(Routers.getListOfMechanicsPageRoute(mechanicsDataString));
+      print("mechanics :: $mechanics");
+
       print(noteController.text);
       print(selectedItem?.carID);
     }
@@ -83,8 +96,8 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
           TextButton(
             onPressed: noteController.text.isNotEmpty
                 ? () {
-              handleFinalNextButtonPressed();
-            }
+                    handleFinalNextButtonPressed();
+                  }
                 : null,
             child: Text(
               'next'.tr,
@@ -107,30 +120,30 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
         width: double.maxFinite,
         height: 150,
         child: isEmptyList
-            ?  Center(
-          child: Text(
-            'no_car_alert'.tr,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        )
+            ? Center(
+                child: Text(
+                  'no_car_alert'.tr,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
             : CustomSelectCarList(
-          list: _carsList,
-          onCarSelected: handleCarSelected,
-        ),
+                list: _carsList,
+                onCarSelected: handleCarSelected,
+              ),
       ),
       actions: [
         TextButton(
           onPressed: isEmptyList
               ? () {
-            Get.toNamed(Routers.getAddCarPageRoute(true));
-          }
+                  Get.toNamed(Routers.getAddCarPageRoute(true));
+                }
               : isNextButtonEnabled
-              ? () {
-            handleNextButtonPressed();
-          }
-              : null,
+                  ? () {
+                      handleNextButtonPressed();
+                    }
+                  : null,
           child: Text(
             isEmptyList ? 'addNewCar'.tr : 'next'.tr,
             style: TextStyle(
@@ -139,8 +152,8 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
               color: isEmptyList
                   ? MainColors.mainColor
                   : isNextButtonEnabled
-                  ? MainColors.mainColor
-                  : Colors.grey,
+                      ? MainColors.mainColor
+                      : Colors.grey,
             ),
           ),
         ),
