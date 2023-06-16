@@ -132,7 +132,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
           }
               : null,
           child: Text(
-            isEmptyList ? 'addNewCar' : 'next'.tr,
+            isEmptyList ? 'addNewCar'.tr : 'next'.tr,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
