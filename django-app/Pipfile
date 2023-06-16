@@ -13,6 +13,7 @@ django-cors-headers = "*"
 django-phonenumber-field = "*"
 phonenumbers = "*"
 pymongo = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 
