@@ -6,9 +6,9 @@ import '../view/general/pages/payment/wallet.dart';
 import 'change_language_dialog.dart';
 
 class SideBarGlobal extends StatelessWidget {
-  final bool showMyCars;
+  final bool isClient;
 
-  const SideBarGlobal({Key? key, this.showMyCars = false}) : super(key: key);
+  const SideBarGlobal({Key? key, this.isClient = false}) : super(key: key);
 
   void _showLanguageDialog(BuildContext context) {
     showDialog(
@@ -69,7 +69,7 @@ class SideBarGlobal extends StatelessWidget {
               );
             },
           ),
-          if (showMyCars)
+          if (isClient)
             ListTile(
               leading: const Icon(Icons.directions_car),
               title:  Text('myCars'.tr),
@@ -88,7 +88,12 @@ class SideBarGlobal extends StatelessWidget {
             leading: const Icon(Icons.help),
             title: Text('supportAndHelp'.tr),
             onTap: () {
-              // Handle support and help tap
+              if(isClient){
+                Get.toNamed(Routers.getClientHelpAndSupportPagePageRoute());
+              }
+              else{
+                Get.toNamed(Routers.getMechanicHelpAndSupportPagePageRoute());
+              }
             },
           ),
           ListTile(
