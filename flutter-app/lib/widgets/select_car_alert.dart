@@ -55,24 +55,24 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     });
   }
 
-  Future<void> handleNextButtonPressed() async {
+  void handleNextButtonPressed() {
     if (selectedItem != null) {
       setState(() {
         isNextButtonPressed = true;
       });
     }
-    print("position :: $position");
-    List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
-      "coordinates": [position?.longitude, position?.latitude]
-    }));
-    String mechanicsDataString = jsonEncode(mechanics);
-    Get.toNamed(
-        Routers.getListOfMechanicsPageRoute(mechanicsDataString));
-    print("mechanics :: $mechanics");
   }
 
-  void handleFinalNextButtonPressed() {
+  Future<void> handleFinalNextButtonPressed() async {
     if (noteController.text.isNotEmpty) {
+      print("position :: $position");
+      List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
+        "coordinates": [position?.longitude, position?.latitude]
+      }));
+      String mechanicsDataString = jsonEncode(mechanics);
+      Get.toNamed(Routers.getListOfMechanicsPageRoute(mechanicsDataString));
+      print("mechanics :: $mechanics");
+
       print(noteController.text);
       print(selectedItem?.carID);
     }
