@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6=oz-u!&523r$_$bsrpfo74l1wk54g@**qokjox=+@4jsvngh9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ip = "localhost"  # Enter your ip here and add this variable to ALLOWED_HOSTS list
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', ip]
