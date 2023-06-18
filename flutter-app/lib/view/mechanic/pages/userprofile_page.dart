@@ -35,7 +35,7 @@ class MechanicUserProfilePage extends StatelessWidget {
         child: Column(
           children: [
             CustomProfile(
-              image: 'assets/images/mechanic_profile.jpeg',
+              image: 'assets/images/profile.jpeg',
               title: "${token!['first_name']} ${token!['last_name']}",
               email: token!['email'],
               onTap: () {

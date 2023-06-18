@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../routes/routes.dart';
 import '../services/authentication.dart';
 import '../view/general/pages/payment/wallet.dart';
+import 'add_addres_alert.dart';
 import 'change_language_dialog.dart';
 
 class SideBarGlobal extends StatelessWidget {
@@ -62,6 +63,37 @@ class SideBarGlobal extends StatelessWidget {
               );
             },
           ),
+          if (!isClient)
+            ListTile(
+              leading: const Icon(Icons.work),
+              title:  Text('mechanic_portfolio'.tr,),
+              onTap: () {
+                Get.toNamed(Routers.getMechanicPortfolioRoute());
+              },
+            ),
+          if (!isClient)
+            ListTile(
+              leading: const Icon(Icons.location_on),
+              title:  Text('myAddress'.tr,),
+              onTap: () async {
+            // Check if the address exists in the database
+            bool addressExists = mechanicAddressInfo != null ? true : false;
+
+            if (addressExists) {
+            Get.toNamed(Routers.getUpdateAddressPageRoute());
+            } else {
+            showDialog(
+            context: context,
+            builder: (BuildContext context) {
+            return  CustomAddAddressAlertDialog(
+            title: 'no_address_alert'.tr,
+            content: Text('no_address_alert_clarification'.tr),
+            );
+            },
+            );
+            }
+            },
+            ),
           if (isClient)
             ListTile(
               leading: const Icon(Icons.directions_car),
