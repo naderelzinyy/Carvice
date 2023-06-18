@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carvice_frontend/widgets/button.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
-
+import 'package:email_otp/email_otp.dart';
 import '../routes/routes.dart';
 
 class ResetPasswordAlert extends StatefulWidget {
@@ -21,6 +21,7 @@ class _ResetPasswordAlertState extends State<ResetPasswordAlert> {
   bool showEmailErrorMessage = false;
   bool showCodeErrorMessage = false;
   late String roleEndpoint = widget.roleEndpoint;
+  EmailOTP myAuth = EmailOTP();
 
   bool isEmailFieldEmpty() {
     return emailController.text.isEmpty;
@@ -33,7 +34,15 @@ class _ResetPasswordAlertState extends State<ResetPasswordAlert> {
   void checkEmailExists() {
     // Simulating email existence check in the database
     // Replace this with your actual database logic
-    if (emailController.text == 'example@example.com') {
+    if (emailController.text == 'maryamalrubaye18@gmail.com') {
+      myAuth.setConfig(
+          appEmail: "carviceapp@gmail.com",
+          appName: "Carvice",
+          userEmail:emailController.text,
+          otpLength: 6,
+          otpType: OTPType.digitsOnly
+      );
+      myAuth.sendOTP();
       setState(() {
         emailExists = true;
       });
@@ -44,10 +53,10 @@ class _ResetPasswordAlertState extends State<ResetPasswordAlert> {
     }
   }
 
-  void verifyConfirmationCode() {
+  void verifyConfirmationCode() async{
     // Simulating confirmation code verification
     // Replace this with your actual verification logic
-    if (confirmationCodeController.text == '123456') {
+    if(await myAuth.verifyOTP(otp: confirmationCodeController.text) == true) {
       Get.offAllNamed(Routers.getSetNewPasswordRoute(roleEndpoint));
     } else {
       setState(() {
@@ -131,6 +140,8 @@ class _ResetPasswordAlertState extends State<ResetPasswordAlert> {
               Expanded(
                 child: CustomButton(
                   onTap: () {
+                    print(emailController.text);
+                    print('btn');
                     checkEmailExists();
                     showErrorMessages(); // Show error messages based on email and confirmation code validity
                     if (!emailExists) {
