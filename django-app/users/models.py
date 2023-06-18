@@ -22,12 +22,16 @@ class User(AbstractUser):
 
 
 class Client(models.Model):
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     account_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Mechanic(models.Model):
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     account_id = models.ForeignKey(User, on_delete=models.CASCADE)

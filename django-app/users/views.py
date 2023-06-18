@@ -65,8 +65,8 @@ class SignupView(APIView):
             modified_request = {
                                 "account_id": serialized_data.get("id"),
                                 "first_name": serialized_data.get("first_name"),
-                                "last_name": serialized_data.get("last_name"),
-                                "commercial_name": request.data.get("commercial_name")}
+                                "last_name": serialized_data.get("last_name")
+        }
 
         signup_action = SignUpHandler().role_directors.get(role)
         print(f"{signup_action = }")
