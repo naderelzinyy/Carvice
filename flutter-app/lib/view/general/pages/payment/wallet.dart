@@ -15,6 +15,7 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   double currentBalance = token!['balance'];
+  String currentBalanceText = "Current Balance:".tr;
 
   @override
   void initState() {
@@ -37,72 +38,77 @@ class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppNavigation(
-        title: 'Wallet'.tr,
-        automaticallyCallBack: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
+        appBar: AppNavigation(
+          title: 'Wallet'.tr,
+          automaticallyCallBack: true,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
+                child: Text(
+                  '$currentBalanceText ${currentBalance.toStringAsFixed(currentBalance.truncateToDouble() == currentBalance ? 0 : 2)}TL',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: MainColors.mainColor,
                   ),
-                ],
-              ),
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(10),
-              child: Text(
-                'Current Balance: ${currentBalance.toStringAsFixed(currentBalance.truncateToDouble() == currentBalance ? 0 : 2)}TL',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: MainColors.mainColor,
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: MainColors.mainColor,
+              const SizedBox(height: 10),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: MainColors.mainColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const PaymentPage(isDeposit: true),
+                        maintainState: false),
+                  );
+                },
+                child: Text(
+                  'Deposit'.tr,
+                ),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentPage(isDeposit: true),
-                      maintainState: false),
-                );
-              },
-              child: const Text('Deposit'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: MainColors.mainColor,
+              const SizedBox(height: 10),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: MainColors.mainColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const PaymentPage(isDeposit: false),
+                        maintainState: false),
+                  );
+                },
+                child: Text(
+                  'Withdraw'.tr,
+                ),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentPage(isDeposit: false),
-                      maintainState: false),
-                );
-              },
-              child: const Text('Withdraw'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-        bottomNavigationBar: const CustomFooterWidget()
-    );
+        bottomNavigationBar: const CustomFooterWidget());
   }
 }
