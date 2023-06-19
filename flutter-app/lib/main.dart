@@ -1,7 +1,7 @@
+import 'package:carvice_frontend/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:carvice_frontend/routes/routes.dart';
 
 import 'languages/translation.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       translations: Languages(),
       locale: Get.deviceLocale,
-      fallbackLocale: const Locale('en','US'),
+      fallbackLocale: const Locale('en', 'US'),
       title: 'Carvice',
       debugShowCheckedModeBanner: false,
       initialRoute: Routers.getMainRoute(),
