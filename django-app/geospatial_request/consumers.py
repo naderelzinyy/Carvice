@@ -20,6 +20,22 @@ class RequestConsumer(AsyncWebsocketConsumer):
         event["type"] = "show_request"
         await self.send(text_data=json.dumps(event))
 
+    async def receive_offer(self, event):
+        print(f"{event = }")
+        # received_request = json.loads(event)
+        event["type"] = "show_offer"
+        await self.send(text_data=json.dumps(event))
+
+    async def refuse_request(self, event):
+        print(f"{event = }")
+        event["type"] = "refuse_request"
+        await self.send(text_data=json.dumps(event))
+
+    async def refuse_offer(self, event):
+        print(f"{event = }")
+        event["type"] = "refuse_offer"
+        await self.send(text_data=json.dumps(event))
+
     async def receive(self, text_data=None, bytes_data=None):
         print("receive starts")
         data = json.loads(text_data)
