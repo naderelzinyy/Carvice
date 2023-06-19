@@ -60,7 +60,7 @@ class ClientSerializer(serializers.ModelSerializer):
         """Handles extra operations in Client creation."""
         validated_data['account_id'] = User.objects.get(id=validated_data.get('account_id', None))
         # removing unneeded pairs.
-        validated_data.pop("user_id")
+        # validated_data.pop("user_id")
         client_instance = self.Meta.model(**validated_data)
         client_instance.save()
         return client_instance
@@ -78,7 +78,7 @@ class MechanicSerializer(serializers.ModelSerializer):
         try:
             validated_data['account_id'] = User.objects.get(id=validated_data.get('account_id', None))
             # removing unneeded pairs.
-            validated_data.pop("user_id")
+            # validated_data.pop("user_id")
             mechanic_instance = self.Meta.model(**validated_data)
             mechanic_instance.save()
             return mechanic_instance
