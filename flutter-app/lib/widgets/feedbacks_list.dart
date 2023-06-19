@@ -26,7 +26,7 @@ class CustomMechanicList extends StatelessWidget {
           },
           child: ListTile(
             contentPadding:
-            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
             leading: SizedBox(
               height: 90,
               width: 60,
@@ -41,7 +41,8 @@ class CustomMechanicList extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Text(
-                            list[index].name.substring(0, 1), // Display only the first character of the name
+                            list[index].name.substring(0,
+                                1), // Display only the first character of the name
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 36,
