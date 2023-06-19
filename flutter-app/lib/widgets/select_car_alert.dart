@@ -70,7 +70,8 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
         "coordinates": [position?.latitude, position?.longitude]
       }));
       String mechanicsDataString = jsonEncode(mechanics);
-      Get.toNamed(Routers.getListOfMechanicsPageRoute(mechanicsDataString));
+      Get.toNamed(Routers.getListOfMechanicsPageRoute(
+          mechanicsDataString, noteController.text, selectedItem!.carID));
       print("mechanics :: $mechanics");
 
       print(noteController.text);

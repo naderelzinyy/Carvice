@@ -8,8 +8,12 @@ import '../../../widgets/custom_app_footer.dart';
 import '../../../widgets/mechanic_list.dart';
 
 class MechanicListPage extends StatefulWidget {
-  const MechanicListPage({Key? key, required this.mechanics}) : super(key: key);
+  const MechanicListPage(
+      {Key? key, required this.mechanics, this.note, this.carID})
+      : super(key: key);
   final String? mechanics;
+  final String? note;
+  final String? carID;
 
   @override
   MechanicListPageState createState() => MechanicListPageState();
@@ -48,7 +52,8 @@ class MechanicListPageState extends State<MechanicListPage> {
           children: [
             const SizedBox(height: 20),
             Expanded(
-              child: CustomMechanicList(list: mechanicList),
+              child: CustomMechanicList(
+                  list: mechanicList, note: widget.note, carID: widget.carID),
             ),
           ],
         ),
