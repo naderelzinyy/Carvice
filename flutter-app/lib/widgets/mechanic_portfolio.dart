@@ -1,13 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:rating_summary/rating_summary.dart';
+
 import '../../../widgets/button.dart';
 import '../../../widgets/feedbacks_list.dart';
-import 'package:flutter/material.dart';
-import 'package:rating_summary/rating_summary.dart';
-import 'package:get/get.dart';
+import '../services/authentication.dart';
 
 class MechanicPortfolio extends StatefulWidget {
   final bool isClient;
+  final String? mechanicID;
 
-  MechanicPortfolio({super.key, required this.isClient});
+  MechanicPortfolio({super.key, required this.isClient, this.mechanicID});
 
   @override
   _MechanicPortfolioState createState() => _MechanicPortfolioState();
@@ -15,42 +18,43 @@ class MechanicPortfolio extends StatefulWidget {
 
 class _MechanicPortfolioState extends State<MechanicPortfolio> {
   late double space = widget.isClient ? 20 : 30;
-  final List<FeedbackItem> feedbackList = [
-    FeedbackItem(
-      name: 'SARA Doe',
-      rate: 4.5,
-      feedbackText: 'Great service! Great service! Great service! Great service! Great service! Great service! Great service! Great service! Great service!',
-      feedbackDate: '2023-06-01',
-    ),
-    FeedbackItem(
-      name: 'Jane Smith',
-      rate: 3.8,
-      feedbackText: 'Could be better.',
-      feedbackDate: '2023-06-02',
-    ),
-    FeedbackItem(
-      name: 'Nader Smith',
-      rate: 3.8,
-      feedbackText: 'Could be better!!!!!!!!!!!!!!!!!.',
-      feedbackDate: '2023-06-02',
-    ),
-    FeedbackItem(
-      name: 'Maryam Smith',
-      rate: 1.8,
-      feedbackText: 'bad.',
-      feedbackDate: '2023-06-02',
-    ),
-    // Add more items as needed
-  ];
+  late List<FeedbackItem> feedbackList = [];
+  final AccountManager _accountManager = AccountManager();
 
+  void getReviewsList() async {
+    List<dynamic> reviews =
+        await _accountManager.getReviews({"mechanic_id": widget.mechanicID});
+    setState(() {
+      feedbackList = reviews
+          .map(
+            (item) => FeedbackItem(
+                name: item["client_name"],
+                rate: double.parse(item["rate"]),
+                feedbackText: item["comment"],
+                feedbackDate: item["date"]),
+          )
+          .toList();
+    });
+  }
+  // FeedbackItem(
+  // name: 'Maryam Smith',
+  // rate: 1.8,
+  // feedbackText: 'bad.',
+  // feedbackDate: '2023-06-02',
+  // ),
 
+  @override
+  void initState() {
+    super.initState();
+    getReviewsList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         SizedBox(height: space),
+        SizedBox(height: space),
         const Row(
           children: [
             SizedBox(height: 30),
@@ -69,7 +73,8 @@ class _MechanicPortfolioState extends State<MechanicPortfolio> {
           ],
         ),
         const SizedBox(height: 10),
-        if (widget.isClient)  // Conditionally render the button if isClient is true
+        if (widget
+            .isClient) // Conditionally render the button if isClient is true
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: CustomButton(
