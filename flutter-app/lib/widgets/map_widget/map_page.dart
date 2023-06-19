@@ -48,9 +48,11 @@ class MapTrackingPageState extends State<MapTrackingPage> {
         forceAndroidLocationManager: true);
 
     print("Current position :: $position");
-    setState(() {
-      currentPosition = position;
-    });
+    if (mounted) {
+      setState(() {
+        currentPosition = position;
+      });
+    }
   }
 
   @override
