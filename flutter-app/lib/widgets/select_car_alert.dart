@@ -67,7 +67,7 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     if (noteController.text.isNotEmpty) {
       print("position :: $position");
       List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
-        "coordinates": [position?.longitude, position?.latitude]
+        "coordinates": [position?.latitude, position?.longitude]
       }));
       String mechanicsDataString = jsonEncode(mechanics);
       Get.toNamed(Routers.getListOfMechanicsPageRoute(mechanicsDataString));
