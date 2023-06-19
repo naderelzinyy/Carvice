@@ -5,6 +5,9 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 Map<Object, dynamic>? token;
 Map<Object, dynamic>? mechanicAddressInfo;
 List<dynamic>? carsData;
+List<dynamic>? reviews;
+List<dynamic>? rateList;
+double? average;
 
 String ip = "localhost"; // Enter your IP here to allow multiple emulators
 
@@ -202,5 +205,20 @@ class AccountManager {
     } else {
       throw Exception('Failed to fetch balance');
     }
+  }
+
+  Future<List<dynamic>> getReviews(Map<String, String?> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://localhost:8000/api/review/getReviews', body);
+    print(body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("reviews")) {
+      reviews = data["reviews"];
+      rateList = data["rate_list"];
+      average = data["average"];
+      print("reviews :: $reviews");
+      return data["reviews"] as List<dynamic>;
+    }
+    return [];
   }
 }
