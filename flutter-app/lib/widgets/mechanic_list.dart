@@ -1,8 +1,10 @@
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes.dart';
+import '../services/websocket_connection.dart';
 import '../utils/main.colors.dart';
 
 class CustomMechanicList extends StatelessWidget {
@@ -22,13 +24,13 @@ class CustomMechanicList extends StatelessWidget {
         );
       },
       itemBuilder: (BuildContext context, int index) {
-        return  GestureDetector(
+        return GestureDetector(
           onTap: () {
             Get.toNamed(Routers.getMechanicProfileInClientRoute());
           },
           child: ListTile(
             contentPadding:
-            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
             leading: SizedBox(
               height: 90,
               width: 60,
@@ -64,7 +66,7 @@ class CustomMechanicList extends StatelessWidget {
               children: [
                 RatingBarIndicator(
                   rating: list[index].rate,
-                  itemBuilder: (context, index) =>  Icon(
+                  itemBuilder: (context, index) => Icon(
                     Icons.star,
                     color: MainColors.mainColor,
                   ),
@@ -75,8 +77,20 @@ class CustomMechanicList extends StatelessWidget {
               ],
             ),
             trailing: ElevatedButton(
-              onPressed: () {
-               print("Request btn pressed");
+              onPressed: () async {
+                var id = list[index].id;
+                StreamConnection streamConnection = StreamConnection(
+                    'ws://127.0.0.1:8000/ws/socket/geospatial-server/$id/',
+                    context,
+                    "client");
+                await streamConnection.connect();
+                streamConnection.send({
+                  "type": "receive_request",
+                  "client_name":
+                      "${token!['first_name']}  ${token!['last_name']}",
+                  "car_brand": "mercedes",
+                  "description": "My car is broken"
+                });
               },
               style: ElevatedButton.styleFrom(
                 primary: MainColors.mainColor,
@@ -84,7 +98,7 @@ class CustomMechanicList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
-              child:  Text('request'.tr),
+              child: Text('request'.tr),
             ),
           ),
         );
@@ -95,11 +109,13 @@ class CustomMechanicList extends StatelessWidget {
 
 class MyMechanicItem {
   final String name;
+  final int id;
   final String imagePath;
   final double rate;
 
   MyMechanicItem({
     required this.name,
+    required this.id,
     required this.imagePath,
     required this.rate,
   });
