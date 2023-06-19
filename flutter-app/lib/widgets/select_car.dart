@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:carvice_frontend/utils/main.colors.dart';
+import 'package:flutter/material.dart';
 
 class CustomSelectCarList extends StatefulWidget {
   final List<SelectCar> list;
   final Function(SelectCar?) onCarSelected; // Define callback function
 
-  const CustomSelectCarList({Key? key, required this.list, required this.onCarSelected})
+  const CustomSelectCarList(
+      {Key? key, required this.list, required this.onCarSelected})
       : super(key: key);
 
   @override
@@ -20,7 +21,10 @@ class _CustomSelectCarListState extends State<CustomSelectCarList> {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(width: 5, height: 10,); // Add spacing between items
+        return const SizedBox(
+          width: 5,
+          height: 10,
+        ); // Add spacing between items
       },
       itemCount: widget.list.length,
       itemBuilder: (BuildContext context, int index) {
@@ -29,7 +33,8 @@ class _CustomSelectCarListState extends State<CustomSelectCarList> {
           onTap: () {
             setState(() {
               selectedItem = item;
-              widget.onCarSelected(selectedItem); // Invoke the callback function
+              widget
+                  .onCarSelected(selectedItem); // Invoke the callback function
             });
           },
           child: Container(
