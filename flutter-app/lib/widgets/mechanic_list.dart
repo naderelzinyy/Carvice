@@ -1,6 +1,5 @@
 import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes.dart';
@@ -77,7 +76,8 @@ class _CustomMechanicListState extends State<CustomMechanicList> {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            Get.toNamed(Routers.getMechanicProfileInClientRoute());
+            Get.toNamed(
+                Routers.getMechanicProfileInClientRoute(widget.list[index].id));
           },
           child: ListTile(
             contentPadding:
@@ -150,12 +150,10 @@ class MyMechanicItem {
   final String name;
   final int id;
   final String imagePath;
-  final double rate;
 
   MyMechanicItem({
     required this.name,
     required this.id,
     required this.imagePath,
-    required this.rate,
   });
 }
