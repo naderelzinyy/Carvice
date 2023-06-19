@@ -1,15 +1,40 @@
-import 'package:carvice_frontend/services/authentication.dart';
-import 'package:carvice_frontend/widgets/app_navigation.dart';
-import 'package:carvice_frontend/widgets/bottom_navigation.dart';
-import 'package:carvice_frontend/widgets/side_bar.dart';
 import 'package:flutter/material.dart';
-
-import '../../../widgets/add_addres_alert.dart';
-import '../../../widgets/map_widget/map_page.dart';
 import 'package:get/get.dart';
 
-class MechanicHomePage extends StatelessWidget {
+import '../../../services/authentication.dart';
+import '../../../services/websocket_connection.dart';
+import '../../../widgets/add_addres_alert.dart';
+import '../../../widgets/app_navigation.dart';
+import '../../../widgets/bottom_navigation.dart';
+import '../../../widgets/map_widget/map_page.dart';
+import '../../../widgets/side_bar.dart';
+
+class MechanicHomePage extends StatefulWidget {
   MechanicHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MechanicHomePageState createState() => _MechanicHomePageState();
+}
+
+class _MechanicHomePageState extends State<MechanicHomePage> {
+  bool hasAddress = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      await setAddressIfExist();
+
+      if (hasAddress) {
+        await StreamConnection(
+                'ws://127.0.0.1:8000/ws/socket/geospatial-server/${token!["id"]}/',
+                context,
+                "mechanic")
+            .connect();
+      }
+      await init(context);
+    });
+  }
 
   Future<bool> hasRegisteredAddress() async {
     // Replace this with your logic to check the registered address in your database
@@ -22,9 +47,15 @@ class MechanicHomePage extends StatelessWidget {
     return false;
   }
 
+  Future<void> setAddressIfExist() async {
+    hasAddress = await hasRegisteredAddress();
+  }
+
   Future<void> init(BuildContext context) async {
-    if (!await hasRegisteredAddress()) {
+    if (!hasAddress) {
       handleAddAddress(context);
+    } else {
+      // requestStream(context);
     }
   }
 
@@ -32,7 +63,7 @@ class MechanicHomePage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return  CustomAddAddressAlertDialog(
+        return CustomAddAddressAlertDialog(
           title: 'no_address_alert'.tr,
           content: Text('no_address_alert_clarification'.tr),
         );
@@ -43,10 +74,6 @@ class MechanicHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const bool isClient = false;
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      init(context);
-    });
 
     return const Scaffold(
       appBar: AppNavigation(
