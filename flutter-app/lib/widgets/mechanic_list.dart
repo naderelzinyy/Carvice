@@ -113,20 +113,6 @@ class _CustomMechanicListState extends State<CustomMechanicList> {
                 fontSize: 20,
               ),
             ),
-            subtitle: Row(
-              children: [
-                RatingBarIndicator(
-                  rating: widget.list[index].rate,
-                  itemBuilder: (context, index) => Icon(
-                    Icons.star,
-                    color: MainColors.mainColor,
-                  ),
-                  itemCount: 5,
-                  itemSize: 16.0,
-                  direction: Axis.horizontal,
-                ),
-              ],
-            ),
             trailing: ElevatedButton(
               onPressed: () async {
                 var id = widget.list[index].id;
