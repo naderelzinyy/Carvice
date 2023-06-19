@@ -77,7 +77,8 @@ class Routers {
           String mechanicsData, String note, String carID) =>
       '$listOfMechanics?mechanicsData=$mechanicsData&note=$note&carID=$carID';
 
-  static String getMechanicProfileInClientRoute() => mechanicProfileInClient;
+  static String getMechanicProfileInClientRoute(int userID) =>
+      '$mechanicProfileInClient?userID=$userID';
   static String getMechanicPortfolioRoute() => mechanicPortfolioPage;
   static String getSettingsPageRoute() => settingsPage;
   static String getChangePasswordPageRoute() => changePasswordPage;
@@ -211,7 +212,10 @@ class Routers {
     ),
     GetPage(
       name: mechanicProfileInClient,
-      page: () => const MechanicProfile(),
+      page: () {
+        var userID = Get.parameters['userID'];
+        return MechanicProfile(id: userID);
+      },
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
