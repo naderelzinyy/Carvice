@@ -11,4 +11,5 @@ users_site = UsersAdminArea(name='Carvice Admin Dashboard')
 
 users_site.register(models.Mechanic)
 users_site.register(models.Client)
+users_site.register(models.User)
 
