@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:carvice_frontend/services/authentication.dart';
+import 'package:carvice_frontend/widgets/mechanic_list.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../routes/routes.dart';
 import '../../services/websocket_connection.dart';
 import '../../utils/main.colors.dart';
+import '../../view/general/pages/chat/chat_list_page.dart';
 import '../alerts_text_button.dart';
 import '../request_stream_widget.dart';
 import '../select_car_alert.dart';
@@ -141,8 +143,13 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                             actions: <Widget>[
                               CustomAlertButton(
                                 text: 'Start Chatting',
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                                onPressed: () async {
+                                  var username = await AccountManager()
+                                      .getMechanicUsername(
+                                          {"mechanic_id": mechanicId});
+                                  print("333333 $username");
+                                  ChatHomePage().startChat(context, username);
+                                  // Navigator.of(context).pop();
                                 },
                               ),
                               if (!widget.isClient)
@@ -154,7 +161,10 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                                       'ws://127.0.0.1:8000/ws/socket/geospatial-server/$token![id]/',
                                       context,
                                       "mechanic",
-                                    ).close();
+                                    ).send({
+                                      "type": "end_session",
+                                      "message": "Session ends"
+                                    });
                                     Get.offAllNamed(
                                         Routers.getMechanicHomePageRoute());
                                   },
