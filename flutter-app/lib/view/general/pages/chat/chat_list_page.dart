@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../services/authentication.dart';
 import '../../../../utils/main.colors.dart';
 import 'chatting_page.dart';
@@ -11,15 +10,15 @@ class ChatHomePage extends StatefulWidget {
 
   void startChat(BuildContext context, String username,
       [String autoMessage = ""]) {
+    ChatService chatService = ChatService();
+    chatService.createConversation(username, autoMessage: autoMessage);
+
     // Chat Request method, starts a conversation immediately given the username
     print("startChat starts...");
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChattingScreen(
-          selectedFriendUserName: username,
-          autoMessage: autoMessage,
-        ),
+        builder: (context) => ChattingScreen(selectedFriendUserName: username),
       ),
     );
   }

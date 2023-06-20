@@ -10,12 +10,8 @@ import '../../../../utils/chat_style_utils.dart';
 
 class ChattingScreen extends StatefulWidget {
   final String selectedFriendUserName;
-  final String? autoMessage;
-  const ChattingScreen({
-    super.key,
-    required this.selectedFriendUserName,
-    this.autoMessage,
-  });
+  const ChattingScreen({super.key, required this.selectedFriendUserName});
+  static const route = "chatting_page";
 
   @override
   ChattingScreenState createState() => ChattingScreenState();
@@ -34,8 +30,6 @@ class ChattingScreenState extends State<ChattingScreen> {
 
   void createConversation(String friendUserName) async {
     if (token != null) {
-      final messageToSend = widget.autoMessage ?? textMessage;
-
       // create conversation for current user
       final userDoc = await _fireStoreAuth
           .collection('users')
@@ -49,7 +43,7 @@ class ChattingScreenState extends State<ChattingScreen> {
           "timestamp": Timestamp.now(),
         });
         conversation.collection('messages').add({
-          "message": messageToSend,
+          "message": textMessage,
           "msg_date": Timestamp.now(),
           "sender": token!['username'],
         });
@@ -70,7 +64,7 @@ class ChattingScreenState extends State<ChattingScreen> {
           "timestamp": Timestamp.now(),
         });
         friendConversation.collection('messages').add({
-          "message": messageToSend,
+          "message": textMessage,
           "msg_date": Timestamp.now(),
           "sender": token!['username'],
         });
@@ -82,7 +76,6 @@ class ChattingScreenState extends State<ChattingScreen> {
 
   void getUser() async {
     try {
-      // TODO : CURR USER TO BE LINKED WITH sql database
       token;
       final currUser = _fireBaseAuth.currentUser;
       if (currUser != null) {
@@ -266,5 +259,56 @@ class BubbleTextBuilder extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ChatService {
+  final _fireStoreAuth = FirebaseFirestore.instance;
+
+  void createConversation(String friendUserName,
+      {String autoMessage = ""}) async {
+    if (token != null) {
+      // create conversation for current user
+      final userDoc = await _fireStoreAuth
+          .collection('users')
+          .doc(token!['id'].toString())
+          .get();
+      if (userDoc.exists) {
+        final conversation =
+            userDoc.reference.collection('conversations').doc(friendUserName);
+        conversation.set({
+          "friend_username": friendUserName,
+          "timestamp": Timestamp.now(),
+        });
+        conversation.collection('messages').add({
+          "message": autoMessage,
+          "msg_date": Timestamp.now(),
+          "sender": token!['username'],
+        });
+      } else {
+        print('User document does not exist');
+      }
+      // create conversation for friend user
+      final friendDoc = await _fireStoreAuth
+          .collection('users')
+          .where('username', isEqualTo: friendUserName)
+          .get();
+      if (friendDoc.docs.isNotEmpty) {
+        final friendConversation = friendDoc.docs.first.reference
+            .collection('conversations')
+            .doc(token!['username']);
+        friendConversation.set({
+          "friend_username": token!['username'],
+          "timestamp": Timestamp.now(),
+        });
+        friendConversation.collection('messages').add({
+          "message": autoMessage,
+          "msg_date": Timestamp.now(),
+          "sender": token!['username'],
+        });
+      } else {
+        print('Friend document does not exist');
+      }
+    }
   }
 }
