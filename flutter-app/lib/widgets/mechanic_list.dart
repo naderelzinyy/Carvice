@@ -6,6 +6,8 @@ import '../routes/routes.dart';
 import '../services/websocket_connection.dart';
 import '../utils/main.colors.dart';
 
+int mechanicId = 0;
+
 class CustomMechanicList extends StatefulWidget {
   final List<MyMechanicItem> list;
   final String? note;
@@ -120,9 +122,9 @@ class _CustomMechanicListState extends State<CustomMechanicList> {
             ),
             trailing: ElevatedButton(
               onPressed: () async {
-                var id = widget.list[index].id;
+                mechanicId = widget.list[index].id;
                 StreamConnection streamConnection = StreamConnection(
-                  'ws://127.0.0.1:8000/ws/socket/geospatial-server/$id/',
+                  'ws://127.0.0.1:8000/ws/socket/geospatial-server/$mechanicId/',
                   context,
                   "client",
                 );
