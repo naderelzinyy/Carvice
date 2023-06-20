@@ -140,7 +140,6 @@ class StreamConnection {
   }
 
   void _showEndSessionDialogForClient(dynamic receivedData) {
-    isSessionStarted = true;
     showDialog(
       context: context,
       builder: (BuildContext context) {
