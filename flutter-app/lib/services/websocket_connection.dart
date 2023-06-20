@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:carvice_frontend/services/authentication.dart';
+import 'package:carvice_frontend/widgets/mechanic_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -11,12 +13,15 @@ import '../widgets/request_stream_widget.dart';
 import '../widgets/text_field.dart';
 
 bool isSessionStarted = false;
+bool isRatingSessionStarted = false;
 
 class StreamConnection {
   final BuildContext context;
   final String role;
   final String url;
   late WebSocketChannel _channel;
+  bool isConnected = false; // Track the connection status
+
   final TextEditingController priceController = TextEditingController();
   Stream<dynamic>? _stream;
   StreamSubscription<dynamic>? _subscription;
@@ -31,11 +36,15 @@ class StreamConnection {
     _instance ??= StreamConnection._internal(url, context, role);
     return _instance!;
   }
-
+  double amount = 0;
   Future<void> connect() async {
-    _channel = WebSocketChannel.connect(Uri.parse(url));
-    _stream = _channel.stream;
-    _subscription = _stream?.listen(_handleData);
+    if (!isConnected) {
+      print("Connected");
+      _channel = WebSocketChannel.connect(Uri.parse(url));
+      _stream = _channel.stream;
+      _subscription = _stream?.listen(_handleData);
+      isConnected = true;
+    }
   }
 
   void send(Map<String, dynamic> message) {
@@ -43,36 +52,52 @@ class StreamConnection {
   }
 
   void close() {
+    isConnected = false;
     _subscription?.cancel();
     _channel.sink.close();
   }
 
-  void _showOfferDialog(dynamic receivedData) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomRequestStreamAlertDialog(
-          title: 'Server message',
-          content: Text("The price is ${receivedData['price']} TL"),
-          actions: <Widget>[
-            CustomAlertButton(
-              text: 'Refuse',
-              onPressed: () {
-                send({"type": "refuse_offer", "message": "Offer refused"});
-                Navigator.of(context).pop();
-              },
-            ),
-            CustomAlertButton(
-              text: 'Accept',
-              onPressed: () {
-                send({"type": "start_session", "message": "Session started"});
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  Future<void> _showOfferDialog(dynamic receivedData) async {
+    amount = double.parse(receivedData['price']);
+    var currentBalance = await AccountManager().fetchBalance(token!["id"]);
+    if (currentBalance < amount) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomRequestStreamAlertDialog(
+            title: 'Insufficient balance',
+            content: Text("You will need to deposit money."),
+            actions: <Widget>[],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomRequestStreamAlertDialog(
+            title: 'Server message',
+            content: Text("The price is ${receivedData['price']} TL"),
+            actions: <Widget>[
+              CustomAlertButton(
+                text: 'Refuse',
+                onPressed: () {
+                  send({"type": "refuse_offer", "message": "Offer refused"});
+                  Navigator.of(context).pop();
+                },
+              ),
+              CustomAlertButton(
+                text: 'Accept',
+                onPressed: () {
+                  send({"type": "start_session", "message": "Session started"});
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void _showRequestRefuseDialog(dynamic receivedData) {
@@ -118,7 +143,12 @@ class StreamConnection {
     );
   }
 
-  void _showStartSessionDialogForClient(dynamic receivedData) {
+  Future<void> _showStartSessionDialogForClient(dynamic receivedData) async {
+    var response = await AccountManager().transfer({
+      "sender_id": token!["id"],
+      "receiver_id": mechanicId,
+      "amount": amount
+    });
     isSessionStarted = true;
     showDialog(
       context: context,
@@ -130,7 +160,7 @@ class StreamConnection {
             CustomAlertButton(
               text: 'Ok',
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.offAllNamed(Routers.getClientHomePageSessionRoute());
               },
             ),
           ],
@@ -140,6 +170,7 @@ class StreamConnection {
   }
 
   void _showEndSessionDialogForClient(dynamic receivedData) {
+    print("End Session data :: $receivedData");
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -151,7 +182,7 @@ class StreamConnection {
             CustomAlertButton(
               text: 'Ok',
               onPressed: () {
-                Get.offAllNamed(Routers.getClientHomePageRoute());
+                Get.offAllNamed(Routers.getClientHomePageSessionRoute());
               },
             ),
           ],
@@ -192,7 +223,8 @@ class StreamConnection {
       } else if (type == "start_session") {
         _showStartSessionDialogForClient(receivedData);
       } else if (type == "end_session") {
-        _showEndSessionDialogForClient(receivedData);
+        print("End Session");
+        _showOfferRefuseDialog(receivedData);
       }
     }
   }

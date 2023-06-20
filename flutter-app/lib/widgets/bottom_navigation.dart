@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:carvice_frontend/routes/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BottomNavigation extends StatefulWidget {
   final int selectedIndex;
   final String roleEndpoint;
 
-  const BottomNavigation({Key? key, required this.selectedIndex, required this.roleEndpoint}) : super(key: key);
+  const BottomNavigation(
+      {Key? key, required this.selectedIndex, required this.roleEndpoint})
+      : super(key: key);
 
   @override
   BottomNavigationState createState() => BottomNavigationState();
@@ -31,30 +33,27 @@ class BottomNavigationState extends State<BottomNavigation> {
 
     switch (index) {
       case 0:
-      // Navigate to chat screen
-        if (_roleEndpoint == "client"){
+        // Navigate to chat screen
+        if (_roleEndpoint == "client") {
           Get.offAllNamed(Routers.getClientChatListRoute());
-        }
-        else if  (_roleEndpoint == "mechanic"){
+        } else if (_roleEndpoint == "mechanic") {
           Get.offAllNamed(Routers.getMechanicChatListRoute());
         }
 
         break;
       case 1:
-      // Navigate to home screen
-      if (_roleEndpoint == "client"){
-        Get.offAllNamed(Routers.getClientHomePageRoute());
-      }
-      else if  (_roleEndpoint == "mechanic"){
-        Get.offAllNamed(Routers.getMechanicHomePageRoute());
-      }
+        // Navigate to home screen
+        if (_roleEndpoint == "client") {
+          Get.offAllNamed(Routers.getClientHomePageRoute());
+        } else if (_roleEndpoint == "mechanic") {
+          Get.offAllNamed(Routers.getMechanicHomePageRoute());
+        }
         break;
       case 2:
-      // Navigate to user profile screen
-        if (_roleEndpoint == "client"){
+        // Navigate to user profile screen
+        if (_roleEndpoint == "client") {
           Get.offAllNamed(Routers.getUserProfileRoute());
-        }
-        else if  (_roleEndpoint == "mechanic"){
+        } else if (_roleEndpoint == "mechanic") {
           Get.offAllNamed(Routers.getMechanicUserProfileRoute());
         }
         break;
@@ -64,7 +63,7 @@ class BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items:  [
+      items: [
         BottomNavigationBarItem(
           icon: const Icon(Icons.chat, color: Colors.black),
           label: 'chat'.tr,

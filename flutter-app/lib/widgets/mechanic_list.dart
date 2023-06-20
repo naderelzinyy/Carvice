@@ -123,6 +123,7 @@ class _CustomMechanicListState extends State<CustomMechanicList> {
             trailing: ElevatedButton(
               onPressed: () async {
                 mechanicId = widget.list[index].id;
+                print("mechanic id: $mechanicId");
                 StreamConnection streamConnection = StreamConnection(
                   'ws://127.0.0.1:8000/ws/socket/geospatial-server/$mechanicId/',
                   context,

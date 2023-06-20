@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Text(
                       role,
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: MainColors.mainColor,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         )),
       ),
-      bottomNavigationBar:Container(
+      bottomNavigationBar: Container(
           height: 100,
           alignment: Alignment.center,
           child: Row(

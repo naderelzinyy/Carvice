@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/mechanic_list.dart';
+import 'package:carvice_frontend/widgets/rating_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -144,21 +145,28 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                               CustomAlertButton(
                                 text: 'Start Chatting',
                                 onPressed: () async {
-                                  var username = await AccountManager()
-                                      .getMechanicUsername(
-                                          {"mechanic_id": mechanicId});
-                                  print("333333 $username");
-                                  ChatHomePage().startChat(context, username);
-                                  // Navigator.of(context).pop();
+                                  if (widget.isClient) {
+                                    var username = await AccountManager()
+                                        .getMechanicUsername(
+                                            {"mechanic_id": mechanicId});
+                                    print("333333 $username");
+                                    ChatHomePage().startChat(context, username,
+                                        "The session started");
+                                    // Navigator.of(context).pop();
+                                  }
                                 },
                               ),
                               if (!widget.isClient)
                                 CustomAlertButton(
                                   text: 'End Session',
                                   onPressed: () {
-                                    isSessionStarted = false;
+                                    setState(() {
+                                      isSessionStarted = false;
+                                      isRatingSessionStarted = true;
+                                    });
+                                    print("4444444 ${token!['id']}");
                                     StreamConnection(
-                                      'ws://127.0.0.1:8000/ws/socket/geospatial-server/$token![id]/',
+                                      "ws://127.0.0.1:8000/ws/socket/geospatial-server/${token!['id']}/",
                                       context,
                                       "mechanic",
                                     ).send({
@@ -167,6 +175,22 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                                     });
                                     Get.offAllNamed(
                                         Routers.getMechanicHomePageRoute());
+                                  },
+                                ),
+                              if (widget.isClient)
+                                CustomAlertButton(
+                                  text: 'Rate Mechanic',
+                                  onPressed: () async {
+                                    isSessionStarted = false;
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        // we need to pass the mechanic id here in order to save it in the database. with the message
+                                        return const RatingAlertWidget(
+                                            message: 'Rate the mechanic.');
+                                      },
+                                    );
+                                    // Navigator.of(context).pop();
                                   },
                                 ),
                             ],

@@ -1,9 +1,9 @@
 import 'package:carvice_frontend/view/client/pages/add_new_car_page.dart';
 import 'package:carvice_frontend/view/client/pages/carslist_page.dart';
 import 'package:carvice_frontend/view/client/pages/edit_car_info_page.dart';
-import 'package:carvice_frontend/view/general/pages/help_and_support_page.dart';
 import 'package:carvice_frontend/view/client/pages/mechanic_profile_page.dart';
 import 'package:carvice_frontend/view/client/pages/update_profile_page.dart';
+import 'package:carvice_frontend/view/general/pages/help_and_support_page.dart';
 import 'package:carvice_frontend/view/general/pages/login_page.dart';
 import 'package:carvice_frontend/view/general/pages/signup_page.dart';
 import 'package:carvice_frontend/view/general/pages/splash_page.dart';
@@ -53,6 +53,7 @@ class Routers {
   static String updateAddress = "/update_address";
   static String clientHelpAndSupportPage = "/client_help_and_support";
   static String mechanicHelpAndSupportPage = "/mechanic_help_and_support";
+  static String getClientHomePageSession = "/homepage_session";
 
   static String getMainRoute() => splashPage;
   static String getStartingPageRoute() => startingPage;
@@ -61,6 +62,7 @@ class Routers {
   static String getSignupPageRoute(String roleEndpoint) =>
       '$signupPage?roleEndpoint=$roleEndpoint';
   static String getClientHomePageRoute() => clientHomePage;
+  static String getClientHomePageSessionRoute() => getClientHomePageSession;
   static String getMechanicHomePageRoute() => mechanicHomePage;
   static String getUserProfileRoute() => clientUserProfilePage;
   static String getMechanicUserProfileRoute() => mechanicUserProfilePage;
@@ -87,8 +89,10 @@ class Routers {
   static String getChangePasswordPageRoute() => changePasswordPage;
   static String getAddressPageRoute() => address;
   static String getUpdateAddressPageRoute() => updateAddress;
-  static String getClientHelpAndSupportPagePageRoute() => clientHelpAndSupportPage;
-  static String getMechanicHelpAndSupportPagePageRoute() => mechanicHelpAndSupportPage;
+  static String getClientHelpAndSupportPagePageRoute() =>
+      clientHelpAndSupportPage;
+  static String getMechanicHelpAndSupportPagePageRoute() =>
+      mechanicHelpAndSupportPage;
   static String getSetNewPasswordRoute(String roleEndpoint) =>
       '$setPasswordPage?roleEndpoint=$roleEndpoint';
 
@@ -132,6 +136,12 @@ class Routers {
     GetPage(
       name: mechanicHomePage,
       page: () => MechanicHomePage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 20),
+    ),
+    GetPage(
+      name: getClientHomePageSession,
+      page: () => const ClientHomePage(isSessionBegin: true),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
@@ -258,16 +268,17 @@ class Routers {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
-
     GetPage(
       name: clientHelpAndSupportPage,
-      page: () =>   const HelpAndSupportPage(isClient: true,),
+      page: () => const HelpAndSupportPage(
+        isClient: true,
+      ),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
     GetPage(
       name: mechanicHelpAndSupportPage,
-      page: () =>   const HelpAndSupportPage(isClient: false),
+      page: () => const HelpAndSupportPage(isClient: false),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 20),
     ),
