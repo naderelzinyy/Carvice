@@ -221,4 +221,15 @@ class AccountManager {
     }
     return [];
   }
+
+  Future<String> getMechanicUsername(Map<String, dynamic> body) async {
+    RequestHandler requestHandler =
+        RequestHandler('http://$ip:8000/api/getMechanicUsername', body);
+    var data = await requestHandler.getData();
+    if (data.containsKey("username")) {
+      return data["username"];
+    } else {
+      throw Exception('Failed to fetch username');
+    }
+  }
 }
