@@ -9,11 +9,12 @@ import '../../../widgets/mechanic_list.dart';
 
 class MechanicListPage extends StatefulWidget {
   const MechanicListPage(
-      {Key? key, required this.mechanics, this.note, this.carID})
+      {Key? key, required this.mechanics, this.note, this.carID, this.location})
       : super(key: key);
   final String? mechanics;
   final String? note;
   final String? carID;
+  final String? location;
 
   @override
   MechanicListPageState createState() => MechanicListPageState();
@@ -52,7 +53,11 @@ class MechanicListPageState extends State<MechanicListPage> {
             const SizedBox(height: 20),
             Expanded(
               child: CustomMechanicList(
-                  list: mechanicList, note: widget.note, carID: widget.carID),
+                list: mechanicList,
+                note: widget.note,
+                carID: widget.carID,
+                location: widget.location,
+              ),
             ),
           ],
         ),
