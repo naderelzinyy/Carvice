@@ -63,15 +63,42 @@ class _MyAlertDialogState extends State<MyAlertDialog> {
     }
   }
 
+  Future<String> getAddressFromCoordinates(
+      double latitude, double longitude) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+
+    if (placemarks.isNotEmpty) {
+      Placemark placemark = placemarks.first;
+
+      String street = placemark.street ?? '';
+      String subLocality = placemark.subLocality ?? '';
+      String locality = placemark.locality ?? '';
+      String subAdministrativeArea = placemark.subAdministrativeArea ?? '';
+      String administrativeArea = placemark.administrativeArea ?? '';
+      String postalCode = placemark.postalCode ?? '';
+      String country = placemark.country ?? '';
+
+      String address =
+          '$street, $subLocality, $locality, $subAdministrativeArea, $administrativeArea $postalCode, $country';
+
+      return address;
+    } else {
+      return 'No address found for the given coordinates.';
+    }
+  }
+
   Future<void> handleFinalNextButtonPressed() async {
     if (noteController.text.isNotEmpty) {
       print("position :: $position");
       List<dynamic> mechanics = (await AccountManager().getAvailableMechanics({
         "coordinates": [position?.latitude, position?.longitude]
       }));
+      String location = await getAddressFromCoordinates(
+          position!.latitude, position!.longitude);
       String mechanicsDataString = jsonEncode(mechanics);
-      Get.toNamed(Routers.getListOfMechanicsPageRoute(
-          mechanicsDataString, noteController.text, selectedItem!.carID));
+      Get.toNamed(Routers.getListOfMechanicsPageRoute(mechanicsDataString,
+          noteController.text, selectedItem!.carID, location));
       print("mechanics :: $mechanics");
 
       print(noteController.text);
