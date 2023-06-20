@@ -57,16 +57,16 @@ class SignupView(APIView):
         # save to client or mechanic table.
         if role == "client":
             modified_request = {
-                                "account_id": serialized_data.get("id"),
-                                "first_name": serialized_data.get("first_name"),
-                                "last_name": serialized_data.get("last_name")}
+                "account_id": serialized_data.get("id"),
+                "first_name": serialized_data.get("first_name"),
+                "last_name": serialized_data.get("last_name")}
         else:
             print("inside else")
             modified_request = {
-                                "account_id": serialized_data.get("id"),
-                                "first_name": serialized_data.get("first_name"),
-                                "last_name": serialized_data.get("last_name")
-        }
+                "account_id": serialized_data.get("id"),
+                "first_name": serialized_data.get("first_name"),
+                "last_name": serialized_data.get("last_name")
+            }
 
         signup_action = SignUpHandler().role_directors.get(role)
         print(f"{signup_action = }")
@@ -105,7 +105,7 @@ class Tokenizer:
             "username": user.username,
             "phone_number": str(user.phone_number),
             "email": user.email,
-            "balance":user.balance,
+            "balance": user.balance,
             "exp": datetime.datetime.now(datetime.timezone.utc)
                    + datetime.timedelta(minutes=60),
             "iat": datetime.datetime.now(datetime.timezone.utc),
@@ -263,6 +263,7 @@ class DeleteCar(APIView):
         except Exception as e:
             return Response({"message": "failure"})
 
+
 class DepositView(APIView):
     @staticmethod
     def post(request) -> Response:
@@ -311,3 +312,11 @@ class BalanceView(APIView):
         print(user.balance)
         print(user.id)
         return Response({"balance": user.balance})
+
+
+class GetMechanicUsername(APIView):
+    @staticmethod
+    def post(request) -> Response:
+        print(f"3333333 {request.data = }")
+        mechanic = User.objects.get(id=request.data.get("mechanic_id"))
+        return Response({"username": mechanic.username})

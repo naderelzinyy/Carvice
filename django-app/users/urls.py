@@ -14,7 +14,7 @@ from .views import (SignupView,
                     DeleteCar,
                     DepositView,
                     WithdrawView,
-                    TransferView, BalanceView)
+                    TransferView, BalanceView, GetMechanicUsername)
 
 urlpatterns = [
     path('signup', SignupView.as_view()),
@@ -31,4 +31,5 @@ urlpatterns = [
     path('withdraw', WithdrawView.as_view()),
     path('transfer', TransferView.as_view()),
     path('balance/<int:user_id>', BalanceView.as_view()),
+    path('getMechanicUsername', GetMechanicUsername.as_view()),
 ]
