@@ -10,9 +10,14 @@ class CustomMechanicList extends StatefulWidget {
   final List<MyMechanicItem> list;
   final String? note;
   final String? carID;
+  final String? location;
 
   CustomMechanicList(
-      {Key? key, required this.list, required this.note, required this.carID})
+      {Key? key,
+      required this.list,
+      required this.note,
+      required this.carID,
+      this.location})
       : super(key: key);
 
   @override
@@ -128,6 +133,7 @@ class _CustomMechanicListState extends State<CustomMechanicList> {
                       "${token!['first_name']}  ${token!['last_name']}",
                   "car_brand": _carBrand,
                   "car_model": "$_carModel$_carSeries $_carYear",
+                  "location": widget.location,
                   "description": widget.note,
                 });
               },
