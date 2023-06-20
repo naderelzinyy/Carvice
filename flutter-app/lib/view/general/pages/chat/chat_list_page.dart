@@ -10,14 +10,13 @@ class ChatHomePage extends StatefulWidget {
 
   void startChat(BuildContext context, String username,
       [String autoMessage = ""]) {
-    // Chat Request method, starts a conversation immediately given the username
+    ChatService chatService = ChatService();
+    chatService.createConversation(username, autoMessage: autoMessage);
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChattingScreen(
-          selectedFriendUserName: username,
-          autoMessage: autoMessage,
-        ),
+        builder: (context) => ChattingScreen(selectedFriendUserName: username),
       ),
     );
   }
