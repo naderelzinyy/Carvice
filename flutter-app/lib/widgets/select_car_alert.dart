@@ -4,6 +4,7 @@ import 'package:carvice_frontend/services/authentication.dart';
 import 'package:carvice_frontend/widgets/select_car.dart';
 import 'package:carvice_frontend/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
