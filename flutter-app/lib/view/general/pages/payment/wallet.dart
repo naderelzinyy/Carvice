@@ -1,6 +1,7 @@
 import 'package:carvice_frontend/utils/main.colors.dart';
 import 'package:carvice_frontend/view/general/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import '../../../../services/authentication.dart';
 import '../../../../widgets/app_navigation.dart';
@@ -17,9 +18,16 @@ class _WalletPageState extends State<WalletPage> {
   double currentBalance = token!['balance'];
   String currentBalanceText = "Current Balance:".tr;
 
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   @override
   void initState() {
     super.initState();
+    var initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = const DarwinInitializationSettings();
+    var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
     _updateBalance();
   }
 
@@ -31,8 +39,30 @@ class _WalletPageState extends State<WalletPage> {
 
   _updateBalance() async {
     var userId = token!['id'];
+    double oldBalance = currentBalance;
     currentBalance = await AccountManager().fetchBalance(userId);
+    if (oldBalance != currentBalance) {
+      String operation = oldBalance < currentBalance ? 'deposited' : 'withdrawn';
+      double change = (currentBalance - oldBalance).abs();
+      _showNotification(operation, change);
+    }
     setState(() {});
+  }
+
+  _showNotification(String operation, double change) async {
+    var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+        'balance_change_channel', 'Balance Change',
+        importance: Importance.max, priority: Priority.high, showWhen: false
+    );
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails(); // Here is the change
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics
+    );
+    await flutterLocalNotificationsPlugin.show(
+        0, 'Balance Updated',
+        '$change has been $operation to your account', platformChannelSpecifics
+    );
   }
 
   @override
@@ -80,9 +110,9 @@ class _WalletPageState extends State<WalletPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            const PaymentPage(isDeposit: true),
+                        const PaymentPage(isDeposit: true),
                         maintainState: false),
-                  );
+                  ).then((_) => _updateBalance());
                 },
                 child: Text(
                   'Deposit'.tr,
@@ -98,9 +128,9 @@ class _WalletPageState extends State<WalletPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            const PaymentPage(isDeposit: false),
+                        const PaymentPage(isDeposit: false),
                         maintainState: false),
-                  );
+                  ).then((_) => _updateBalance());
                 },
                 child: Text(
                   'Withdraw'.tr,
