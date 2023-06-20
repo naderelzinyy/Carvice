@@ -2,11 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../routes/routes.dart';
 import '../widgets/alerts_text_button.dart';
 import '../widgets/request_stream_widget.dart';
 import '../widgets/text_field.dart';
+
+bool isSessionStarted = false;
 
 class StreamConnection {
   final BuildContext context;
@@ -14,11 +18,19 @@ class StreamConnection {
   final String url;
   late WebSocketChannel _channel;
   final TextEditingController priceController = TextEditingController();
-
   Stream<dynamic>? _stream;
   StreamSubscription<dynamic>? _subscription;
+  // Private static instance variable
+  static StreamConnection? _instance;
 
-  StreamConnection(this.url, this.context, this.role);
+  // Private constructor
+  StreamConnection._internal(this.url, this.context, this.role);
+
+  // Factory method to get the singleton instance
+  factory StreamConnection(String url, BuildContext context, String role) {
+    _instance ??= StreamConnection._internal(url, context, role);
+    return _instance!;
+  }
 
   Future<void> connect() async {
     _channel = WebSocketChannel.connect(Uri.parse(url));
@@ -53,6 +65,7 @@ class StreamConnection {
             CustomAlertButton(
               text: 'Accept',
               onPressed: () {
+                send({"type": "start_session", "message": "Session started"});
                 Navigator.of(context).pop();
               },
             ),
@@ -75,6 +88,71 @@ class StreamConnection {
               text: 'Ok',
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showStartSessionDialogForMechanic(dynamic receivedData) {
+    isSessionStarted = true;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomRequestStreamAlertDialog(
+          title: 'Session Starts',
+          content: const Text(
+              "Client accepted your offer. You can go to the client's location."),
+          actions: <Widget>[
+            CustomAlertButton(
+              text: 'Ok',
+              onPressed: () {
+                Get.offAllNamed(Routers.getMechanicHomePageRoute());
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showStartSessionDialogForClient(dynamic receivedData) {
+    isSessionStarted = true;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomRequestStreamAlertDialog(
+          title: 'Session Starts',
+          content: const Text("The mechanic is on the way!"),
+          actions: <Widget>[
+            CustomAlertButton(
+              text: 'Ok',
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showEndSessionDialogForClient(dynamic receivedData) {
+    isSessionStarted = true;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomRequestStreamAlertDialog(
+          title: 'Session Ends',
+          content: const Text(
+              "The session ended. The payment will be done automatically."),
+          actions: <Widget>[
+            CustomAlertButton(
+              text: 'Ok',
+              onPressed: () {
+                Get.offAllNamed(Routers.getClientHomePageRoute());
               },
             ),
           ],
@@ -112,6 +190,10 @@ class StreamConnection {
         _showOfferDialog(receivedData);
       } else if (type == "refuse_request") {
         _showRequestRefuseDialog(receivedData);
+      } else if (type == "start_session") {
+        _showStartSessionDialogForClient(receivedData);
+      } else if (type == "end_session") {
+        _showEndSessionDialogForClient(receivedData);
       }
     }
   }
@@ -126,10 +208,13 @@ class StreamConnection {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(receivedData["client_name"] as String),
-              Text(receivedData["car_brand"] as String),
-              Text(receivedData["car_model"] as String),
-              Text(receivedData["description"] as String),
+              Text(
+                'Name: ${receivedData["client_name"] as String}',
+              ),
+              Text('Brand: ${receivedData["car_brand"] as String}'),
+              Text('Car Model: ${receivedData["car_model"] as String}'),
+              Text('Location: ${receivedData["location"] as String}'),
+              Text('Description: ${receivedData["description"] as String}'),
             ],
           ),
           actions: <Widget>[
@@ -165,6 +250,8 @@ class StreamConnection {
         _showRequestDialog(receivedData);
       } else if (type == "refuse_offer") {
         _showOfferRefuseDialog(receivedData);
+      } else if (type == "start_session") {
+        _showStartSessionDialogForMechanic(receivedData);
       }
     }
   }
