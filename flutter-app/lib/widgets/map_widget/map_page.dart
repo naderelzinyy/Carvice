@@ -1,10 +1,16 @@
 import 'dart:async';
 
+import 'package:carvice_frontend/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../routes/routes.dart';
+import '../../services/websocket_connection.dart';
 import '../../utils/main.colors.dart';
+import '../alerts_text_button.dart';
+import '../request_stream_widget.dart';
 import '../select_car_alert.dart';
 
 class MapTrackingPage extends StatefulWidget {
@@ -84,7 +90,7 @@ class MapTrackingPageState extends State<MapTrackingPage> {
               _controller.complete(controller);
             },
           ),
-          if (widget.isClient)
+          if (widget.isClient & !isSessionStarted)
             Positioned(
               bottom: 10,
               left: 0,
@@ -106,6 +112,67 @@ class MapTrackingPageState extends State<MapTrackingPage> {
                     backgroundColor: MainColors.mainColor,
                     child: const Icon(
                       Icons.build,
+                      size: 35,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          if (isSessionStarted)
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: SizedBox(
+                  width: 70, // set width
+                  height: 70, // set height
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      print("Session button pressed.");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomRequestStreamAlertDialog(
+                            title: 'Session Options',
+                            content: const Text(""),
+                            actions: <Widget>[
+                              CustomAlertButton(
+                                text: 'Start Chatting',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              if (!widget.isClient)
+                                CustomAlertButton(
+                                  text: 'End Session',
+                                  onPressed: () {
+                                    isSessionStarted = false;
+                                    StreamConnection(
+                                      'ws://127.0.0.1:8000/ws/socket/geospatial-server/$token![id]/',
+                                      context,
+                                      "mechanic",
+                                    ).close();
+                                    Get.offAllNamed(
+                                        Routers.getMechanicHomePageRoute());
+                                  },
+                                ),
+                            ],
+                          );
+                        },
+                      );
+
+                      // Here, you can define your logic when the button is pressed
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return MyAlertDialog(position: currentPosition);
+                      //   },
+                      // );
+                    }, // increase icon size as well
+                    backgroundColor: MainColors.mainColor,
+                    child: const Icon(
+                      Icons.access_time,
                       size: 35,
                     ),
                   ),
