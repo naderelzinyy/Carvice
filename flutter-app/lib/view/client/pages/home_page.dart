@@ -16,7 +16,7 @@ class ClientHomePage extends StatelessWidget {
       appBar: AppNavigation(
         title: "Carvice",
       ),
-      endDrawer: SideBarGlobal(showMyCars: true),
+      endDrawer: SideBarGlobal(isClient: true),
       body: Center(
         child: MapTrackingPage(isClient),
       ),

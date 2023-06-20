@@ -172,14 +172,13 @@ class _LoginPageState extends State<LoginPage> {
           ),
         )),
       ),
-
-      bottomNavigationBar: Container(
+      bottomNavigationBar:Container(
           height: 100,
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Text('noAccount'.tr),
+              Text('noAccount'.tr),
               InkWell(
                 onTap: () {
                   Get.offAllNamed(Routers.getSignupPageRoute(roleEndpoint));
