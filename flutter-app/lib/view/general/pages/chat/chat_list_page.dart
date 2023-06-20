@@ -2,12 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../../services/authentication.dart';
 import '../../../../utils/main.colors.dart';
-import '../../../../widgets/bottom_navigation.dart';
 import 'chatting_page.dart';
 
 class ChatHomePage extends StatefulWidget {
   static const route = "/chat_list_page";
   const ChatHomePage({super.key});
+
+  void startChat(BuildContext context, String username) {
+    // Chat Request method, starts a conversation immediately given the username
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChattingScreen(selectedFriendUserName: username),
+      ),
+    );
+  }
 
   @override
   _ChatHomePageState createState() => _ChatHomePageState();
