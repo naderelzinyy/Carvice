@@ -36,6 +36,17 @@ class RequestConsumer(AsyncWebsocketConsumer):
         event["type"] = "refuse_offer"
         await self.send(text_data=json.dumps(event))
 
+    async def start_session(self, event):
+        print(f"{event = }")
+        event["type"] = "start_session"
+        await self.send(text_data=json.dumps(event))
+
+    async def end_session(self, event):
+        print(f"{event = }")
+        event["type"] = "end_session"
+        await self.send(text_data=json.dumps(event))
+        # await self.channel_layer.group_discard(self.group_name, self.channel_name)
+
     async def receive(self, text_data=None, bytes_data=None):
         print("receive starts")
         data = json.loads(text_data)
