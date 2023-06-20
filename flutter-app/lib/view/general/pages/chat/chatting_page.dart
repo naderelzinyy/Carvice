@@ -10,8 +10,12 @@ import '../../../../utils/chat_style_utils.dart';
 
 class ChattingScreen extends StatefulWidget {
   final String selectedFriendUserName;
-  const ChattingScreen({super.key, required this.selectedFriendUserName});
-  static const route = "chatting_page";
+  final String? autoMessage;
+  const ChattingScreen({
+    super.key,
+    required this.selectedFriendUserName,
+    this.autoMessage,
+  });
 
   @override
   ChattingScreenState createState() => ChattingScreenState();
@@ -30,6 +34,8 @@ class ChattingScreenState extends State<ChattingScreen> {
 
   void createConversation(String friendUserName) async {
     if (token != null) {
+      final messageToSend = widget.autoMessage ?? textMessage;
+
       // create conversation for current user
       final userDoc = await _fireStoreAuth
           .collection('users')
@@ -43,7 +49,7 @@ class ChattingScreenState extends State<ChattingScreen> {
           "timestamp": Timestamp.now(),
         });
         conversation.collection('messages').add({
-          "message": textMessage,
+          "message": messageToSend,
           "msg_date": Timestamp.now(),
           "sender": token!['username'],
         });
@@ -64,7 +70,7 @@ class ChattingScreenState extends State<ChattingScreen> {
           "timestamp": Timestamp.now(),
         });
         friendConversation.collection('messages').add({
-          "message": textMessage,
+          "message": messageToSend,
           "msg_date": Timestamp.now(),
           "sender": token!['username'],
         });

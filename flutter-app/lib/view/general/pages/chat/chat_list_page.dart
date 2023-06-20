@@ -9,13 +9,17 @@ class ChatHomePage extends StatefulWidget {
   static const route = "/chat_list_page";
   const ChatHomePage({super.key});
 
-  void startChat(BuildContext context, String username) {
+  void startChat(BuildContext context, String username,
+      [String autoMessage = ""]) {
     // Chat Request method, starts a conversation immediately given the username
     print("startChat starts...");
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChattingScreen(selectedFriendUserName: username),
+        builder: (context) => ChattingScreen(
+          selectedFriendUserName: username,
+          autoMessage: autoMessage,
+        ),
       ),
     );
   }
